@@ -1,0 +1,25 @@
+img {
+    width: 100%;
+    height: auto;
+}
+
+body {
+    margin: 0;
+    font-family: "Pretendard", "NanumMyeongjo";
+    overflow-x: hidden;
+
+    min-height: 90vh;
+
+    @supports (-webkit-touch-callout: none) {
+        min-height: -webkit-fill-available;
+    }
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
