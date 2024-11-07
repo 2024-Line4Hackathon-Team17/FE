@@ -4,9 +4,11 @@ img {
 }
 
 body {
-    margin: 0;
+    margin: 0 auto !important;
     font-family: "Pretendard", "NanumMyeongjo";
     overflow-x: hidden;
+    width: 393px;
+    height: 852px;
 
     min-height: 90vh;
 
