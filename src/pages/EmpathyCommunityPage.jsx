@@ -1,8 +1,11 @@
 import React from 'react'
+import EmpathyCard from '../components/empathy-community/EmpathyCard'
 
 const EmpathyCommunityPage = () => {
   return (
-    <div>EmpathyCommunityPage</div>
+    <div>
+        <EmpathyCard />
+    </div>
   )
 }
 
