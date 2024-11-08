@@ -1,0 +1,45 @@
+.categorymovingpagebox {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(230, 232, 237, 0.29);
+    .categorybox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        .boxline {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+
+            .scroll-content {
+                display: flex;
+                white-space: nowrap;
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    flex-shrink: 0;
+                }
+
+                .iconbox {
+                    display: flex;
+                    align-items: center;
+                    margin: 0 10px;
+
+                    .textbox {
+                        margin-left: 8px;
+                        font-size: 1rem;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
