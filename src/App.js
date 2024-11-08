@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PotMainpage from "./pages/PotMainpage";
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup"; // Signup 컴포넌트 임포트
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -31,8 +32,12 @@ function App() {
                         // 로그인 성공 시 PotMainpage로 이동
                         <Route path="/" element={<PotMainpage />} />
                     ) : (
-                        // 로딩이 끝나면 Login 페이지로 이동
-                        <Route path="/" element={<Login onLogin={handleLogin} />} />
+                        <>
+                            {/* 로딩이 끝나면 기본 경로는 Login 페이지로 이동 */}
+                            <Route path="/" element={<Login onLogin={handleLogin} />} />
+                            {/* /signup 경로로 이동하면 Signup 페이지로 이동 */}
+                            <Route path="/signup" element={<Signup />} />
+                        </>
                     )}
                 </Routes>
             </Router>
