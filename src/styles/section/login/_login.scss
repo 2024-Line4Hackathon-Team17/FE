@@ -1,0 +1,75 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1A1A2E; // 배경색 설정
+    color: #CDD3DF; // 텍스트 기본 색상
+  
+    .logo {
+      margin-bottom: 30px;
+      
+      img {
+        width: 80px; // 로고 크기 조정
+      }
+    }
+  
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      max-width: 300px;
+      margin-bottom: 20px;
+  
+      .input-field {
+        background-color: #ECEEF4; // 입력 필드 배경색
+        border: none;
+        border-radius: 20px;
+        padding: 12px 16px;
+        margin-bottom: 12px;
+        font-size: 16px;
+        color: #333;
+        
+        &:focus {
+          outline: none;
+          border: 1px solid #a9a9ff; // 포커스 시 색상
+        }
+      }
+  
+      .login-button {
+        background-color: #A6A9DC; // 버튼 색상
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 12px 0;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        
+        &:hover {
+          background-color: #8a8cc7; // 호버 시 색상
+        }
+      }
+    }
+  
+    .signup-text {
+      font-size: 14px;
+      text-align: center;
+      color: #CDD3DF;
+  
+      .signup-link {
+        display: block;
+        margin-top: 5px;
+        font-weight: bold;
+        color: #CDD3DF;
+        // display: inline-block;
+        // border-bottom: 1px solid #ffffff;
+        
+        &:hover {
+          color: #ffffff; // 호버 시 색상
+        }
+      }
+    }
+  }
+  
