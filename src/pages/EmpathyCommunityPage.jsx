@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EmpathyCard from '../components/empathy-community/EmpathyCard';
 import EmpathyHeader from '../components/empathy-community/EmpathyHeader';
 import EmpathyWriteBtn from '../components/empathy-community/EmpathyWriteBtn';
+import EmpathyWritePopup from '../components/empathy-community/EmpathyWritePopup';
 
 const EmpathyCommunityPage = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
   return (
     <div className='empathy_community_container container'>
       <EmpathyHeader />
@@ -32,7 +39,8 @@ const EmpathyCommunityPage = () => {
       <EmpathyCard />
       <EmpathyCard />
       <EmpathyCard />
-      <EmpathyWriteBtn />
+      <EmpathyWriteBtn onClick = {togglePopup} />
+      {isPopupOpen && <EmpathyWritePopup onClose={togglePopup} />}
     </div>
   )
 }
