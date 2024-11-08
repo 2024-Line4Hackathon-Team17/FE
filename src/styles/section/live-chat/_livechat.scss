@@ -1,0 +1,37 @@
+@import './chatListItem';
+@import './chatSearch';
+
+.live_chat_list_container {
+    .live_chat_list_inner_container {
+        .live_chat_title_container {
+            width: 100%;
+
+            .live_chat_title_inner_container {
+                width: 100%;
+                padding: 1px 20px 20px 20px;
+
+                >p {
+                    color: #E6E8ED;
+                    font-size: 25px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 40px;
+                }
+            }
+        }
+
+        .live_chat_list_scroll {
+            @include size(100%, 670px);
+            background-color: #E6E8ED;
+            border-radius: 40px 40px 0 0;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            margin-top: 22px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}
