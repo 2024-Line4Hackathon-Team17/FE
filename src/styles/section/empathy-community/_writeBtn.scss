@@ -1,0 +1,22 @@
+@import '../../setting/utils';
+
+.empathy_write_btn_container {
+    @include size(60px, 60px);
+    position: fixed;
+    bottom: 105px;
+
+    .empathy_write_btn_inner_container {
+        @include size(100%, 100%);
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 320px;
+
+        .empathy_write_btn {
+            @include size(32px, 32px);
+        }
+    }
+}

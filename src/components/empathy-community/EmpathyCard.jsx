@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsThreeDots } from "react-icons/bs";
-import { PiHandsClappingFill, PiHeart, PiConfetti, PiClover } from "react-icons/pi";
+import { PiHandsClappingFill, PiHandsClappingLight, PiHeartFill, PiHeart, PiConfettiFill, PiConfetti, PiCloverFill, PiClover } from "react-icons/pi";
 
 const EmpathyCard = () => {
+    const [empathyIndex, setEmpathyIndex] = useState(-1);
+
+    const clickEmpathy = (index) => {
+        if (index !== empathyIndex) {
+            setEmpathyIndex(index);
+        } else setEmpathyIndex(-1);
+    }
+
     return (
         <div className='empathy_card_container'>
             <div className="empathy_card_inner_container">
@@ -17,7 +25,7 @@ const EmpathyCard = () => {
                             <div className="empathy_top_nickname">
                                 <span>앵그리맨</span>
                             </div>
-                            <div className="empathy_top_list">
+                            <div className="empathy_top_list btn">
                                 <BsThreeDots />
                             </div>
                         </div>
@@ -31,20 +39,33 @@ const EmpathyCard = () => {
                         </div>
                         <div className="empathy_bottom">
                             <div className="empathy_bottom_btn">
-                                <div className="empathy_btn_clap empathy_btn">
-                                    <PiHandsClappingFill className='empathy_btn_icon' />
+                                <div className="empathy_btn_clap empathy_btn btn">
+
+                                    {empathyIndex === 0 ?
+                                        <PiHandsClappingFill className='empathy_btn_icon clap_fill' onClick={() => clickEmpathy(-1)} /> :
+                                        <PiHandsClappingLight className='empathy_btn_icon' onClick={() => clickEmpathy(0)} />
+                                    }
                                 </div>
                                 <div className="empathy_btn_line"></div>
-                                <div className="empathy_btn_heart empathy_btn">
-                                    <PiHeart className='empathy_btn_icon' />
+                                <div className="empathy_btn_heart empathy_btn btn">
+                                    {empathyIndex === 1 ?
+                                        <PiHeartFill className='empathy_btn_icon heart_fill' onClick={() => clickEmpathy(-1)} /> :
+                                        <PiHeart className='empathy_btn_icon' onClick={() => clickEmpathy(1)} />
+                                    }
                                 </div>
                                 <div className="empathy_btn_line"></div>
-                                <div className="empathy_btn_congrats empathy_btn">
-                                    <PiConfetti className='empathy_btn_icon' />
+                                <div className="empathy_btn_congrats empathy_btn btn">
+                                    {empathyIndex === 2 ?
+                                        <PiConfettiFill className='empathy_btn_icon confetti_fill' onClick={() => clickEmpathy(-1)} /> :
+                                        <PiConfetti className='empathy_btn_icon' onClick={() => clickEmpathy(2)} />
+                                    }
                                 </div>
                                 <div className="empathy_btn_line"></div>
-                                <div className="empathy_btn_lucky empathy_btn">
-                                    <PiClover className='empathy_btn_icon' />
+                                <div className="empathy_btn_lucky empathy_btn btn">
+                                    {empathyIndex === 3 ?
+                                        <PiCloverFill className='empathy_btn_icon clover_fill' onClick={() => clickEmpathy(-1)} /> :
+                                        <PiClover className='empathy_btn_icon' onClick={() => clickEmpathy(3)} />
+                                    }
                                 </div>
                             </div>
                         </div>

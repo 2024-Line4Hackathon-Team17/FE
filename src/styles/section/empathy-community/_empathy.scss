@@ -1,4 +1,7 @@
 @import '../../setting/utils';
+@import '../empathy-community/header';
+@import '../empathy-community/title';
+@import '../empathy-community/writeBtn';
 
 .empathy_card_container {
     width: 100%;
@@ -22,7 +25,7 @@
         }
 
         .empathy_content_area {
-            @include size(295px, 150px);
+            @include size(295px, 146px);
 
             .empathy_content {
                 @include size(100%, 100%);
@@ -30,7 +33,7 @@
                 border-radius: 12px;
 
                 .empathy_top {
-                    @include size(100%, 28px);
+                    @include size(100%, 30px);
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -106,6 +109,22 @@
                             .empathy_btn_icon {
                                 @include size(20px, 20px);
                                 color: #fff;
+                            }
+
+                            .clap_fill {
+                                color: #EAB31B;
+                            }
+
+                            .heart_fill {
+                                color: #CA5858;
+                            }
+
+                            .confetti_fill {
+                                color: #5189EA;
+                            }
+
+                            .clover_fill {
+                                color: rgba(28, 146, 53, 0.77);
                             }
                         }
                     }
