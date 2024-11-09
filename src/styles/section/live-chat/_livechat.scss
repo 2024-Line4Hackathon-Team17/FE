@@ -1,5 +1,6 @@
 @import './chatListItem';
 @import './chatSearch';
+@import './chatMessage';
 
 .live_chat_list_container {
     .live_chat_list_inner_container {
@@ -31,6 +32,144 @@
 
             &::-webkit-scrollbar {
                 display: none;
+            }
+        }
+    }
+}
+
+.live_chat_container {
+    width: 100%;
+
+    .live_chat_inner_container {
+        width: 100%;
+        padding-top: 2px;
+
+        .live_chat_header {
+            @include size(100%, 80px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+
+            .live_chat_back {
+                display: flex;
+                align-items: center;
+
+                .live_chat_back_btn {
+                    @include size(30px, 30px);
+                    color: #E6E8ED;
+                }
+            }
+
+            .live_chat_other_profile {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .live_chat_other_profile_img {
+                    >img {
+                        @include size(40px, 40px);
+                        border-radius: 6px;
+                    }
+                }
+
+                .live_chat_other_nickname {
+                    padding-left: 10px;
+
+                    >span {
+                        color: #E6E8ED;
+                        font-size: 25px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: normal;
+                    }
+                }
+            }
+
+            .live_chat_blank_box {
+                @include size(30px, 30px);
+            }
+        }
+
+        .live_chat_scroll {
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            @include size(100%, 680px);
+            padding: 15px 20px 0 20px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .live_chat_date_area {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .live_chat_date {
+                    @include size(80px, 25px);
+                    border-radius: 30px;
+                    background: rgba(255, 255, 255, 0.19);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    >span {
+                        color: #FFF;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                }
+            }
+
+            .live_chat_area {
+                padding-top: 10px;
+            }
+        }
+
+        .live_chat_bottom {
+            @include size(100%, 90px);
+            background-color: #E6E8ED;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+
+            .live_chat_input {
+                @include size(260px, 45px);
+                border-radius: 20px;
+                background-color: #FFF;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 15px;
+
+                >input {
+                    background-color: transparent;
+                    outline: none;
+                }
+
+                .live_chat_file {
+                    @include size(32px, 32px);
+                }
+            }
+
+            .live_chat_send {
+                @include size(75px, 45px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 20px;
+                background-color: #8794C0;
+
+                .live_chat_send_btn {
+                    @include size(30px, 32px);
+                    color: #E6E8ED;
+                }
             }
         }
     }
