@@ -1,0 +1,22 @@
+.Page {
+    width: 100vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #ffff;
+}
+
+.Center {
+    display: flex;
+    justify-content: center;
+}
+
+.PageSpace {
+    width: 100vw;
+    min-height: 100dvh;
+    background-color: #1c2135;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
+        0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    @media (hover: hover) and (pointer: fine) {
+        width: 360px;
+    }
+}
