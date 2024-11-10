@@ -166,12 +166,35 @@
         display: flex;
         justify-content: space-between;
     }
+    .listBoxLeft {
+        background-color: #bbc1c5;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .listBoxLeftbox {
+        display: flex;
+        flex-direction: row;
+        color: #1c2135;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        font-size: 11px;
+        font-weight: 100;
+    }
+    .listBoxLeftbox div {
+        margin-bottom: 1px;
+    }
 }
 
 .findpotlistcategorybox {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 4px;
 }
 
 .findpotlistcategory {
@@ -224,6 +247,12 @@
                 background-color: #f0f0f0;
             }
         }
+    }
+    .dropdown-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 3px;
     }
 }
 

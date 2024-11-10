@@ -1,0 +1,141 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.WriteTop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    .writeSelectcategory {
+        border: 1px solid #ddd;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .writePeopleselection {
+        display: flex;
+        align-items: center;
+
+        span {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    }
+
+    .category-dropdown {
+        position: absolute;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100px;
+        margin-top: 5px;
+
+        div {
+            padding: 8px;
+            cursor: pointer;
+            &:hover {
+                background-color: #f0f0f0;
+            }
+        }
+    }
+}
+
+.WriteMiddle .writtingpage {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    .writtingtitle {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .writtingcontent {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        resize: none;
+        height: 100px;
+    }
+}
+
+.WriteBottom {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    .SelectionPlace {
+        display: flex;
+        margin-bottom: 10px;
+
+        .inputplace {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .findplacebtn {
+            background-color: #ddd;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-left: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    .SelectionDate .inputdate {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+    }
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4a90e2;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}

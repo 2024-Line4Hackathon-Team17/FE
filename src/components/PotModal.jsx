@@ -101,7 +101,17 @@ const Modal = ({ backgroundColor, category, onClose, onIdClick }) => {
                                 <div className="ModalBoxDetailinfo">
                                     {category.text}
                                 </div>
-                                <div className="ModalBoxLeft">{leftCount}</div>
+                                <div className="ModalBoxLeft">
+                                    <div className="ModalBoxLeftbox">
+                                        <div className="ModalpotAttended">
+                                            {category.attended}
+                                        </div>
+                                        <div>/</div>
+                                        <div className="ModalpotAvailable">
+                                            {category.available}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

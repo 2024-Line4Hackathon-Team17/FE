@@ -5,6 +5,8 @@ import "../styles/CommonStyle.scss";
 // Modal
 import Modal from "../components/PotModal.jsx";
 import UserInfoModal from "../components/UserInfoModal.jsx";
+import WriteModal from "../components/PotWritenewModal.jsx";
+import PotList from "../components/PotList.jsx";
 
 //img
 import bell from "../assets/Bell.png";
@@ -13,6 +15,7 @@ import MapPin from "../assets/MapPinSimpleAreaW.png";
 import sample from "../assets/sample.jpg";
 import Work from "../assets/Exercise.png";
 import WriteNew from "../assets/write.png";
+import DownbtnB from "../assets/Downbtn.png";
 
 const PotSearch = () => {
     const [selectedOrder, setSelectedOrder] = useState("최신순");
@@ -20,6 +23,7 @@ const PotSearch = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [modalColor, setModalColor] = useState(null);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -35,7 +39,44 @@ const PotSearch = () => {
             title: "흥국생명 직관 같이가요",
             place: "인천삼산체육관",
             date: "11/2 오후 7시",
-            left: "2/3",
+            attended: "2",
+            available: "3",
+            id: "미야옹",
+            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니닿",
+            icon: sample,
+            mapIcon: MapPin,
+            calendarIcon: CalendarCheck,
+        },
+        {
+            title: "흥국생명 직관 같이가요",
+            place: "인천삼산체육관",
+            date: "11/2 오후 7시",
+            attended: "2",
+            available: "3",
+            id: "미야옹",
+            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니닿",
+            icon: sample,
+            mapIcon: MapPin,
+            calendarIcon: CalendarCheck,
+        },
+        {
+            title: "흥국생명 직관 같이가요",
+            place: "인천삼산체육관",
+            date: "11/2 오후 7시",
+            attended: "2",
+            available: "3",
+            id: "미야옹",
+            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니닿",
+            icon: sample,
+            mapIcon: MapPin,
+            calendarIcon: CalendarCheck,
+        },
+        {
+            title: "흥국생명 직관 같이가요",
+            place: "인천삼산체육관",
+            date: "11/2 오후 7시",
+            attended: "2",
+            available: "3",
             id: "미야옹",
             text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니닿",
             icon: sample,
@@ -55,7 +96,7 @@ const PotSearch = () => {
             choice: "운동, 스터디, 그림",
         },
     ];
-    const colors = ["#8794c0", "#a2b9bc", "#b2ad7f", "#a7d3a5"]; // 반복 색상
+    const colors = ["#8794c0", "#1C2135", "#E6E8ED", "#D7CCAF"]; // 반복 색상
 
     const openModal = (category, color) => {
         setSelectedCategory(category);
@@ -73,6 +114,9 @@ const PotSearch = () => {
     };
 
     const closeUserModal = () => setSelectedUser(null);
+
+    const openWriteModal = () => setIsWriteModalOpen(true);
+    const closeWriteModal = () => setIsWriteModalOpen(false);
 
     return (
         <div>
@@ -129,142 +173,65 @@ const PotSearch = () => {
                                             나에게 맞는 팟팅을 찾아보세요
                                         </div>
                                         <div className="findpotlistcategorybox">
-                                            <div
-                                                className="findpotlistcategory"
-                                                onClick={toggleDropdown}
-                                            >
-                                                {selectedOrder}
+                                            <div className="findpotlistcategorybox">
                                                 <div
-                                                    className={`dropdown ${
-                                                        isDropdownOpen
-                                                            ? "open"
-                                                            : ""
-                                                    }`}
+                                                    className="findpotlistcategory"
+                                                    onClick={toggleDropdown}
                                                 >
-                                                    <div
-                                                        onClick={() =>
-                                                            handleOrderSelect(
-                                                                "최신순"
-                                                            )
-                                                        }
+                                                    {selectedOrder}
+                                                    <span
+                                                        className={`dropdown-arrow ${
+                                                            isDropdownOpen
+                                                                ? "open"
+                                                                : ""
+                                                        }`}
                                                     >
-                                                        최신순
-                                                    </div>
+                                                        <img
+                                                            src={DownbtnB}
+                                                            className="downbtnb"
+                                                        ></img>
+                                                    </span>{" "}
+                                                    {/* 화살표 추가 */}
                                                     <div
-                                                        onClick={() =>
-                                                            handleOrderSelect(
-                                                                "인기순"
-                                                            )
-                                                        }
+                                                        className={`dropdown ${
+                                                            isDropdownOpen
+                                                                ? "open"
+                                                                : ""
+                                                        }`}
                                                     >
-                                                        인기순
+                                                        <div
+                                                            onClick={() =>
+                                                                handleOrderSelect(
+                                                                    "최신순"
+                                                                )
+                                                            }
+                                                        >
+                                                            최신순
+                                                        </div>
+                                                        <div
+                                                            onClick={() =>
+                                                                handleOrderSelect(
+                                                                    "인기순"
+                                                                )
+                                                            }
+                                                        >
+                                                            인기순
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="scrollbar">
-                                        <div className="potList">
-                                            {categories.map(
-                                                (category, index) => (
-                                                    <div
-                                                        className="listBox"
-                                                        key={index}
-                                                        style={{
-                                                            top: `${
-                                                                -index * 10
-                                                            }px`,
-                                                            backgroundColor:
-                                                                colors[
-                                                                    index %
-                                                                        colors.length
-                                                                ],
-                                                            zIndex: index + 1,
-                                                            position:
-                                                                "relative",
-                                                        }}
-                                                        onClick={() =>
-                                                            openModal(
-                                                                category,
-                                                                colors[
-                                                                    index %
-                                                                        colors.length
-                                                                ]
-                                                            )
-                                                        }
-                                                    >
-                                                        <div className="potlistbox">
-                                                            <div className="listboxtop">
-                                                                <div className="listBoxImg">
-                                                                    <img
-                                                                        src={
-                                                                            category.icon
-                                                                        }
-                                                                        alt={
-                                                                            category.title
-                                                                        }
-                                                                        className="listboximg"
-                                                                    />
-                                                                </div>
-
-                                                                <div className="DetailTitle">
-                                                                    <div className="Id">
-                                                                        {
-                                                                            category.id
-                                                                        }
-                                                                    </div>
-                                                                    <div className="PotTitle">
-                                                                        {
-                                                                            category.title
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="listBoxInfo">
-                                                                <div className="potListbox">
-                                                                    <div className="listBoxDetail">
-                                                                        <div className="DetailPlace">
-                                                                            <div className="Detailimg">
-                                                                                <img
-                                                                                    src={
-                                                                                        category.mapIcon
-                                                                                    }
-                                                                                    alt="Map Icon"
-                                                                                    className="detailimgsrc"
-                                                                                />
-                                                                            </div>
-                                                                            {
-                                                                                category.place
-                                                                            }
-                                                                        </div>
-                                                                        <div className="DetailDate">
-                                                                            <div className="Detailimg">
-                                                                                <img
-                                                                                    src={
-                                                                                        category.calendarIcon
-                                                                                    }
-                                                                                    alt="Calendar Icon"
-                                                                                    className="detailimgsrc"
-                                                                                />
-                                                                            </div>{" "}
-                                                                            {
-                                                                                category.date
-                                                                            }
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="listBoxLeft">
-                                                                        {
-                                                                            category.left
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            )}
-                                        </div>
-                                        <div className="WriteNew">
+                                        <PotList
+                                            categories={categories}
+                                            colors={colors}
+                                            openModal={openModal}
+                                        />
+                                        <div
+                                            className="WriteNew"
+                                            onClick={openWriteModal}
+                                        >
                                             <img
                                                 src={WriteNew}
                                                 alt="Write New"
@@ -289,6 +256,9 @@ const PotSearch = () => {
                                             userInfo={selectedUser}
                                             onClose={closeUserModal}
                                         />
+                                    )}
+                                    {isWriteModalOpen && (
+                                        <WriteModal onClose={closeWriteModal} />
                                     )}
                                 </div>
                             </div>
