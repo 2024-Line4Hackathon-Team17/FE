@@ -1,0 +1,33 @@
+@import '../../setting/utils';
+
+.mypage_header {
+    @include size(100%, 80px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+
+    .mypage_back {
+        display: flex;
+        align-items: center;
+
+        .mypage_back_btn {
+            @include size(30px, 30px);
+            color: #E6E8ED;
+        }
+    }
+
+    .mypage_title {
+        >span {
+            color: #E6E8ED;
+            font-size: 25px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+
+    .mypage_blank_box {
+        @include size(10px, 30px);
+    }
+}

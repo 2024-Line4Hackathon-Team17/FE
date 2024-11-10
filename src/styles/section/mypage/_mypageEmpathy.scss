@@ -1,0 +1,48 @@
+@import '../../setting/utils';
+
+.mypage_empathy_container {
+    width: 100%;
+
+    .mypage_empathy_inner_container {
+        width: 100%;
+
+        .mypage_empathy_container {
+            @include size(100%, 625px);
+            position: relative;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .mypage_empathy_back {
+                @include size(100%, 625px);
+                max-height: 852px;
+                background-color: #E6E8ED;
+                position: absolute;
+                top: 30px;
+            }
+
+            .mypage_empathy_area {
+                position: absolute;
+                top: 70px;
+                left: 50%;
+                transform: translateX(-50%);
+
+                .mypage_empathy_content_area {
+                    @include size(295px, 115px);
+
+                    .mypage_empathy_content {
+                        background-color: #fff;
+
+                        .mypage_top_list_options {
+                            @include size(105px, 32px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

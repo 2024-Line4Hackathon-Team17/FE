@@ -1,6 +1,7 @@
 import React from 'react';
 import EmpathyHeader from '../../components/empathy-community/EmpathyHeader';
 import default_profile from '../../assets/images/Logo/default_profile.png';
+import { Link } from 'react-router-dom';
 
 const MyPage = () => {
     return (
@@ -29,7 +30,9 @@ const MyPage = () => {
                         <div className="mypage_main_list_area">
                             <ul className="mypage_main_list">
                                 <li className="mypage_main_list_item btn">내가 만든 팟팅 모아보기</li>
-                                <li className="mypage_main_list_item btn">내가 쓴 공감 글 모아보기</li>
+                                <Link to={'/mypage/empathy'}>
+                                    <li className="mypage_main_list_item btn">내가 쓴 공감 글 모아보기</li>
+                                </Link>
                                 <li className="mypage_main_list_item btn">팟팅 참여 내역</li>
                                 <li className="mypage_main_list_item btn">정보 수정</li>
                                 <li className="mypage_main_list_item btn">로그아웃</li>

@@ -55,7 +55,28 @@
 
                     .empathy_top_list {
                         display: flex;
+                        flex-direction: column;
+                        justify-content: center;
                         align-items: center;
+                        position: relative;
+
+                        .empathy_top_list_options {
+                            position: absolute;
+                            top: 15px;
+                            right: 0;
+                            @include size(105px, 65px);
+                            border-radius: 10px;
+                            background: #E6E8ED;
+                            border: 1px solid #8794C0;
+
+                            >li {
+                                padding: 6px 10px;
+
+                                &:not(:last-child) {
+                                    border-bottom: 1px solid #8794C0;
+                                }
+                            }
+                        }
                     }
                 }
 

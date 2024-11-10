@@ -34,11 +34,11 @@ const EmpathyCommunityPage = () => {
           </div>
         </div>
       </div>
-      <EmpathyCard />
-      <EmpathyCard />
-      <EmpathyCard />
-      <EmpathyCard />
-      <EmpathyCard />
+      <EmpathyCard index={0} />
+      <EmpathyCard index={1} />
+      <EmpathyCard index={2} />
+      <EmpathyCard index={3} />
+      <EmpathyCard index={4} />
       <EmpathyWriteBtn onClick = {togglePopup} />
       {isPopupOpen && <EmpathyWritePopup onClose={togglePopup} />}
     </div>

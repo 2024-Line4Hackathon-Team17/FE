@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import { BsThreeDots } from "react-icons/bs";
 import { PiHandsClappingFill, PiHandsClappingLight, PiHeartFill, PiHeart, PiConfettiFill, PiConfetti, PiCloverFill, PiClover } from "react-icons/pi";
 
-const EmpathyCard = () => {
+const EmpathyCard = ({ index }) => {
     const [empathyIndex, setEmpathyIndex] = useState(-1);
+    const [showOptions, setShowOptions] = useState(false);
 
     const clickEmpathy = (index) => {
         if (index !== empathyIndex) {
             setEmpathyIndex(index);
         } else setEmpathyIndex(-1);
     }
+
+    const toggleOptions = (openIndex) => {
+        if (openIndex === index) {
+            setShowOptions(!showOptions);
+        }
+    };
 
     return (
         <div className='empathy_card_container'>
@@ -25,8 +32,14 @@ const EmpathyCard = () => {
                             <div className="empathy_top_nickname">
                                 <span>앵그리맨</span>
                             </div>
-                            <div className="empathy_top_list btn">
+                            <div className="empathy_top_list btn" onClick={() => toggleOptions(index)}>
                                 <BsThreeDots />
+                                {showOptions && (
+                                    <ul className="empathy_top_list_options">
+                                        <li className='btn'>신고</li>
+                                        <li className='btn'>차단</li>
+                                    </ul>
+                                )}
                             </div>
                         </div>
                         <div className="empathy_mid">
