@@ -1,4 +1,3 @@
-// src/components/WriteModal.jsx
 import React, { useState } from "react";
 import "../styles/PotWritenewModal.scss";
 
@@ -60,11 +59,15 @@ const PotWritenewModal = ({ onClose }) => {
                     <div className="writePeopleselection">
                         <span>{peopleCount}</span>
                         <div className="updownselection">
-                            <button onClick={decrementPeopleCount}>
-                                <img src={DownW}></img>
-                            </button>
                             <button onClick={incrementPeopleCount}>
-                                <img src={UpW}></img>
+                                <div className="updownbox">
+                                    <img src={UpW} alt="Up" />
+                                </div>
+                            </button>
+                            <button onClick={decrementPeopleCount}>
+                                <div className="updownbox">
+                                    <img src={DownW} alt="Down" />
+                                </div>
                             </button>
                         </div>
                     </div>
@@ -89,15 +92,16 @@ const PotWritenewModal = ({ onClose }) => {
                                 <img
                                     src={MapPin}
                                     className="placeinputimgsrc"
-                                ></img>
+                                    alt="Map Pin"
+                                />{" "}
+                                <input
+                                    type="text"
+                                    className="inputplace"
+                                    placeholder="장소를 입력해주세요"
+                                    value={address}
+                                    readOnly
+                                />
                             </div>
-                            <input
-                                type="text"
-                                className="inputplace"
-                                placeholder="장소를 입력해주세요"
-                                value={address}
-                                readOnly
-                            />
                         </div>
                         <button
                             className="findplacebtn"
@@ -108,16 +112,19 @@ const PotWritenewModal = ({ onClose }) => {
                     </div>
                     <div className="SelectionDate">
                         <div className="inputdateicon">
-                            <img
-                                src={CalendarCheck}
-                                className="inputdateiconsrc"
-                            ></img>
+                            <div className="placeinputimg">
+                                <img
+                                    src={CalendarCheck}
+                                    className="inputdateiconsrc"
+                                    alt="Calendar Icon"
+                                ></img>
+                                <input
+                                    type="text"
+                                    className="inputdate"
+                                    placeholder="시간을 입력해주세요"
+                                />{" "}
+                            </div>
                         </div>
-                        <input
-                            type="text"
-                            className="inputdate"
-                            placeholder="시간을 입력해주세요"
-                        />
                     </div>
                 </div>
 
@@ -126,11 +133,27 @@ const PotWritenewModal = ({ onClose }) => {
                 </button>
 
                 {isAddressOpen && (
-                    <DaumPostcode
-                        onComplete={handleAddressComplete}
-                        autoClose
-                        style={{ width: "100%", height: "400px" }}
-                    />
+                    <div
+                        className="address-modal-overlay"
+                        onClick={() => setIsAddressOpen(false)}
+                    >
+                        <div
+                            className="address-modal-content"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setIsAddressOpen(false)}
+                                className="close-button"
+                            >
+                                <img src={closeIcon} alt="Close" />
+                            </button>
+                            <DaumPostcode
+                                onComplete={handleAddressComplete}
+                                autoClose
+                                style={{ width: "100%", height: "400px" }}
+                            />
+                        </div>
+                    </div>
                 )}
             </div>
         </div>

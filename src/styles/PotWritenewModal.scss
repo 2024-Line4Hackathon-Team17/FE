@@ -32,37 +32,79 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-
+    margin-top: 20px;
     .writeSelectcategory {
         border: 1px solid #ddd;
-        padding: 10px;
+        padding: 7px;
         cursor: pointer;
+        background-color: #36416f7a;
+        border-radius: 12px;
+        width: 220px;
+        color: #d0d3db;
+        font-weight: 200;
+        font-size: 12px;
     }
 
     .writePeopleselection {
         display: flex;
         align-items: center;
+        background-color: #9fa4ba;
+        border-radius: 12px;
+        width: 68px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
 
         span {
             font-size: 20px;
-            margin-right: 5px;
-        }
 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .updownselection {
+            display: flex;
+            flex-direction: column;
+            background-color: #8794c0;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+            width: 43px;
+            display: flex;
+            justify-content: space-evenly;
+            height: 100%;
+        }
+        .updownbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         button {
             background: none;
             border: none;
             cursor: pointer;
             font-size: 18px;
         }
+        button img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 16px;
+        }
     }
 
     .category-dropdown {
         position: absolute;
-        background-color: #ffffff;
-        border: 1px solid #ddd;
+        border: 1px solid #36416f7a;
         border-radius: 5px;
-        width: 100px;
-        margin-top: 5px;
+        background-color: #36416f;
+        border-radius: 12px;
+        width: 220px;
+        color: #d0d3db;
+        font-weight: 200;
+        margin-top: 31px;
 
         div {
             padding: 8px;
@@ -78,64 +120,134 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-
+    background-color: #36416f7a;
+    border-radius: 12px;
+    padding: 5px;
+    input,
+    textarea {
+        &::placeholder {
+            color: #d0d3db;
+        }
+    }
+    .writtingtitle:focus,
+    .writtingcontent:focus {
+        border: none;
+        outline: none;
+    }
     .writtingtitle {
         padding: 10px;
         margin-bottom: 10px;
-        border: 1px solid #ddd;
         border-radius: 5px;
+        background-color: transparent;
+        color: #d0d3db;
+        border-top-right-radius: 12px;
+        border-top-left-radius: 12px;
+        font-size: 16px;
     }
 
     .writtingcontent {
         padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+
         resize: none;
         height: 100px;
+        background-color: transparent;
+        color: #d0d3db;
+        font-size: 13px;
     }
 }
 
 .WriteBottom {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
 
-    .SelectionPlace {
+    .SelectionPlace,
+    .SelectionDate {
         display: flex;
-        margin-bottom: 10px;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+    .placeinput,
+    .inputdateicon {
+        display: flex;
+        flex-direction: row;
+        background-color: #bdc3d97a;
+        border-radius: 10px;
+        width: 100%;
 
-        .inputplace {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .findplacebtn {
-            background-color: #ddd;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            margin-left: 5px;
-            border-radius: 5px;
+        input {
+            background-color: transparent;
+            font-size: 10px;
+            width: 100%;
+            height: 70%;
+            margin-left: 10px;
         }
     }
-
-    .SelectionDate .inputdate {
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+    .placeinputimg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
+        padding: 8px;
+    }
+    .placeinputimgsrc,
+    .inputdateiconsrc {
+        width: 20px;
+    }
+
+    .findplacebtn {
+        background-color: #8794c0;
+        border-radius: 10px;
+        font-size: 10px;
+        width: 70px;
+        margin-left: 10px;
+        color: white;
+        padding: 4px;
     }
 }
 
 .submit-button {
     width: 100%;
     padding: 10px;
-    background-color: #4a90e2;
+    background-color: #596692;
     color: #ffffff;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: 16px;
+}
+/* 주소 검색 오버레이 모달 */
+.address-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.address-modal-content {
+    background-color: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    padding: 30px;
+    position: relative;
+    z-index: 1001;
+}
+
+.address-modal-content .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
