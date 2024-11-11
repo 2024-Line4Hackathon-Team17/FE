@@ -9,7 +9,7 @@ const MyPageEmpathy = () => {
             <div className="mypage_empathy_inner_container">
                 <EmpathyHeader />
                 <MyPageHeader title={'내가 쓴 공감 글 모아보기'} />
-                <main className="mypage_empathy_container">
+                <main className="mypage_empathy_main_container">
                     <div className="mypage_empathy_back"></div>
                     <div className="mypage_empathy_area">
                         <MyPageEmpathyCard />
