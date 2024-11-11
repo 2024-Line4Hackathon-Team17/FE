@@ -9,6 +9,8 @@ import MyPageEmpathy from './pages/mypage/MyPageEmpathy';
 import MyPageInfo from './pages/mypage/MyPageInfo';
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup"; // Signup 컴포넌트 임포트
+import Signup_2 from "./pages/Signup_2";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -46,8 +48,13 @@ function App() {
                         // 로그인 성공 시 PotMainpage로 이동
                         <Route path="/" element={<PotMainpage />} />
                     ) : (
-                        // 로딩이 끝나면 Login 페이지로 이동
-                        <Route path="/" element={<Login onLogin={handleLogin} />} />
+                        <>
+                            {/* 로딩이 끝나면 기본 경로는 Login 페이지로 이동 */}
+                            <Route path="/" element={<Login onLogin={handleLogin} />} />
+                            {/* /signup 경로로 이동하면 Signup 페이지로 이동 */}
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/signup-step2" element={<Signup_2 />} />
+                        </>
                     )}
                 </Routes>
             </Router>
