@@ -4,6 +4,7 @@ import PotMainpage from "./pages/PotMainpage";
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup"; // Signup 컴포넌트 임포트
+import Signup_2 from "./pages/Signup_2";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +38,7 @@ function App() {
                             <Route path="/" element={<Login onLogin={handleLogin} />} />
                             {/* /signup 경로로 이동하면 Signup 페이지로 이동 */}
                             <Route path="/signup" element={<Signup />} />
+                            <Route path="/signup-step2" element={<Signup_2 />} />
                         </>
                     )}
                 </Routes>

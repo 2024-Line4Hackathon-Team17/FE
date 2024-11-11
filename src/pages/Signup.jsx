@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/section/signup/_signup.scss';
 import eyeoff from '../assets/images/icon/eye-off.png';
 
@@ -6,6 +7,7 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isPasswordMatch, setIsPasswordMatch] = useState(true);
+    const navigate = useNavigate(); // useNavigate 훅 사용
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
@@ -15,6 +17,12 @@ const Signup = () => {
     const handleConfirmPasswordChange = (e) => {
         setConfirmPassword(e.target.value);
         setIsPasswordMatch(password === e.target.value);
+    };
+
+    const handleNext = () => {
+        if (isPasswordMatch) {
+            navigate('/signup-step2'); // 비밀번호가 일치하면 /signup-step2로 이동
+        }
     };
 
     return (
@@ -56,14 +64,19 @@ const Signup = () => {
                     </button>
                 </div>
 
-                {/* 비밀번호 일치 여부에 따라 메시지 표시 */}
                 {confirmPassword && (
                     <p className={isPasswordMatch ? "password-success" : "password-error"}>
                         {isPasswordMatch ? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다."}
                     </p>
                 )}
 
-                <button className="next-button" disabled={!isPasswordMatch}>다음</button>
+                <button 
+                    className="next-button" 
+                    disabled={!isPasswordMatch}
+                    onClick={handleNext} // "다음" 버튼 클릭 시 handleNext 호출
+                >
+                    다음
+                </button>
             </div>
         </div>
     );

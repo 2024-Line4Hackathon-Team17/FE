@@ -1,0 +1,123 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1C2135;
+    color: #CDD3DF;
+    position: relative; 
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      
+      .gender-selection {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 280px;
+        gap: 20px;
+      
+        .gender-button {
+          width: 174px;
+          padding: 10px;
+          border: 1px solid #E6E8ED;
+          border-radius: 10px;
+          background-color: #1C2135;
+          color: #E6E8ED;
+          cursor: pointer;
+          transition: background-color 0.3s;
+      
+          &.active {
+            background-color: #E6E8ED;
+            color: #8794C0;
+          }
+        }
+      }
+      
+      .input-group {
+        margin-bottom: 15px;
+      
+        input {
+          width: 353px;
+          padding: 10px;
+          border-radius: 10px;
+          border: 1px solid #1C2135;
+          background-color: #E6E8ED;
+          color: #fff;
+      
+          &.error {
+            border-color: #ff4d4f;
+          }
+        }
+      
+        .error-message {
+          color: #ff4d4f;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+      }
+      
+      .interests {
+        margin-bottom: 20px;
+      
+        p {
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+      
+        .interests-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+      
+          .interest-button {
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid #6666cc;
+            background-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+      
+            &.selected {
+              background-color: #6666cc;
+            }
+          }
+        }
+      }
+      
+      .agreement {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      
+        input {
+          margin-right: 10px;
+        }
+      
+        label {
+          font-size: 12px;
+        }
+      }
+      
+      .signup-button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #6666cc;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      
+        &:hover {
+          background-color: #4a4a8a;
+        }
+      }
+  }
+  
+  
+  
