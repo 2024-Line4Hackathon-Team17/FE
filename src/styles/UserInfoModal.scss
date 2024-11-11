@@ -1,0 +1,61 @@
+.idinfoboxTop {
+    .ageinfobox {
+        display: flex;
+        flex-direction: column;
+        color: #8794c0;
+        font-size: 14px;
+        font-weight: 500;
+        .ageandclose {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .idinfowhere {
+            text-align: left;
+        }
+        .agetxt {
+            display: flex;
+            flex-direction: row;
+        }
+        .gender-icon img {
+            width: 17px;
+            margin-left: 2px;
+        }
+        .closedicon button {
+            background-color: transparent;
+        }
+    }
+}
+.idinfoboxMain {
+    .idinfoimgsrc {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    color: #596692;
+    .idinfoid {
+        font-weight: 700;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+}
+
+.idinfobottom {
+    .choices {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        flex-direction: row;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .choice {
+        border: 1px solid #8794c0;
+        color: #8794c0;
+        border-radius: 14px;
+        padding: 3px;
+        width: 88px;
+    }
+}
