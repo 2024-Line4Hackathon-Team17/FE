@@ -8,9 +8,11 @@ import MyPage from './pages/mypage/MyPage';
 import MyPageEmpathy from './pages/mypage/MyPageEmpathy';
 import MyPageInfo from './pages/mypage/MyPageInfo';
 import Loading from "./pages/Loading";
+import Login from "./pages/Login";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         // 로딩 상태를 2초 후에 false로 설정 (예시)
@@ -19,6 +21,10 @@ function App() {
         // 컴포넌트 언마운트 시 타이머 정리
         return () => clearTimeout(timer);
     }, []);
+
+    const handleLogin = () => {
+        setIsLoggedIn(true); // 로그인 성공 시 상태 업데이트
+    };
 
     return (
         <div className="App">
@@ -36,9 +42,12 @@ function App() {
                     {isLoading ? (
                         // 로딩 중일 때는 Loading 컴포넌트만 표시
                         <Route path="/" element={<Loading />} />
-                    ) : (
-                        // 로딩이 끝나면 PotMainpage로 이동
+                    ) : isLoggedIn ? (
+                        // 로그인 성공 시 PotMainpage로 이동
                         <Route path="/" element={<PotMainpage />} />
+                    ) : (
+                        // 로딩이 끝나면 Login 페이지로 이동
+                        <Route path="/" element={<Login onLogin={handleLogin} />} />
                     )}
                 </Routes>
             </Router>
