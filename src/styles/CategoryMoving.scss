@@ -10,6 +10,13 @@
         width: 100%;
         margin-top: 20px;
         margin-bottom: 20px;
+        .textbox {
+            background-color: #e6e8ed;
+            border-radius: 10px;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
 
         .boxline {
             display: flex;
@@ -34,9 +41,61 @@
                     margin: 0 10px;
 
                     .textbox {
-                        margin-left: 8px;
                         font-size: 1rem;
                         font-weight: bold;
+                        box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.3);
+                    }
+                }
+            }
+        }
+    }
+}
+.categorymovingpagebox {
+    .categorybox {
+        .imgbox {
+            width: 26px;
+        }
+        .boxline {
+            .scroll-content {
+                .iconbox {
+                    display: flex;
+                    align-items: center;
+                    &:hover {
+                        transform: scale(1.05); // Hover 시 크기 확대 효과
+                        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); // Hover 시 그림자 효과 강조
+                    }
+
+                    .iconimgbox {
+                        padding: 5px;
+                        border-radius: 8px;
+                        display: inline-block;
+
+                        box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.3); // 기본 그림자 효과
+
+                        &.running-icon {
+                            background-color: #a0b9f8;
+                        }
+                        &.coffee-icon {
+                            background-color: #6d4040;
+                        }
+                        &.wine-icon {
+                            background-color: #880d0d;
+                        }
+                        &.mountain-icon {
+                            background-color: #539e68;
+                        }
+                        &.baseball-icon {
+                            background-color: #18233f;
+                        }
+                        &.racquet-icon {
+                            background-color: #edcf4a;
+                        }
+                    }
+
+                    .textbox {
+                        margin-left: 8px;
+                        font-size: 14px;
+                        color: #333;
                     }
                 }
             }
