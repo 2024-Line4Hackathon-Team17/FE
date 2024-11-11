@@ -6,6 +6,7 @@ import LiveChatListPage from './pages/live-chat/LiveChatListPage';
 import LiveChatPage from './pages/live-chat/LiveChatPage';
 import MyPage from './pages/mypage/MyPage';
 import MyPageEmpathy from './pages/mypage/MyPageEmpathy';
+import MyPageInfo from './pages/mypage/MyPageInfo';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                         <Route exact path="/livechat/id" element={<LiveChatPage />} />
                         <Route exact path="/mypage" element={<MyPage />} />
                         <Route exact path="/mypage/empathy" element={<MyPageEmpathy />} />
+                        <Route exact path="/mypage/update/info" element={<MyPageInfo />} />
                     </Route>
                 </Routes>
             </Router>

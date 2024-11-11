@@ -18,16 +18,20 @@
     }
 
     .mypage_title {
+        width: 255px;
+
         >span {
+            padding-left: 10px;
             color: #E6E8ED;
             font-size: 25px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
+            text-align: start;
         }
     }
 
     .mypage_blank_box {
-        @include size(10px, 30px);
+        @include size(30px, 30px);
     }
 }

@@ -1,0 +1,42 @@
+@import '../../setting/utils';
+
+
+.mypage_info_container {
+    width: 100%;
+
+    .mypage_info_inner_container {
+        width: 100%;
+
+        .mypage_info_container {
+
+            .mypage_info_profile {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                >img {
+                    @include size(80px, 80px);
+                    border-radius: 12px;
+                }
+
+                .upload_icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    @include size(37px, 37px);
+                    background-color: #fff;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 45px;
+                    left: 57%;
+                    transform: translateX(-57%);
+
+                    .upload_icon_camera {
+                        @include size(27px, 27px);
+                    }
+                }
+            }
+        }
+    }
+}
