@@ -34,7 +34,9 @@ const MyPage = () => {
                                     <li className="mypage_main_list_item btn">내가 쓴 공감 글 모아보기</li>
                                 </Link>
                                 <li className="mypage_main_list_item btn">팟팅 참여 내역</li>
-                                <li className="mypage_main_list_item btn">정보 수정</li>
+                                <Link to={'/mypage/update/info'}>
+                                    <li className="mypage_main_list_item btn">정보 수정</li>
+                                </Link>
                                 <li className="mypage_main_list_item btn">로그아웃</li>
                             </ul>
                         </div>
