@@ -1,0 +1,50 @@
+@import '../../setting/utils';
+
+.live_chat_list_item_container {
+    width: 100%;
+
+    .live_chat_list_item_inner_container {
+        @include size(100%, 120px);
+        padding: 30px 30px 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .live_chat_profile {
+            @include size(60px, 60px);
+
+            >img {
+                @include size(100%, 100%);
+                border-radius: 6px;
+            }
+        }
+
+        .live_chat_content {
+            @include size(250px, 60px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .live_chat_nickname {
+                >p {
+                    color: #596692;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    margin-bottom: 5px;
+                }
+            }
+
+            .live_chat_text {
+                >p {
+                    color:#8794C0;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+        }
+    }
+}

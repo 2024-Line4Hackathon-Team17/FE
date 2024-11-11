@@ -1,0 +1,51 @@
+@import '../../setting/utils';
+
+.live_chat_list_search_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .live_chat_list_seach_inner_container {
+        @include size(355px, 50px);
+        border-radius: 18px;
+        background-color: #E6E8ED;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .live_chat_search_input {
+            @include size(300px, 50px);
+
+            >input {
+                @include size(100%, 100%);
+                padding: 15px;
+                background-color: transparent;
+                font-size: 18px;
+                font-weight: 400;
+                outline: none;
+
+                &::placeholder {
+                    color:#8794C0;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+        }
+
+        .live_chat_search_icon_area {
+            @include size(25px, 50px);
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+
+            .live_chat_search_icon {
+                @include size(25px, 25px);
+                color: #8794C0;
+            }
+        }
+    }
+}

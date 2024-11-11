@@ -1,0 +1,18 @@
+@import '../../setting/utils';
+
+.empathy_header_container {
+    width: 100%;
+
+    .empathy_header_inner_container {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 20px 25px 0 0;
+        .empathy_header_alarm_area {
+            .empathy_header_alarm {
+                @include size(25px, 25px);
+                color: #fff;
+            }
+        }
+    }
+}

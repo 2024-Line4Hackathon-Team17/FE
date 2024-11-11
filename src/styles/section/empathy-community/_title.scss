@@ -1,0 +1,77 @@
+@import '../../setting/utils';
+
+.empathy_community_container {
+    width: 100%;
+    position: relative;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .empathy_title_container {
+        width: 100%;
+
+        .empathy_title_inner_container {
+            width: 100%;
+            padding: 5px 20px;
+
+            >p {
+                color: #E6E8ED;
+                font-size: 25px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 40px;
+            }
+        }
+    }
+
+    .empathy_subtitle_container {
+        width: 100%;
+
+        .empathy_subtitle_inner_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 20px 0 20px;
+
+            .empathy_subtitle {
+                >span {
+                    color: #E6E8ED;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            .empathy_sort {
+                #empathy_sort_selec {
+                    @include size(57px, 20px);
+                    border-radius: 10px;
+                    background-color: #D7CCAF;
+                    outline: none;
+                    color: #1C2135;
+                    font-size: 11px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    padding: 3px 5px;
+                    appearance: auto;
+                    -webkit-appearance: auto;
+                    -moz-appearance: auto;
+
+                    >option {
+                        color: #1C2135;
+                        font-size: 11px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                }
+            }
+        }
+    }
+}

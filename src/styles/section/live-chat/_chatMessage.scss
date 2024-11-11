@@ -1,0 +1,42 @@
+@import '../../setting/utils';
+
+.live_chat_message_container {
+    width: 100%;
+
+    .live_chat_message_inner_container {
+        width: 100%;
+        padding: 25px 0 0 0;
+
+        .live_chat_message_text {
+            max-width: 220px;
+            background-color: #E6E8ED;
+            padding: 12px 20px;
+
+            >p {
+                color:#1C2135;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px;
+            }
+        }
+
+        .my_message {
+            border-radius: 17px 17px 0 17px;
+        }
+
+        .other_message {
+            border-radius: 17px 17px 17px 0;
+        }
+    }
+
+    .my_message_container {
+        display: flex;
+        justify-content: end;
+    }
+
+    .other_message_container {
+        display: flex;
+        justify-content: start;
+    }
+}
