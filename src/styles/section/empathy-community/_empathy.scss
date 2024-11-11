@@ -1,0 +1,157 @@
+@import '../../setting/utils';
+@import '../empathy-community/header';
+@import '../empathy-community/title';
+@import '../empathy-community/writeBtn';
+@import '../empathy-community/writePopup';
+
+.empathy_card_container {
+    width: 100%;
+
+    .empathy_card_inner_container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-top: 14px;
+
+        .empathy_profile_area {
+            .empathy_profile {
+                @include size(48px, 48px);
+                margin-right: 10px;
+
+                >img {
+                    @include size(48px, 48px);
+                    border-radius: 12px;
+                }
+            }
+        }
+
+        .empathy_content_area {
+            @include size(295px, 146px);
+
+            .empathy_content {
+                @include size(100%, 100%);
+                background-color: #E6E8ED;
+                border-radius: 12px;
+
+                .empathy_top {
+                    @include size(100%, 30px);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 15px;
+
+                    .empathy_top_nickname {
+                        display: flex;
+                        align-items: center;
+
+                        >span {
+                            color: #8794C0;
+                            font-size: 10px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+
+                    .empathy_top_list {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+
+                        .empathy_top_list_options {
+                            position: absolute;
+                            top: 15px;
+                            right: 0;
+                            @include size(105px, 65px);
+                            border-radius: 10px;
+                            background: #E6E8ED;
+                            border: 1px solid #8794C0;
+
+                            >li {
+                                padding: 6px 10px;
+
+                                &:not(:last-child) {
+                                    border-bottom: 1px solid #8794C0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .empathy_mid {
+                    width: 95%;
+                    padding: 0px 15px;
+
+                    .empathy_mid_title {
+                        margin-bottom: 10px;
+
+                        >span {
+                            font-size: 18px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+
+                    .emapthy_mid_text {
+                        >span {
+                            font-size: 15px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px;
+                        }
+                    }
+                }
+
+                .empathy_bottom {
+                    @include size(100%, 35px);
+                    background-color: #596692;
+                    border-radius: 0 0 12px 12px;
+                    margin-top: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .empathy_bottom_btn {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-evenly;
+
+                        .empathy_btn_line {
+                            @include size(1px, 25px);
+                            background-color: #fff;
+                        }
+
+                        .empathy_btn {
+                            display: flex;
+                            align-items: center;
+
+                            .empathy_btn_icon {
+                                @include size(20px, 20px);
+                                color: #fff;
+                            }
+
+                            .clap_fill {
+                                color: #EAB31B;
+                            }
+
+                            .heart_fill {
+                                color: #CA5858;
+                            }
+
+                            .confetti_fill {
+                                color: #5189EA;
+                            }
+
+                            .clover_fill {
+                                color: rgba(28, 146, 53, 0.77);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
