@@ -6,12 +6,13 @@
     .mypage_empathy_inner_container {
         width: 100%;
 
-        .mypage_empathy_container {
+        .mypage_empathy_main_container {
             @include size(100%, 625px);
             position: relative;
             overflow-y: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            top: 5px;
 
             &::-webkit-scrollbar {
                 display: none;
@@ -19,15 +20,13 @@
 
             .mypage_empathy_back {
                 @include size(100%, 625px);
-                max-height: 852px;
                 background-color: #E6E8ED;
                 position: absolute;
-                top: 30px;
             }
 
             .mypage_empathy_area {
                 position: absolute;
-                top: 70px;
+                padding-top: 45px;
                 left: 50%;
                 transform: translateX(-50%);
 
@@ -39,6 +38,9 @@
 
                         .mypage_top_list_options {
                             @include size(105px, 32px);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
                         }
                     }
                 }

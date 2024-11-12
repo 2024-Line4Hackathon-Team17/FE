@@ -11,6 +11,8 @@ import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup"; // Signup 컴포넌트 임포트
 import Signup_2 from "./pages/Signup_2";
+import MyPagePot from "./pages/mypage/MyPagePot";
+import MyPagePotAttend from "./pages/mypage/MyPagePotAttend";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -32,15 +34,16 @@ function App() {
         <div className="App">
             <Router>
                 <Routes>
-                    <Route>
-                        <Route exact path="/" element={<PotMainpage />} />
-                    </Route>
+                    <Route path="/" element={<PotMainpage />} />
+
                     <Route exact path="/empathy" element={<EmpathyCommunityPage />} />
                     <Route exact path="/livechat" element={<LiveChatListPage />} />
                     <Route exact path="/livechat/id" element={<LiveChatPage />} />
                     <Route exact path="/mypage" element={<MyPage />} />
                     <Route exact path="/mypage/empathy" element={<MyPageEmpathy />} />
                     <Route exact path="/mypage/update/info" element={<MyPageInfo />} />
+                    <Route exact path="/mypage/poting" element={<MyPagePot />} />
+                    <Route exact path="/mypage/poting/attend" element={<MyPagePotAttend />} />
                     {isLoading ? (
                         // 로딩 중일 때는 Loading 컴포넌트만 표시
                         <Route path="/" element={<Loading />} />
