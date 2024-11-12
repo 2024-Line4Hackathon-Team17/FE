@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BsThreeDots } from "react-icons/bs";
+import { PiDotsThreeLight } from "react-icons/pi";
+
 
 const MyPageEmpathyCard = ({ index }) => {
     const [showOptions, setShowOptions] = useState(false);
@@ -25,7 +26,7 @@ const MyPageEmpathyCard = ({ index }) => {
                                 <span>앵그리맨</span>
                             </div>
                             <div className="empathy_top_list btn" onClick={() => toggleOptions(index)}>
-                                <BsThreeDots />
+                                <PiDotsThreeLight style={{width: '28px', height: '28px'}} />
                                 {showOptions && (
                                     <ul className="empathy_top_list_options mypage_top_list_options">
                                         <li className='btn'>삭제하기</li>

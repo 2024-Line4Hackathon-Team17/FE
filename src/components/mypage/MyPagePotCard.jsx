@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { BsThreeDots } from "react-icons/bs";
-import { PiMapPinSimpleArea, PiCalendarCheck } from "react-icons/pi";
+import { PiMapPinSimpleArea, PiCalendarCheck, PiDotsThreeLight } from "react-icons/pi";
 
 const MyPagePotCard = ({ index, category, colors, openModal }) => {
     const [showOptions, setShowOptions] = useState(false);
@@ -34,9 +33,9 @@ const MyPagePotCard = ({ index, category, colors, openModal }) => {
                         <p style={{ color: (index % colors.length) === 0 || (index % colors.length) === 1 ? "#E6E8ED" : "#503939" }}>{category.title}</p>
                     </div>
                     <div className="mypage_pot_card_list">
-                        <BsThreeDots className='mypage_pot_card_list_icon btn'
+                        <PiDotsThreeLight className='mypage_pot_card_list_icon btn'
                             onClick={() => toggleOptions(index)}
-                            style={{ color: (index % colors.length) === 0 || (index % colors.length) === 1 ? "#E6E8ED" : "#503939" }}
+                            style={{ color: (index % colors.length) === 0 || (index % colors.length) === 1 ? "#E6E8ED" : "#503939", width: '28px', height: '28px' }}
                         />
                         {showOptions && (
                             <ul className="empathy_top_list_options mypage_top_list_options">
