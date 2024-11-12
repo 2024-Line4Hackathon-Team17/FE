@@ -14,73 +14,80 @@ import { useNavigate } from 'react-router-dom'; // useNavigate 훅 import
 function OnedayClassHome() {
     const navigate = useNavigate();
 
-    const handlePaletteClick = () => {
-        navigate('/onedayclass-category'); // OnedayClass_category 페이지로 이동
+    const handleCategoryClick = (category) => {
+        navigate('/onedayclass-category', { state: { category } }); // OnedayClass_category 페이지로 이동
     };
 
     return (
-<>
-<EmpathyHeader />
         <div className="oneday-class-home">
-            
-            <h2>OO님<br /> 오늘의 추천 클래스입니다!</h2>
-            <Swiper
-                spaceBetween={10}
-                slidesPerView={1}
-                pagination={{
-                    clickable: true,
-                    type: 'bullets', // 원형 페이지네이션 설정
-                }}
-                className="swiper-container"
-            >
-                <SwiperSlide>
-                    <div className="slide">
-                        <img src={oneday01} alt="Cooking Class" />
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="slide">
-                        <img src={oneday02} alt="Baking Class" />
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="slide">
-                        <img src={oneday03} alt="Drawing Class" />
-                    </div>
-                </SwiperSlide>
-            </Swiper>
+            <EmpathyHeader />
+            <div className="oneday-class-home-content">
+                <h2>OO님<br /> 오늘의 추천 클래스입니다!</h2>
+                <Swiper
+                    spaceBetween={10}
+                    slidesPerView={1}
+                    pagination={{
+                        clickable: true,
+                        type: 'bullets', // 원형 페이지네이션 설정
+                    }}
+                    className="swiper-container"
+                >
+                    <SwiperSlide>
+                        <div className="slide">
+                            <img src={oneday01} alt="Cooking Class" />
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div className="slide">
+                            <img src={oneday02} alt="Baking Class" />
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div className="slide">
+                            <img src={oneday03} alt="Drawing Class" />
+                        </div>
+                    </SwiperSlide>
+                </Swiper>
 
-            <div className="category">
-                <div className="category-title">카테고리</div>
-                <div className="category-grid">
-                    <div className="category-item">
-                        요리 / 베이킹 <PiChefHat className="icon outlined" />
-                    </div>
-                    <div className="category-item">
-                        수공예 <PiScissors className="icon outlined" />
-                    </div>
-                    <div className="category-item">
-                        가드닝 <PiFlower className="icon outlined" />
-                    </div>
-                    <div className="category-item">
-                        액티비티 <PiSneakerMove className="icon outlined" />
-                    </div>
-                    <div className="category-item">
-                        뷰티·패션 <PiSparkle className="icon outlined" />
-                    </div>
-                    <div className="category-item">
-                        기술 <PiTreeStructure className="icon outlined" />
-                    </div>
-                    <div className="category-item">
-                        음악 <PiMicrophoneStage className="icon outlined" />
-                    </div>
-                    <div className="category-item" onClick={handlePaletteClick} style={{ cursor: 'pointer' }}>
-                        미술 <PiPalette className="icon outlined" />
+                <div className="category">
+                    <div className="category-title">카테고리</div>
+                    <div className="category-grid">
+                        <div className="category-item" onClick={() => handleCategoryClick('요리 / 베이킹')} style={{ cursor: 'pointer' }}>
+
+                            요리 / 베이킹 <PiChefHat className="icon outlined" />
+                        </div>
+                        <div className="category-item" onClick={() => handleCategoryClick('수공예')} style={{ cursor: 'pointer' }}>
+
+                            수공예 <PiScissors className="icon outlined" />
+                        </div>
+                        <div className="category-item" onClick={() => handleCategoryClick('가드닝')} style={{ cursor: 'pointer' }}>
+
+                            가드닝 <PiFlower className="icon outlined" />
+                        </div>
+                        <div className="category-item" onClick={() => handleCategoryClick('액티비티')} style={{ cursor: 'pointer' }}>
+
+                            액티비티 <PiSneakerMove className="icon outlined" />
+                        </div>
+                        <div className="category-item" onClick={() => handleCategoryClick('뷰티·패션')} style={{ cursor: 'pointer' }}>
+
+                            뷰티·패션 <PiSparkle className="icon outlined" />
+                        </div>
+                        <div className="category-item"  onClick={() => handleCategoryClick('기술')} style={{ cursor: 'pointer' }}>
+
+                            기술 <PiTreeStructure className="icon outlined" />
+                        </div>
+                        <div className="category-item" onClick={() => handleCategoryClick('음악')} style={{ cursor: 'pointer' }}>
+
+                            음악 <PiMicrophoneStage className="icon outlined" />
+                        </div>
+                        <div className="category-item" onClick={() => handleCategoryClick('미술')} style={{ cursor: 'pointer' }}>
+
+                            미술 <PiPalette className="icon outlined" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-</>
     );
 }
 

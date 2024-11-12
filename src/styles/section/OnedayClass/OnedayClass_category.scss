@@ -1,14 +1,16 @@
 // OnedayClass_category.scss
 
 .oneday-class-category {
-    background-color: #1f2a44;
+    background-color: #1C2135;
     color: #ffffff;
     padding: 20px;
-    text-align: center;
+    width: 100%;
+    height: 852px;
   
     h2 {
-      font-size: 1.2rem;
+      font-size: 25px;
       margin-bottom: 20px;
+      text-align: left;
     }
   
     .filter {
@@ -43,11 +45,11 @@
     }
   
     .class-card {
-      background-color: #2c3e50;
       border-radius: 8px;
       overflow: hidden;
       text-align: left;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      width: 166px;
   
       .class-image {
         width: 100%;
@@ -56,15 +58,15 @@
       }
   
       .class-info {
-        padding: 10px;
+        padding-top: 10px;
   
         .class-location {
-          font-size: 0.9rem;
-          color: #b3b3b3;
+          font-size: 14px;
+          color: #E6E8ED;
         }
   
         .class-title {
-          font-size: 1rem;
+          font-size: 14px;
           margin: 5px 0;
         }
   
@@ -77,8 +79,8 @@
           background-color: #e6e8ed;
           color: #333;
           border: none;
-          border-radius: 4px;
-          font-size: 0.9rem;
+          border-radius: 5px;
+          font-size: 13px;
           cursor: pointer;
         }
       }
