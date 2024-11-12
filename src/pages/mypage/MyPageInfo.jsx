@@ -145,6 +145,7 @@ const MyPageInfo = () => {
                         </div>
                     </div>
                 </main>
+                <div className='main_blank'></div>
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandHoldingHeart, faBook, faHome, faComments, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { PiHandHeart, PiBookOpenText, PiChatsCircle, PiUserCircle } from "react-icons/pi";
+import { GoHome } from "react-icons/go";
 import '../../styles/section/nav/_nav.scss';
 
 function Nav() {
@@ -14,31 +14,31 @@ function Nav() {
           to="/empathy"
           className={`nav-item ${location.pathname === "/empathy" ? "active" : ""}`}
         >
-          <FontAwesomeIcon icon={faHandHoldingHeart} className="nav-icon" />
+          <PiHandHeart className="nav-icon" />
         </Link>
         <Link
           to="/somepage1" // 다른 페이지 경로로 변경
           className={`nav-item ${location.pathname === "/somepage1" ? "active" : ""}`}
         >
-          <FontAwesomeIcon icon={faBook} className="nav-icon" />
+          <PiBookOpenText className="nav-icon" />
         </Link>
         <Link
           to="/somepage2" // 다른 페이지 경로로 변경
           className={`nav-item ${location.pathname === "/somepage2" ? "active" : ""}`}
         >
-          <FontAwesomeIcon icon={faHome} className="nav-icon" />
+          <GoHome className="nav-icon" />
         </Link>
         <Link
           to="/somepage3" // 다른 페이지 경로로 변경
           className={`nav-item ${location.pathname === "/somepage3" ? "active" : ""}`}
         >
-          <FontAwesomeIcon icon={faComments} className="nav-icon" />
+          <PiChatsCircle className="nav-icon" />
         </Link>
         <Link
           to="/somepage4" // 다른 페이지 경로로 변경
           className={`nav-item ${location.pathname === "/somepage4" ? "active" : ""}`}
         >
-          <FontAwesomeIcon icon={faUserCircle} className="nav-icon" />
+          <PiUserCircle className="nav-icon" />
         </Link>
       </nav>
     </div>

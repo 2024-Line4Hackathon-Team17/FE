@@ -13,8 +13,15 @@ const MyPageEmpathy = () => {
                     <div className="mypage_empathy_back"></div>
                     <div className="mypage_empathy_area">
                         <MyPageEmpathyCard />
+                        <MyPageEmpathyCard />
+                        <MyPageEmpathyCard />
+                        <MyPageEmpathyCard />
+                        <MyPageEmpathyCard />
+                        <MyPageEmpathyCard />
+                        <MyPageEmpathyCard />
                     </div>
                 </main>
+                <div className='main_blank'></div>
             </div>
         </div>
     )

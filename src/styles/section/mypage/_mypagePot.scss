@@ -150,6 +150,10 @@
     .mypage_pot_inner_container {
         width: 100%;
 
+        .main_blank {
+            height: 65px;
+        }
+
         .mypage_pot_main_container {
             @include size(100%, 625px);
             position: relative;
@@ -163,7 +167,7 @@
             }
 
             .mypage_pot_back {
-                @include size(100%, 625px);
+                @include size(100%, 650px);
                 background-color: #E6E8ED;
                 position: absolute;
             }
@@ -171,8 +175,6 @@
             .mypage_pot_scroll {
                 position: absolute;
                 padding-top: 60px;
-                left: 50%;
-                transform: translateX(-50%);
                 @include size(100%, 625px);
                 overflow-y: auto;
                 scrollbar-width: none;
@@ -180,6 +182,10 @@
 
                 &::-webkit-scrollbar {
                     display: none;
+                }
+
+                .scroll_x {
+                    @include size(100%, 625px);
                 }
 
                 .modal-overlay {

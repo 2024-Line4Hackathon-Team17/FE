@@ -39,6 +39,7 @@ const EmpathyCommunityPage = () => {
       <EmpathyCard index={2} />
       <EmpathyCard index={3} />
       <EmpathyCard index={4} />
+      <div className='main_blank'></div>
       <EmpathyWriteBtn onClick = {togglePopup} />
       {isPopupOpen && <EmpathyWritePopup onClose={togglePopup} />}
     </div>

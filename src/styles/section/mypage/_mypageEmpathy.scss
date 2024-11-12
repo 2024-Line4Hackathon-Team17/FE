@@ -6,6 +6,10 @@
     .mypage_empathy_inner_container {
         width: 100%;
 
+        .main_blank {
+            height: 65px;
+        }
+
         .mypage_empathy_main_container {
             @include size(100%, 625px);
             position: relative;
@@ -29,6 +33,14 @@
                 padding-top: 45px;
                 left: 50%;
                 transform: translateX(-50%);
+                height: 600px;
+                overflow-y: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
 
                 .mypage_empathy_content_area {
                     @include size(295px, 115px);
