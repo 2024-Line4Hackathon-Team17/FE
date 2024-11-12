@@ -16,6 +16,7 @@ import OnedayClassHome from "./pages/Onedayclass/OnedayClassHome";
 import OnedayClass_category from "./pages/Onedayclass/OnedayClass_category";
 import MyPagePot from "./pages/mypage/MyPagePot";
 import MyPagePotAttend from "./pages/mypage/MyPagePotAttend";
+import NoticePage from "./pages/notice/NoticePage";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +45,7 @@ function App() {
 
 function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
-    const hiddenNavPaths = ["/login", "/signup", "/signup-step2"];
+    const hiddenNavPaths = ["/login", "/signup", "/signup-step2", "/notice"];
 
     return (
         <div className="App">
@@ -68,6 +69,7 @@ function AppContent({ isLoggedIn, onLogin }) {
                 <Route path="/mypage/update/info" element={<MyPageInfo />} />
                 <Route path="/mypage/poting" element={<MyPagePot />} />
                 <Route path="/mypage/poting/attend" element={<MyPagePotAttend />} />
+                <Route path="/notice" element={<NoticePage />} />
 
                  {/* OnedayClassHome 페이지 경로 추가 */}
                  <Route path="/onedayclass" element={<OnedayClassHome />} />
