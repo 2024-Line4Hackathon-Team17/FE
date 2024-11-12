@@ -17,8 +17,8 @@ function Nav() {
           <FontAwesomeIcon icon={faHandHoldingHeart} className="nav-icon" />
         </Link>
         <Link
-          to="/somepage1" // 다른 페이지 경로로 변경
-          className={`nav-item ${location.pathname === "/somepage1" ? "active" : ""}`}
+          to="/onedayclass" // OnedayClassHome 경로로 이동
+          className={`nav-item ${location.pathname === "/onedayclass" ? "active" : ""}`}
         >
           <FontAwesomeIcon icon={faBook} className="nav-icon" />
         </Link>

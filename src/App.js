@@ -12,6 +12,9 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup"; 
 import Signup_2 from "./pages/Signup_2";
 import Nav from "./components/Nav/Nav";
+import OnedayClassHome from "./pages/Onedayclass/OnedayClassHome";
+import OnedayClass_category from "./pages/Onedayclass/OnedayClass_category";
+
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -52,6 +55,11 @@ function App() {
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/mypage/empathy" element={<MyPageEmpathy />} />
                     <Route path="/mypage/update/info" element={<MyPageInfo />} />
+
+                    {/* OnedayClassHome 페이지 경로 추가 */}
+                    <Route path="/onedayclass" element={<OnedayClassHome />} />
+                    <Route path="/onedayclass-category" element={<OnedayClass_category />} />
+
                     
                     {/* 404 페이지 처리를 위한 경로 */}
                     <Route path="*" element={<Navigate to="/" />} />
