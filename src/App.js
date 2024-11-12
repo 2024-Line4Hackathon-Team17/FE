@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
+    useLocation,
+} from "react-router-dom";
 import PotMainpage from "./pages/PotMainpage";
 import EmpathyCommunityPage from "./pages/EmpathyCommunityPage";
 import LiveChatListPage from "./pages/live-chat/LiveChatListPage";
@@ -9,8 +15,13 @@ import MyPageEmpathy from "./pages/mypage/MyPageEmpathy";
 import MyPageInfo from "./pages/mypage/MyPageInfo";
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup"; // Signup 컴포넌트 임포트
+import Signup from "./pages/Signup";
 import Signup_2 from "./pages/Signup_2";
+import Nav from "./components/Nav/Nav";
+import OnedayClassHome from "./pages/Onedayclass/OnedayClassHome";
+import OnedayClass_category from "./pages/Onedayclass/OnedayClass_category";
+import MyPagePot from "./pages/mypage/MyPagePot";
+import MyPagePotAttend from "./pages/mypage/MyPagePotAttend";
 import PotSearch from "./pages/PotSearch";
 
 function App() {
@@ -18,16 +29,29 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        // 로딩 상태를 2초 후에 false로 설정 (예시)
         const timer = setTimeout(() => setIsLoading(false), 2000);
-
-        // 컴포넌트 언마운트 시 타이머 정리
         return () => clearTimeout(timer);
     }, []);
 
     const handleLogin = () => {
-        setIsLoggedIn(true); // 로그인 성공 시 상태 업데이트
+        setIsLoggedIn(true);
     };
+
+    if (isLoading) {
+        // 로딩 중일 때는 Loading 컴포넌트만 표시
+        return <Loading />;
+    }
+
+    return (
+        <Router>
+            <AppContent isLoggedIn={isLoggedIn} onLogin={handleLogin} />
+        </Router>
+    );
+}
+
+function AppContent({ isLoggedIn, onLogin }) {
+    const location = useLocation();
+    const hiddenNavPaths = ["/login", "/signup", "/signup-step2"];
 
     return (
         <div className="App">
@@ -62,7 +86,6 @@ function App() {
                         path="/mypage/update/info"
                         element={<MyPageInfo />}
                     />
-                    <Route exact path="/search" element={<PotSearch />} />
                     {isLoading ? (
                         // 로딩 중일 때는 Loading 컴포넌트만 표시
                         <Route path="/" element={<Loading />} />

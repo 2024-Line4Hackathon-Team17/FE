@@ -1,0 +1,197 @@
+@import '../../setting/utils';
+
+.mypage_pot_card_container {
+    @include size(355px, 195px);
+    border-radius: 11px;
+    margin: 0 auto;
+
+    .mypage_pot_card_inner_container {
+        width: 100%;
+        padding: 10px;
+
+        .mypage_pot_card_top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .mypage_pot_card_img {
+                >img {
+                    @include size(45px, 45px);
+                    border-radius: 6px;
+                }
+            }
+
+            .mypage_pot_card_nickname_title {
+                width: 240px;
+
+                >p {
+                    font-size: 10px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+
+                    &:last-child {
+                        font-size: 25px;
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            .mypage_pot_card_list {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                height: 40px;
+                position: relative;
+
+                .mypage_pot_card_list_icon {
+                    @include size(25px, 25px);
+                }
+
+                .mypage_top_list_options {
+                    @include size(105px, 32px);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    top: 20px;
+                    right: 0;
+                    border-radius: 10px;
+                    background: #E6E8ED;
+                    border: 1px solid #8794C0;
+
+                    >li {
+                        padding: 6px 10px;
+
+                        &:not(:last-child) {
+                            border-bottom: 1px solid #8794C0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .mypage_pot_card_mid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+
+            .mypage_pot_card_place_date {
+                .mypage_pot_card_place {
+                    display: flex;
+                    align-items: center;
+
+                    .mypage_pot_card_place_icon {
+                        @include size(15px, 15px);
+                    }
+
+                    >span {
+                        padding-left: 8px;
+                        font-size: 11px;
+                    }
+                }
+
+                .mypage_pot_card_date {
+                    display: flex;
+                    align-items: center;
+                    padding-top: 10px;
+
+                    .mypage_pot_card_date_icon {
+                        @include size(15px, 15px);
+                    }
+
+                    >span {
+                        padding-left: 8px;
+                        font-size: 11px;
+                    }
+                }
+            }
+
+            .mypage_pot_card_person {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @include size(45px, 45px);
+                border-radius: 50%;
+                background-color: #BBC1C5;
+
+                >span {
+                    font-size: 11px;
+                    font-weight: 400;
+                    color: #1C2135;
+                }
+            }
+        }
+
+        .mypage_pot_card_bottom {
+            .mypage_pot_card_text {
+                @include size(265px, 65px);
+                overflow-y: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                >span {
+                    font-size: 13px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
+
+.mypage_pot_container {
+    width: 100%;
+
+    .mypage_pot_inner_container {
+        width: 100%;
+
+        .main_blank {
+            height: 65px;
+        }
+
+        .mypage_pot_main_container {
+            @include size(100%, 625px);
+            position: relative;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            top: 5px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .mypage_pot_back {
+                @include size(100%, 650px);
+                background-color: #E6E8ED;
+                position: absolute;
+            }
+
+            .mypage_pot_scroll {
+                position: absolute;
+                padding-top: 60px;
+                @include size(100%, 625px);
+                overflow-y: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .scroll_x {
+                    @include size(100%, 625px);
+                }
+
+                .modal-overlay {
+                    @include size(100%, 100%);
+                }
+            }
+        }
+    }
+}

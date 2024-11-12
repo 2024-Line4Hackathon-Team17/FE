@@ -8,10 +8,22 @@
         justify-content: end;
         align-items: center;
         padding: 20px 25px 0 0;
+
         .empathy_header_alarm_area {
+            position: relative;
+
             .empathy_header_alarm {
-                @include size(25px, 25px);
+                @include size(32px, 32px);
                 color: #fff;
+            }
+
+            .notification-dot {
+                @include size(12px, 12px);
+                position: absolute;
+                top: 0;
+                right: 1px;
+                background-color: #D7CCAF;
+                border-radius: 50%;
             }
         }
     }
