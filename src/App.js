@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
+    useLocation,
+} from "react-router-dom";
 import PotMainpage from "./pages/PotMainpage";
 import EmpathyCommunityPage from "./pages/EmpathyCommunityPage";
 import LiveChatListPage from "./pages/live-chat/LiveChatListPage";
@@ -16,7 +22,11 @@ import OnedayClassHome from "./pages/Onedayclass/OnedayClassHome";
 import OnedayClass_category from "./pages/Onedayclass/OnedayClass_category";
 import MyPagePot from "./pages/mypage/MyPagePot";
 import MyPagePotAttend from "./pages/mypage/MyPagePotAttend";
+<<<<<<< HEAD
 import NoticePage from "./pages/notice/NoticePage";
+=======
+import PotSearch from "./pages/PotSearch";
+>>>>>>> c99c84733a6ffcab5b9dd7ea170a7dfcc87898e8
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +59,7 @@ function AppContent({ isLoggedIn, onLogin }) {
 
     return (
         <div className="App">
+<<<<<<< HEAD
             <Routes>
                 {/* 로그인 여부에 따라 기본 경로를 리디렉션 */}
                 <Route path="/" element={isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />} />
@@ -81,6 +92,62 @@ function AppContent({ isLoggedIn, onLogin }) {
 
             {/* 현재 경로가 숨기려는 경로 목록에 없는 경우에만 Nav 표시 */}
             {!hiddenNavPaths.includes(location.pathname) && <Nav />}
+=======
+            <Router>
+                <Routes>
+                    <Route>
+                        <Route exact path="/" element={<PotMainpage />} />
+                    </Route>
+                    <Route
+                        exact
+                        path="/empathy"
+                        element={<EmpathyCommunityPage />}
+                    />
+                    <Route
+                        exact
+                        path="/livechat"
+                        element={<LiveChatListPage />}
+                    />
+                    <Route
+                        exact
+                        path="/livechat/id"
+                        element={<LiveChatPage />}
+                    />
+                    <Route exact path="/mypage" element={<MyPage />} />
+                    <Route
+                        exact
+                        path="/mypage/empathy"
+                        element={<MyPageEmpathy />}
+                    />
+                    <Route
+                        exact
+                        path="/mypage/update/info"
+                        element={<MyPageInfo />}
+                    />
+                    {isLoading ? (
+                        // 로딩 중일 때는 Loading 컴포넌트만 표시
+                        <Route path="/" element={<Loading />} />
+                    ) : isLoggedIn ? (
+                        // 로그인 성공 시 PotMainpage로 이동
+                        <Route path="/" element={<PotMainpage />} />
+                    ) : (
+                        <>
+                            {/* 로딩이 끝나면 기본 경로는 Login 페이지로 이동 */}
+                            <Route
+                                path="/"
+                                element={<Login onLogin={handleLogin} />}
+                            />
+                            {/* /signup 경로로 이동하면 Signup 페이지로 이동 */}
+                            <Route path="/signup" element={<Signup />} />
+                            <Route
+                                path="/signup-step2"
+                                element={<Signup_2 />}
+                            />
+                        </>
+                    )}
+                </Routes>
+            </Router>
+>>>>>>> c99c84733a6ffcab5b9dd7ea170a7dfcc87898e8
         </div>
     );
 }

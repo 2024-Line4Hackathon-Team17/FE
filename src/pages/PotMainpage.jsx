@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/PotMainpageStyle.scss";
 import "../styles/CommonStyle.scss"; // CommonStyle.scss 파일 import
 
@@ -14,35 +15,41 @@ import Mountain from "../assets/Mountains.png";
 import Running from "../assets/PersonSimpleRun.png";
 
 function PotMainpage() {
+    const navigate = useNavigate();
+
     const categories = [
         {
             title: "흥국생명 직관 같이가요",
             place: "인천삼산체육관",
             date: "11/2 오후 7시",
-            left: "2/3",
+            attended: "2",
+            available: "3",
             icon: sample,
             mapIcon: MapPin,
             calendarIcon: CalendarCheck,
+            category: "running",
+            id: "미야옹",
         },
         {
-            title: "흥국생명 직관 같이가요",
+            title: "흥국생명 직관 같이가요22",
             place: "인천삼산체육관",
             date: "11/2 오후 7시",
-            left: "2/3",
+            attended: "2",
+            available: "3",
             icon: sample,
             mapIcon: MapPin,
             calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            left: "2/3",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
+            category: "running",
+            id: "미야옹22",
         },
     ];
+
+    const handleCategoryClick = (category) => {
+        // title과 id를 함께 전달
+        navigate("/search", {
+            state: { selectedPost: { title: category.title, id: category.id } },
+        });
+    };
 
     return (
         <div>
@@ -60,7 +67,6 @@ function PotMainpage() {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="RecommendText">
                                         <div>4호선님,</div>
                                         오늘도 팟팅하세요!
@@ -104,7 +110,14 @@ function PotMainpage() {
                                                     className="listboximg"
                                                 />
                                             </div>
-                                            <div className="listBoxInfo">
+                                            <div
+                                                className="listBoxInfo"
+                                                onClick={() =>
+                                                    handleCategoryClick(
+                                                        category
+                                                    )
+                                                }
+                                            >
                                                 <div className="potListbox">
                                                     <div className="listBoxDetail">
                                                         <div className="DetailTitle">
@@ -117,7 +130,7 @@ function PotMainpage() {
                                                                         category.mapIcon
                                                                     }
                                                                     alt="Map Icon"
-                                                                    className="detailimgsrc"
+                                                                    className="detailimgsrc1"
                                                                 />
                                                             </div>
                                                             {category.place}
@@ -129,14 +142,28 @@ function PotMainpage() {
                                                                         category.calendarIcon
                                                                     }
                                                                     alt="Calendar Icon"
-                                                                    className="detailimgsrc"
+                                                                    className="detailimgsrc2"
                                                                 />
                                                             </div>{" "}
                                                             {category.date}
                                                         </div>
                                                     </div>
-                                                    <div className="listBoxLeft">
-                                                        {category.left}
+                                                    <div className="listboxs">
+                                                        <div className="listBoxLeft">
+                                                            <div className="listBoxLeftbox">
+                                                                <div className="potAttended">
+                                                                    {
+                                                                        category.attended
+                                                                    }
+                                                                </div>
+                                                                <div>/</div>
+                                                                <div className="potAvailable">
+                                                                    {
+                                                                        category.available
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
