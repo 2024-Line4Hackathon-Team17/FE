@@ -2,7 +2,8 @@
 import React from "react";
 import "../styles/PotSearch.scss"; // 스타일 포함
 import "../styles/CommonStyle.scss"; // 추가 스타일 포함
-
+import CalendarCheck from "../assets/CalendarCheckW.png";
+import MapPin from "../assets/MapPinSimpleAreaW.png";
 const PotList = ({ categories, colors, openModal }) => {
     return (
         <div className="potList">
@@ -40,7 +41,7 @@ const PotList = ({ categories, colors, openModal }) => {
                                     <div className="DetailPlace">
                                         <div className="Detailimg">
                                             <img
-                                                src={category.mapIcon}
+                                                src={MapPin}
                                                 alt="Map Icon"
                                                 className="detailimgsrc"
                                             />
@@ -50,7 +51,7 @@ const PotList = ({ categories, colors, openModal }) => {
                                     <div className="DetailDate">
                                         <div className="Detailimg">
                                             <img
-                                                src={category.calendarIcon}
+                                                src={CalendarCheck}
                                                 alt="Calendar Icon"
                                                 className="detailimgsrc"
                                             />
