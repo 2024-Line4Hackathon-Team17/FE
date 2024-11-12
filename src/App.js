@@ -11,6 +11,7 @@ import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup"; 
 import Signup_2 from "./pages/Signup_2";
+import Nav from "./components/Nav/Nav";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -55,6 +56,8 @@ function App() {
                     {/* 404 페이지 처리를 위한 경로 */}
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
+                <Nav />
+
             </Router>
         </div>
     );
