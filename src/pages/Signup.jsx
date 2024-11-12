@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/section/signup/_signup.scss';
-import eyeoff from '../assets/images/icon/eye-off.png';
 
 const Signup = () => {
     const [password, setPassword] = useState('');
@@ -42,7 +41,6 @@ const Signup = () => {
                     />
                     <button className="toggle-visibility">
                         <span role="img" aria-label="show-password">
-                            <img src={eyeoff} alt="" />
                         </span>
                     </button>
                 </div>
@@ -59,7 +57,6 @@ const Signup = () => {
                     />
                     <button className="toggle-visibility">
                         <span role="img" aria-label="show-password">
-                            <img src={eyeoff} alt="" />
                         </span>
                     </button>
                 </div>
