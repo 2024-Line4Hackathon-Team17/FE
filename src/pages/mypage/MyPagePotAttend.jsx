@@ -56,11 +56,13 @@ const MyPagePotAttend = () => {
                 <main className="mypage_pot_main_container">
                     <div className="mypage_pot_back"></div>
                     <div className="mypage_pot_scroll">
-                        {categories.map((category, index) => (
-                            <MyPagePotCard category={category}
-                                colors={colors}
-                                openModal={openModal} index={index} />
-                        ))}
+                        <div className="scroll_x">
+                            {categories.map((category, index) => (
+                                <MyPagePotCard category={category}
+                                    colors={colors}
+                                    openModal={openModal} index={index} />
+                            ))}
+                        </div>
                         {selectedCategory && (
                             <Modal
                                 backgroundColor={modalColor}
@@ -70,6 +72,7 @@ const MyPagePotAttend = () => {
                         )}
                     </div>
                 </main>
+                <div className='main_blank'></div>
             </div>
         </div>
     )
