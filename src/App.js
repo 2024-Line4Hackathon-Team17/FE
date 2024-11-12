@@ -34,9 +34,8 @@ function App() {
         <div className="App">
             <Router>
                 <Routes>
-                    <Route>
-                        <Route exact path="/" element={<PotMainpage />} />
-                    </Route>
+                    <Route path="/" element={<PotMainpage />} />
+
                     <Route exact path="/empathy" element={<EmpathyCommunityPage />} />
                     <Route exact path="/livechat" element={<LiveChatListPage />} />
                     <Route exact path="/livechat/id" element={<LiveChatPage />} />

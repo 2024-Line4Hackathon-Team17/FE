@@ -26,8 +26,8 @@ const EmpathyCommunityPage = () => {
           <div className="empathy_subtitle">
             <span>팟들과 오늘 일상을 공유해보세요.</span>
           </div>
-          <div className="empathy_sort btn">
-            <select name="empathy_sort_selec" id="empathy_sort_selec">
+          <div className="empathy_sort">
+            <select name="empathy_sort_selec" id="empathy_sort_selec" className='btn'>
               <option value="latest">최신순</option>
               <option value="popular">인기순</option>
             </select>
