@@ -52,13 +52,23 @@ function App() {
 
 function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
-    const hiddenNavPaths = ["/login", "/signup", "/signup-step2", "/livechat/id"];
+    const hiddenNavPaths = [
+        "/login",
+        "/signup",
+        "/signup-step2",
+        "/livechat/id",
+    ];
 
     return (
         <div className="App">
             <Routes>
                 {/* 로그인 여부에 따라 기본 경로를 리디렉션 */}
-                <Route path="/" element={isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />} />
+                <Route
+                    path="/"
+                    element={
+                        isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />
+                    }
+                />
 
                 {/* 회원가입 단계 라우팅 */}
                 <Route path="/signup" element={<Signup />} />
@@ -76,12 +86,19 @@ function AppContent({ isLoggedIn, onLogin }) {
                 <Route path="/mypage/empathy" element={<MyPageEmpathy />} />
                 <Route path="/mypage/update/info" element={<MyPageInfo />} />
                 <Route path="/mypage/poting" element={<MyPagePot />} />
-                <Route path="/mypage/poting/attend" element={<MyPagePotAttend />} />
+                <Route
+                    path="/mypage/poting/attend"
+                    element={<MyPagePotAttend />}
+                />
                 <Route path="/notice" element={<NoticePage />} />
+                <Route path="/search" element={<PotSearch />} />
 
-                 {/* OnedayClassHome 페이지 경로 추가 */}
-                 <Route path="/onedayclass" element={<OnedayClassHome />} />
-                    <Route path="/onedayclass-category" element={<OnedayClass_category />} />
+                {/* OnedayClassHome 페이지 경로 추가 */}
+                <Route path="/onedayclass" element={<OnedayClassHome />} />
+                <Route
+                    path="/onedayclass-category"
+                    element={<OnedayClass_category />}
+                />
 
                 {/* 404 페이지 처리를 위한 경로 */}
                 <Route path="*" element={<Navigate to="/" />} />

@@ -14,7 +14,7 @@
 
 .modal-content {
     background-color: #fff;
-    padding: 10px;
+    padding: 12px 14px 3px 14px;
     border-radius: 12px;
     width: 300px;
     max-width: 90%;
@@ -23,6 +23,7 @@
 .modaltop {
     display: flex;
     justify-content: end;
+    height: 10px;
     button {
         background-color: transparent;
         display: flex;
@@ -31,6 +32,7 @@
         .modalmoreicon {
             width: 27px;
             margin-right: 4px;
+            cursor: pointer;
         }
     }
     .modalbox {
@@ -63,21 +65,25 @@
     display: flex;
     flex-direction: row;
     .Modalboximg {
-        width: 32px;
-        height: 32px;
+        width: 39px;
+        height: 39px;
         border-radius: 8px;
     }
     .ModalDetailTitle {
         color: #e6e8ed;
         margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
     .ModalId {
+        cursor: pointer;
         font-size: 7px;
         font-weight: 100;
         text-align: left;
     }
     .ModalPotTitle {
-        font-size: 16px;
+        font-size: 21px;
         font-weight: 600;
     }
 }
@@ -101,13 +107,16 @@
         margin-bottom: 10px;
 
         .ModalDetailimg {
-            margin-right: 10px;
-            width: 10px;
+            margin-right: 7px;
+            margin-bottom: 2px;
+            width: 15px;
         }
     }
     .modaldetailtxt {
         justify-content: center;
         align-items: center;
+        font-size: 11.76px;
+        color: #dbdbdb;
     }
 }
 
@@ -119,7 +128,7 @@
 
     .ModalBoxDetailinfo {
         color: #e6e8ed;
-        font-size: 10px;
+        font-size: 13px;
         font-weight: 100;
         text-align: left;
         width: 230px;
@@ -142,7 +151,7 @@
         flex-direction: row;
     }
     .ModalBoxLeftbox div {
-        font-size: 10px;
+        font-size: 12.57px;
     }
 }
 .ModalLast {
@@ -153,12 +162,12 @@
     margin-bottom: 10px;
     button {
         background-color: #e6e8ed;
-        width: 122px;
+        width: 148px;
         height: 27px;
         border-radius: 12px;
         padding: 2px;
         margin: 1px;
-        font-size: 12px;
+        font-size: 16px;
         font-weight: 400;
     }
 }
@@ -182,4 +191,7 @@
     100% {
         opacity: 0;
     }
+}
+button {
+    cursor: pointer;
 }
