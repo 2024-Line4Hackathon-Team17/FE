@@ -24,6 +24,7 @@ const LiveChatListPage = () => {
                     <LiveChatListItem />
                     <LiveChatListItem />
                 </div>
+                <div className='main_blank'></div>
             </div>
         </div>
     )

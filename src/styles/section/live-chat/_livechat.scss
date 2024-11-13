@@ -4,6 +4,11 @@
 
 .live_chat_list_container {
     .live_chat_list_inner_container {
+
+        .main_blank {
+            height: 64px;
+        }
+
         .live_chat_title_container {
             width: 100%;
 
@@ -43,6 +48,7 @@
     .live_chat_inner_container {
         width: 100%;
         padding-top: 2px;
+        position: relative;
 
         .live_chat_header {
             @include size(100%, 80px);
@@ -95,11 +101,15 @@
             overflow-y: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            @include size(100%, 680px);
+            @include size(100%, 80vh);
             padding: 15px 20px 0 20px;
 
             &::-webkit-scrollbar {
                 display: none;
+            }
+
+            .main_blank {
+                height: 60px;
             }
 
             .live_chat_date_area {
@@ -132,12 +142,14 @@
         }
 
         .live_chat_bottom {
-            @include size(100%, 90px);
+            @include size(393px, 90px);
             background-color: #E6E8ED;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+            position: fixed;
+            bottom: 0;
 
             .live_chat_input {
                 @include size(260px, 45px);
