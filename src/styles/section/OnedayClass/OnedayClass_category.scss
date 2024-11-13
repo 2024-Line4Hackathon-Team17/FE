@@ -1,14 +1,15 @@
 // OnedayClass_category.scss
 
 .oneday-class-category {
-    background-color: #1C2135;
-    color: #ffffff;
-   
-    width: 100%;
-    overflow-y: auto; 
-  .oneday-class-category-content{
+  background-color: #1C2135;
+  color: #ffffff;
+
+  width: 100%;
+  overflow-y: auto;
+
+  .oneday-class-category-content {
     padding: 20px;
-    min-height: 1000px;  // 화면 높이에 따라 최소 높이 설정
+    min-height: 1000px; // 화면 높이에 따라 최소 높이 설정
 
 
     h2 {
@@ -16,14 +17,14 @@
       margin-bottom: 20px;
       text-align: left;
     }
-  
+
     .filter {
       display: flex;
       align-items: center;
-      justify-content:left;
+      justify-content: left;
       gap: 10px;
       margin-bottom: 20px;
-  
+
       .filter-select {
         padding-left: 15px;
         border-radius: 6px;
@@ -33,8 +34,11 @@
         width: 169px;
         height: 66px;
         font-size: 16px;
+        appearance: auto;
+        -webkit-appearance: auto;
+        -moz-appearance: auto;
       }
-  
+
       .filter-button {
         background-color: #ffffff;
         border: none;
@@ -44,39 +48,39 @@
         cursor: pointer;
       }
     }
-  
+
     .class-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-  
+
     .class-card {
       border-radius: 8px;
       overflow: hidden;
       text-align: left;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
       width: 166px;
-  
+
       .class-image {
         width: 100%;
         height: auto;
         display: block;
       }
-  
+
       .class-info {
         padding-top: 10px;
-  
+
         .class-location {
           font-size: 14px;
           color: #E6E8ED;
         }
-  
+
         .class-title {
           font-size: 14px;
           margin: 5px 0;
         }
-  
+
         .view-button {
           display: block;
           width: 100%;

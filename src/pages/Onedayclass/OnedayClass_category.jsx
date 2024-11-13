@@ -36,7 +36,7 @@ function OnedayClass_category() {
                 <div className="filter">
                     <select className="filter-select" value={category} onChange={handleCategoryChange}>
                         <option value="미술">미술</option>
-                        <option value="요리">요리 / 베이킹</option>
+                        <option value="요리 / 베이킹">요리 / 베이킹</option>
                         <option value="음악">음악</option>
                         <option value="가드닝">가드닝</option>
                         <option value="수공예">수공예</option>

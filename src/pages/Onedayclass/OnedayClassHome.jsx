@@ -1,6 +1,7 @@
 // OnedayClassHome.jsx
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from "swiper/modules";
 import 'swiper/css';
 import '../../styles/section/OnedayClass/OnedayClassHome.scss';
 import 'swiper/css/pagination'; // 페이지네이션 스타일 추가
@@ -14,7 +15,7 @@ import { useNavigate } from 'react-router-dom'; // useNavigate 훅 import
 function OnedayClassHome() {
     const navigate = useNavigate();
 
-    
+
 
     const handleCategoryClick = (category) => {
         navigate('/onedayclass-category', { state: { category } }); // OnedayClass_category 페이지로 이동
@@ -26,11 +27,17 @@ function OnedayClassHome() {
             <div className="oneday-class-home-content">
                 <h2>OO님<br /> 오늘의 추천 클래스입니다!</h2>
                 <Swiper
+                    modules={[Pagination, Autoplay]}
                     spaceBetween={10}
                     slidesPerView={1}
+                    loop={true}
                     pagination={{
                         clickable: true,
                         type: 'bullets', // 원형 페이지네이션 설정
+                    }}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
                     }}
                     className="swiper-container"
                 >
@@ -74,7 +81,7 @@ function OnedayClassHome() {
 
                             뷰티·패션 <PiSparkle className="icon outlined" />
                         </div>
-                        <div className="category-item"  onClick={() => handleCategoryClick('기술')} style={{ cursor: 'pointer' }}>
+                        <div className="category-item" onClick={() => handleCategoryClick('기술')} style={{ cursor: 'pointer' }}>
 
                             기술 <PiTreeStructure className="icon outlined" />
                         </div>
