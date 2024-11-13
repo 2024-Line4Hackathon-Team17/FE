@@ -27,7 +27,7 @@ import PotSearch from "./pages/PotSearch";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoading(false), 1500);
