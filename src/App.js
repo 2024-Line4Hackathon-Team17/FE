@@ -52,7 +52,7 @@ function App() {
 
 function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
-    const hiddenNavPaths = ["/login", "/signup", "/signup-step2", "/notice"];
+    const hiddenNavPaths = ["/login", "/signup", "/signup-step2"];
 
     return (
         <div className="App">
