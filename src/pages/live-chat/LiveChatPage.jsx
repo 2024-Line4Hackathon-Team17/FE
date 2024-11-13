@@ -43,6 +43,7 @@ const LiveChatPage = () => {
             {messages.map((message) => (
               <LiveChatMessage key={message.id} text={message.text} sender={message.sender} />
             ))}
+            <div className='main_blank'></div>
           </div>
         </div>
         <div className="live_chat_bottom">
