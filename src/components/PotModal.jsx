@@ -1,24 +1,52 @@
-// src/components/Modal.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/PotModal.scss";
 
 import closed from "../assets/modalclose.png";
 import more from "../assets/modalmore.png";
+import CalendarCheck from "../assets/CalendarCheckW.png";
+import MapPin from "../assets/MapPinSimpleAreaW.png";
 
-const Modal = ({ backgroundColor, category, onClose, onIdClick }) => {
-    const [isParticipated, setIsParticipated] = useState(false); // 참여 상태
-    const [leftCount, setLeftCount] = useState(category.left); // 남은 인원 수
-    const [showConfirmation, setShowConfirmation] = useState(false); // 확인 메시지 표시 상태
+const Modal = ({
+    backgroundColor,
+    category,
+    onClose,
+    onIdClick,
+    incrementAttended,
+}) => {
+    const [isParticipated, setIsParticipated] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [attendedCount, setAttendedCount] = useState(category.attended);
+    const [showOptions, setShowOptions] = useState(false); // 드롭다운 메뉴 상태 관리
 
-    // 참여하기 버튼 클릭 핸들러
     const handleParticipation = () => {
-        setIsParticipated(true);
-        setLeftCount(10); // 남은 인원 수를 10으로 설정
-        setShowConfirmation(true); // 확인 메시지 표시
+        if (!isParticipated) {
+            setIsParticipated(true);
+            setAttendedCount(attendedCount + 1);
+            incrementAttended();
+            setShowConfirmation(true);
 
-        // 5초 후 메시지 숨기기
-        setTimeout(() => setShowConfirmation(false), 5000);
+            setTimeout(() => setShowConfirmation(false), 5000);
+        }
     };
+
+    const toggleOptions = (e) => {
+        e.stopPropagation();
+        setShowOptions((prev) => !prev);
+    };
+
+    const handleReport = () => {
+        // 신고 기능 로직 추가
+        alert("신고가 접수되었습니다.");
+    };
+
+    const handleBlock = () => {
+        // 차단 기능 로직 추가
+        alert("사용자가 차단되었습니다.");
+    };
+
+    useEffect(() => {
+        setAttendedCount(category.attended);
+    }, [category.attended]);
 
     return (
         <div className="modal-overlay" onClick={onClose}>
@@ -29,7 +57,7 @@ const Modal = ({ backgroundColor, category, onClose, onIdClick }) => {
             >
                 <div className="modalbox">
                     <div className="modaltop">
-                        <button>
+                        <button onClick={toggleOptions}>
                             <img
                                 src={more}
                                 className="modalmoreicon"
@@ -43,6 +71,24 @@ const Modal = ({ backgroundColor, category, onClose, onIdClick }) => {
                                 alt="Close"
                             />
                         </button>
+
+                        {/* 드롭다운 메뉴 */}
+                        {showOptions && (
+                            <div className="dropdown-menu">
+                                <div
+                                    onClick={handleReport}
+                                    className="dropdown-item"
+                                >
+                                    신고
+                                </div>
+                                <div
+                                    onClick={handleBlock}
+                                    className="dropdown-item"
+                                >
+                                    차단
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div className="Modalmain">
                         <div className="potModalbox">
@@ -73,7 +119,7 @@ const Modal = ({ backgroundColor, category, onClose, onIdClick }) => {
                                         <div className="ModalDetailPlace">
                                             <div className="ModalDetailimg">
                                                 <img
-                                                    src={category.mapIcon}
+                                                    src={MapPin}
                                                     alt="Map Icon"
                                                     className="Modaldetailimgsrc"
                                                 />
@@ -85,11 +131,11 @@ const Modal = ({ backgroundColor, category, onClose, onIdClick }) => {
                                         <div className="ModalDetailDate">
                                             <div className="ModalDetailimg">
                                                 <img
-                                                    src={category.calendarIcon}
+                                                    src={CalendarCheck}
                                                     alt="Calendar Icon"
                                                     className="Modaldetailimgsrc"
                                                 />
-                                            </div>{" "}
+                                            </div>
                                             <div className="modaldetailtxt">
                                                 {category.date}
                                             </div>
@@ -104,7 +150,7 @@ const Modal = ({ backgroundColor, category, onClose, onIdClick }) => {
                                 <div className="ModalBoxLeft">
                                     <div className="ModalBoxLeftbox">
                                         <div className="ModalpotAttended">
-                                            {category.attended}
+                                            {attendedCount}
                                         </div>
                                         <div>/</div>
                                         <div className="ModalpotAvailable">

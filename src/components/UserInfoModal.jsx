@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/UserInfoModal.scss";
 import closed from "../assets/modalclose.png";
 import femaleIcon from "../assets/GenderFemale.png";
-import maleIcon from "../assets/GenderFemale.png";
+import maleIcon from "../assets/GenderMale.png";
 
 const UserInfoModal = ({ userInfo, onClose }) => {
     // 이름의 중앙 글자를 *로 바꾸는 함수
@@ -19,7 +19,10 @@ const UserInfoModal = ({ userInfo, onClose }) => {
     };
 
     // choice 문자열을 빈칸을 기준으로 나누기
-    const choices = userInfo.choice ? userInfo.choice.split(" ") : [];
+    // choice 문자열을 빈칸을 기준으로 나누며, 쉼표를 제거
+    const choices = userInfo.choice
+        ? userInfo.choice.replace(/,/g, "").split(" ")
+        : [];
 
     return (
         <div className="modal-overlay" onClick={onClose}>

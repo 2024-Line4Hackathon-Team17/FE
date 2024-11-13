@@ -1,0 +1,106 @@
+@import '../../setting/utils';
+
+.notice_page_container {
+    width: 100%;
+
+    .notice_page_inner_container {
+        width: 100%;
+
+        .notice_back_container {
+            @include size(100%, 95vh);
+            margin-top: 5vh;
+            background-color: #DCDEE4;
+            border-radius: 25px 25px 0 0;
+            transform: translateY(100px);
+            opacity: 0;
+            animation: slideUp 0.7s ease-out forwards;
+
+            .notice_title {
+                width: 100%;
+                padding: 20px 17px;
+
+                >p {
+                    color: #000;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            .notice_scroll {
+                @include size(100%, 85vh);
+                overflow-y: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.notice_card_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0 10px 0;
+
+    .notice_card_inner_container {
+        @include size(360px, 70px);
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        background-color: #fff;
+
+        .notice_card_img_area {
+            @include size(50px, 50px);
+
+            .notice_card_img {
+                @include size(50px, 50px);
+                background-color: #E6E8ED;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .notice_card_content {
+            padding-left: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            >p {
+                color: #918E8E;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+
+                &:first-child {
+                    font-size: 15px;
+                }
+
+                &:last-child {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(500px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -104,6 +104,7 @@
     .DetailTitle {
         font-size: 14px;
         font-weight: 600;
+        margin-bottom: 4px;
     }
 
     .DetailPlace,
@@ -122,14 +123,44 @@
         height: 64px;
     }
 
-    .detailimgsrc {
+    .detailimgsrc1 {
         width: 13.91px;
+        margin-left: -2px;
     }
-
+    .detailimgsrc2 {
+        width: 10.91px;
+    }
     .potListbox {
         margin: 10px;
         display: flex;
         justify-content: space-evenly;
         width: 100%;
+    }
+    .listBoxLeft {
+        background-color: #bbc1c5;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .listBoxLeftbox {
+        display: flex;
+        flex-direction: row;
+        color: #1c2135;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        font-size: 11px;
+        font-weight: 100;
+    }
+    .listBoxLeftbox div {
+        margin-bottom: 1px;
+    }
+    .listboxs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { BsThreeDots } from "react-icons/bs";
-import { PiHandsClappingFill, PiHandsClappingLight, PiHeartFill, PiHeart, PiConfettiFill, PiConfetti, PiCloverFill, PiClover } from "react-icons/pi";
+import { PiHandsClappingFill, PiHandsClappingLight, PiHeartFill, PiHeart, PiConfettiFill, PiConfetti, PiCloverFill, PiClover, PiDotsThreeLight } from "react-icons/pi";
 
 const EmpathyCard = ({ index }) => {
     const [empathyIndex, setEmpathyIndex] = useState(-1);
@@ -33,7 +32,7 @@ const EmpathyCard = ({ index }) => {
                                 <span>앵그리맨</span>
                             </div>
                             <div className="empathy_top_list btn" onClick={() => toggleOptions(index)}>
-                                <BsThreeDots />
+                                <PiDotsThreeLight style={{width: '28px', height: '28px'}} />
                                 {showOptions && (
                                     <ul className="empathy_top_list_options">
                                         <li className='btn'>신고</li>

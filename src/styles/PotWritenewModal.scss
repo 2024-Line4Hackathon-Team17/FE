@@ -15,8 +15,9 @@
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    width: 400px;
+    width: 360px;
     position: relative;
+    margin-right: 50px;
 }
 
 .close-button {
@@ -136,13 +137,16 @@
     }
     .writtingtitle {
         padding: 10px;
-        margin-bottom: 10px;
         border-radius: 5px;
         background-color: transparent;
         color: #d0d3db;
         border-top-right-radius: 12px;
         border-top-left-radius: 12px;
         font-size: 16px;
+    }
+    .divider {
+        height: 1px; /* 선 두께 */
+        background-color: #d0d3db; /* 선 색상 */
     }
 
     .writtingcontent {

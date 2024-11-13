@@ -1,8 +1,9 @@
 .nav-container {
-
-  width: 100%;
+  position: fixed;
+  bottom: 0;
+  width: 393px;
   background-color: #e4e7ec;
-  padding: 10px 0;
+  padding: 20px 0;
   border-radius: 20px 20px 0 0;
   box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -19,10 +20,12 @@
   font-size: 26px;
   text-decoration: none;
   transition: color 0.3s, background-color 0.3s;
-  padding: 10px;
   border: 2px solid transparent; /* 기본 투명 테두리 */
   border-radius: 8px;
   box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-item:hover {
@@ -30,17 +33,19 @@
 }
 
 .nav-icon {
-  color: #596692; /* 아이콘 내부를 투명하게 */
-  font-size: 28px;
-  text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px white; /* 테두리를 하얀색으로 만듦 */
+  width: 35px;
+  height: 35px;
+  color: #596692;
 }
 
 
 /* 활성화된 항목 스타일 */
 .nav-item.active {
-  background-color: #596692; /* 파란색 배경 */
-  color: white; /* 흰색 텍스트 */
-}
+  width: 50px;
+  height: 50px;
+  background-color: #8794C0; /* 파란색 배경 */
 
-.nav-item:not(.active) {
+  .nav-icon {
+    color: #fff;
+  }
 }

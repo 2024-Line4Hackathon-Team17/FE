@@ -29,11 +29,15 @@ const MyPage = () => {
                         </div>
                         <div className="mypage_main_list_area">
                             <ul className="mypage_main_list">
-                                <li className="mypage_main_list_item btn">내가 만든 팟팅 모아보기</li>
+                                <Link to={'/mypage/poting'}>
+                                    <li className="mypage_main_list_item btn">내가 만든 팟팅 모아보기</li>
+                                </Link>
                                 <Link to={'/mypage/empathy'}>
                                     <li className="mypage_main_list_item btn">내가 쓴 공감 글 모아보기</li>
                                 </Link>
-                                <li className="mypage_main_list_item btn">팟팅 참여 내역</li>
+                                <Link to={'/mypage/poting/attend'}>
+                                    <li className="mypage_main_list_item btn">팟팅 참여 내역</li>
+                                </Link>
                                 <Link to={'/mypage/update/info'}>
                                     <li className="mypage_main_list_item btn">정보 수정</li>
                                 </Link>

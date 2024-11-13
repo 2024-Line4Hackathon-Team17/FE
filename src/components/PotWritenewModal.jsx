@@ -79,6 +79,7 @@ const PotWritenewModal = ({ onClose }) => {
                             className="writtingtitle"
                             placeholder="제목을 입력해주세요"
                         />
+                        <div className="divider"></div>
                         <textarea
                             className="writtingcontent"
                             placeholder="내용을 입력해주세요"

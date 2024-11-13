@@ -2,6 +2,7 @@
 @import './mypageHeader';
 @import './mypageEmpathy';
 @import './mypageInfo';
+@import './mypagePot';
 
 .mypage_container {
     width: 100%;
@@ -21,7 +22,7 @@
             }
 
             .mypage_main_back {
-                @include size(100%, 625px);
+                @include size(100%, 700px);
                 max-height: 852px;
                 background-color: #E6E8ED;
                 position: absolute;
