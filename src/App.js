@@ -72,7 +72,6 @@ function AppContent({ isLoggedIn, onLogin }) {
                 <Route path="/empathy" element={<EmpathyCommunityPage />} />
                 <Route path="/livechat" element={<LiveChatListPage />} />
                 <Route path="/livechat/id" element={<LiveChatPage />} />
-                <Route path="/LiveChatListPage" element={<LiveChatListPage />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/mypage/empathy" element={<MyPageEmpathy />} />
                 <Route path="/mypage/update/info" element={<MyPageInfo />} />

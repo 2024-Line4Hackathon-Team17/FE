@@ -31,8 +31,8 @@ function Nav() {
   <GoHome className="nav-icon" />
 </Link>
 <Link
-  to="/LiveChatListPage" // LiveChatListPage.jsx로 이동하도록 경로 수정
-  className={`nav-item ${location.pathname === "/LiveChatListPage" || location.pathname ==="/livechat/id" ? "active" : ""}`}
+  to="/livechat" // LiveChatListPage.jsx로 이동하도록 경로 수정
+  className={`nav-item ${location.pathname === "/livechat" || location.pathname ==="/livechat/id" ? "active" : ""}`}
 >
   <PiChatsCircle className="nav-icon" />
 </Link>
