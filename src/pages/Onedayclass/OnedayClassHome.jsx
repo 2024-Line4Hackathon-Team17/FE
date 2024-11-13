@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom'; // useNavigate 훅 import
 function OnedayClassHome() {
     const navigate = useNavigate();
 
+    
+
     const handleCategoryClick = (category) => {
         navigate('/onedayclass-category', { state: { category } }); // OnedayClass_category 페이지로 이동
     };

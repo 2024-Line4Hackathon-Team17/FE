@@ -6,7 +6,7 @@ import '../../styles/section/nav/_nav.scss';
 
 function Nav() {
   const location = useLocation();
-
+  
   return (
     <div className="nav-container">
       <nav className="nav">
@@ -18,28 +18,31 @@ function Nav() {
         </Link>
         <Link
           to="/onedayclass" // OnedayClassHome 경로로 이동
-          className={`nav-item ${location.pathname === "/onedayclass" ? "active" : ""}`}
+          className={`nav-item ${
+            location.pathname === "/onedayclass" || location.pathname === "/onedayclass-category" ? "active" : ""
+          }`}
         >
           <PiBookOpenText className="nav-icon" />
         </Link>
         <Link
-          to="/somepage2" // 다른 페이지 경로로 변경
-          className={`nav-item ${location.pathname === "/somepage2" ? "active" : ""}`}
-        >
-          <GoHome className="nav-icon" />
-        </Link>
-        <Link
-          to="/somepage3" // 다른 페이지 경로로 변경
-          className={`nav-item ${location.pathname === "/somepage3" ? "active" : ""}`}
-        >
-          <PiChatsCircle className="nav-icon" />
-        </Link>
-        <Link
-          to="/somepage4" // 다른 페이지 경로로 변경
-          className={`nav-item ${location.pathname === "/somepage4" ? "active" : ""}`}
-        >
-          <PiUserCircle className="nav-icon" />
-        </Link>
+  to="/PotMainpage" // PotMainpage.jsx로 이동하도록 경로 수정
+  className={`nav-item ${location.pathname === "/PotMainpage" ? "active" : ""}`}
+>
+  <GoHome className="nav-icon" />
+</Link>
+<Link
+  to="/LiveChatListPage" // LiveChatListPage.jsx로 이동하도록 경로 수정
+  className={`nav-item ${location.pathname === "/LiveChatListPage" || location.pathname ==="/livechat/id" ? "active" : ""}`}
+>
+  <PiChatsCircle className="nav-icon" />
+</Link>
+
+<Link
+  to="/Mypage" // Mypage.jsx로 이동하도록 경로 수정
+  className={`nav-item ${location.pathname === "/Mypage" || location.pathname==="/mypage/poting" ||location.pathname==="/mypage/empathy" ||location.pathname==="/mypage/update/info" ||location.pathname==="/mypage/poting/attend"||location.pathname==="/notice" ? "active" : ""}`}
+>
+  <PiUserCircle className="nav-icon" />
+</Link>
       </nav>
     </div>
   );

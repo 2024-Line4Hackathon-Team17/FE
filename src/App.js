@@ -68,9 +68,11 @@ function AppContent({ isLoggedIn, onLogin }) {
                 <Route path="/login" element={<Login onLogin={onLogin} />} />
 
                 {/* 기능별 페이지 라우팅 */}
+                <Route path="/PotMainpage" element={<PotMainpage />} />
                 <Route path="/empathy" element={<EmpathyCommunityPage />} />
                 <Route path="/livechat" element={<LiveChatListPage />} />
                 <Route path="/livechat/id" element={<LiveChatPage />} />
+                <Route path="/LiveChatListPage" element={<LiveChatListPage />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/mypage/empathy" element={<MyPageEmpathy />} />
                 <Route path="/mypage/update/info" element={<MyPageInfo />} />
