@@ -20,7 +20,7 @@
         }
 
         .live_chat_content {
-            @include size(250px, 60px);
+            @include size(220px, 60px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -45,6 +45,22 @@
                     line-height: normal;
                 }
             }
+        }
+
+        .live_chat_unread_count {
+            background-color: #596692;
+            border-radius: 50%;
+            @include size(25px, 25px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: flex-end;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .live_chat_unread_box {
+            @include size(25px, 25px);
         }
     }
 }
