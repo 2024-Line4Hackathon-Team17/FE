@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
 import { PiDotsThreeLight } from "react-icons/pi";
+import axios from 'axios';
 
-
-const MyPageEmpathyCard = ({ index }) => {
+const MyPageEmpathyCard = ({ onDelete, post, userNickname, userProfileImage }) => {
     const [showOptions, setShowOptions] = useState(false);
 
     const toggleOptions = (openIndex) => {
-        if (openIndex === index) {
+        if (openIndex === post.id) {
             setShowOptions(!showOptions);
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.delete(`${process.env.REACT_APP_API}/api/community/my/community-posts/${post.id}/`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            
+            if (onDelete) {
+                onDelete(post.id);
+            }
+        } catch (error) {
+            console.error('Failed to delete post:', error);
         }
     };
 
@@ -16,30 +31,30 @@ const MyPageEmpathyCard = ({ index }) => {
             <div className="empathy_card_inner_container">
                 <div className="empathy_profile_area">
                     <div className="empathy_profile">
-                        <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSi4g-BPfFytBfUl7e4AgXFRam8kB5Mv5WT8LkrmYBBlSAxD7cE" alt="프로필" />
+                        <img src={userProfileImage} alt="프로필" />
                     </div>
                 </div>
                 <div className="empathy_content_area mypage_empathy_content_area">
                     <div className="empathy_content mypage_empathy_content">
                         <div className="empathy_top">
                             <div className="empathy_top_nickname">
-                                <span>앵그리맨</span>
+                                <span>{userNickname}</span>
                             </div>
-                            <div className="empathy_top_list btn" onClick={() => toggleOptions(index)}>
+                            <div className="empathy_top_list btn" onClick={() => toggleOptions(post.id)}>
                                 <PiDotsThreeLight style={{width: '28px', height: '28px'}} />
                                 {showOptions && (
                                     <ul className="empathy_top_list_options mypage_top_list_options">
-                                        <li className='btn'>삭제하기</li>
+                                        <li className='btn' onClick={handleDelete}>삭제하기</li>
                                     </ul>
                                 )}
                             </div>
                         </div>
                         <div className="empathy_mid">
                             <div className="empathy_mid_title">
-                                <span>사장님......</span>
+                                <span>{post.title}</span>
                             </div>
                             <div className="emapthy_mid_text">
-                                <span>일이 너무 많아요 힘들어요 그만..!!!!! 밥이라도 주시던가요.....</span>
+                                <span>{post.content}</span>
                             </div>
                         </div>
                     </div>

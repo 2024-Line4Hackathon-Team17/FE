@@ -92,6 +92,13 @@
                         justify-content: space-between;
                         align-items: center;
                         padding: 5px 15px 20px 15px;
+                        overflow-x: auto;
+                        scrollbar-width: none;
+                        -ms-overflow-style: none;
+
+                        &::-webkit-scrollbar {
+                            display: none;
+                        }
 
                         .mypage_profile_keyword {
                             @include size(90px, 30px);

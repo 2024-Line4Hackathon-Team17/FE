@@ -1,9 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import EmpathyHeader from '../../components/empathy-community/EmpathyHeader';
 import default_profile from '../../assets/images/Logo/default_profile.png';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const MyPage = () => {
+    const [userInfo, setUserInfo] = useState({
+        user_id: '',
+        username: '',
+        gender: '',
+        nickname: '',
+        birth_date: '',
+        address: '',
+        interests: [],
+        profile_picture: ''
+    });
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                
+                const response = await axios.get(`${process.env.REACT_APP_API}/api/mypage/profile/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setUserInfo(response.data);
+            } catch (error) {
+                console.error("Failed to fetch user info:", error);
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
+
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}.${month}.${day}`;
+    };
+
     return (
         <div className='mypage_container container'>
             <div className="mypage_inner_container">
@@ -13,18 +53,18 @@ const MyPage = () => {
                     <div className="mypage_main_content">
                         <div className="mypage_main_profile_area">
                             <div className="mypage_profile_header">
-                                <p>2002.06.24</p>
-                                <p>서울</p>
+                                <p>{formatDate(userInfo.birth_date)}</p>
+                                <p>{userInfo.address}</p>
                             </div>
                             <div className="mypage_profile_main">
-                                <img src={default_profile} alt="기본 프로필" />
-                                <p className='mypage_profile_nickname'>동에번쩍 서에번쩍</p>
-                                <p className='mypage_profile_name'>홍길동</p>
+                                <img src={userInfo.profile_picture || default_profile} alt="기본 프로필" />
+                                <p className='mypage_profile_nickname'>{userInfo.nickname}</p>
+                                <p className='mypage_profile_name'>{userInfo.username}</p>
                             </div>
                             <div className="mypage_profile_footer">
-                                <div className="mypage_profile_keyword">운동</div>
-                                <div className="mypage_profile_keyword">뮤지컬</div>
-                                <div className="mypage_profile_keyword">맛집탐방</div>
+                                {userInfo.interests.map((interest, index) => (
+                                    <div key={index} className="mypage_profile_keyword">{interest}</div>
+                                ))}
                             </div>
                         </div>
                         <div className="mypage_main_list_area">

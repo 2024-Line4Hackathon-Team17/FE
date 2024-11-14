@@ -1,141 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EmpathyHeader from '../../components/empathy-community/EmpathyHeader';
 import MyPageHeader from '../../components/mypage/MyPageHeader';
-import CalendarCheck from "../../assets/CalendarCheckW.png";
-import MapPin from "../../assets/MapPinSimpleAreaW.png";
-import sample from "../../assets/sample.jpg";
 import Modal from '../../components/PotModal';
 import "../../styles/PotSearch.scss";
 import MyPagePotCard from '../../components/mypage/MyPagePotCard';
+import axios from 'axios';
+import default_profile from '../../assets/images/Logo/default_profile.png';
 
 const MyPagePot = () => {
+    const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [modalColor, setModalColor] = useState(null);
 
-    const categories = [
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            id: "미야옹",
-            text: "매주 금요일 8시반에 같이 성북천 러닝할 크루원 구합니다! 혼자 하려니 안뛰게 되어서요ㅠㅜ 연령대 상관없이 모두 환영합니다ㅎ",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-        },
-    ];
-
     const colors = ["#8794c0", "#1C2135", "#fff", "#D7CCAF"];
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const token = localStorage.getItem('token');
+
+                const response = await axios.get(`${process.env.REACT_APP_API}/api/pating/myposts/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const categoriesData = await Promise.all(
+                    response.data.map(async (category) => {
+                        try {
+                            const userResponse = await axios.get(`${process.env.REACT_APP_API}/api/mypage/profile/`, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                }
+                            });
+                            return {
+                                ...category,
+                                userNickname: userResponse.data.nickname || "Unknown",
+                                userProfileImage: userResponse.data.profile_picture || default_profile,
+                            };
+                        } catch (error) {
+                            console.error("Failed to fetch user profile:", error);
+                            return {
+                                ...category,
+                                userNickname: "Unknown",
+                                userProfileImage: default_profile,
+                            };
+                        }
+                    })
+                );
+                setCategories(categoriesData);
+            } catch (error) {
+                console.error("Failed to fetch posts:", error);
+            }
+        };
+
+        fetchPosts();
+    }, []);
+
+    const handleDelete = (deletedId) => {
+        setCategories(prevCategories => prevCategories.filter(category => category.id !== deletedId));
+    };
 
     const openModal = (category, color) => {
         setSelectedCategory(category);
@@ -156,7 +79,7 @@ const MyPagePot = () => {
                             {categories.map((category, index) => (
                                 <MyPagePotCard category={category}
                                     colors={colors}
-                                    openModal={openModal} index={index} />
+                                    openModal={openModal} index={index} onDelete={handleDelete} />
                             ))}
                         </div>
 

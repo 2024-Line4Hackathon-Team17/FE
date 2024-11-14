@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import EmpathyHeader from '../../components/empathy-community/EmpathyHeader';
 import MyPageHeader from '../../components/mypage/MyPageHeader';
 import default_profile from '../../assets/images/Logo/default_profile.png';
@@ -56,6 +57,24 @@ const MyPageInfo = () => {
         setSelectedInterests(prev =>
             prev.includes(interest) ? prev.filter(i => i !== interest) : [...prev, interest]
         );
+    };
+
+    const handleSave = async () => {
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API}/api/mypage/update_profile/`, {
+                user_id: 1, //실제 userId
+                profile_picture: profileImage || default_profile,
+                nickname,
+                password,
+                password_confirmation: confirmPassword,
+                interests: selectedInterests,
+            });
+            console.log('Profile updated:', response.data);
+            alert('프로필이 성공적으로 업데이트되었습니다.');
+        } catch (error) {
+            console.error('Failed to update profile:', error);
+            alert('프로필 업데이트 중 오류가 발생했습니다.');
+        }
     };
 
     const interests = [
@@ -140,7 +159,7 @@ const MyPageInfo = () => {
                         </div>
                     </div>
                     <div className="mypage_info_save">
-                        <div className="mypage_info_save_btn btn">
+                        <div className="mypage_info_save_btn btn" onClick={handleSave}>
                             <span>저장하기</span>
                         </div>
                     </div>
