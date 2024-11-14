@@ -6,11 +6,14 @@ import axios from 'axios'
 
 const LiveChatListPage = () => {
     const [chatRooms, setChatRooms] = useState([]);
+    const userId = localStorage.getItem('user_id');
 
     useEffect(() => {
         const fetchChatRooms = async () => {
             try {
-                const response = await axios.get('/api/chatrooms/');
+                const response = await axios.get('/api/chatrooms/', {
+                    params: { user_id: userId },
+                });
                 setChatRooms(response.data.chat_rooms);
             } catch (error) {
                 console.error('Failed to fetch chat rooms:', error);
