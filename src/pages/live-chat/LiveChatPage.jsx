@@ -17,7 +17,7 @@ const LiveChatPage = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`/api/chatrooms/${chat_room_id}/messages/`, {
+        const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/`, {
           params: { chat_room_id: chat_room_id },
         });
         setMessages(response.data);
@@ -27,10 +27,10 @@ const LiveChatPage = () => {
           setChatDate(firstMessageDate.toLocaleDateString());
         }
 
-        const chatRoomResponse = await axios.get(`/api/chatrooms/${chat_room_id}/`);
+        const chatRoomResponse = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/`);
         const otherUserId = chatRoomResponse.data.other_user_id;
 
-        const userProfileResponse = await axios.get(`/user/${otherUserId}/`);
+        const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/user/${otherUserId}/`);
         const { nickname, profile_picture } = userProfileResponse.data;
         setOtherUser({
           nickname,
@@ -48,7 +48,7 @@ const LiveChatPage = () => {
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
-      const response = await axios.post(`/api/chatrooms/${chat_room_id}/messages/send/`, {
+      const response = await axios.post(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/send/`, {
         chat_room_id: chat_room_id,
         message: newMessage,
       });

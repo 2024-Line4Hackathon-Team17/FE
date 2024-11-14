@@ -12,7 +12,7 @@ const LiveChatListPage = () => {
     useEffect(() => {
         const fetchChatRooms = async () => {
             try {
-                const response = await axios.get('/api/chatrooms/', {
+                const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/`, {
                     params: { user_id: userId },
                 });
 
@@ -21,7 +21,7 @@ const LiveChatListPage = () => {
                 const chatRoomsWithProfile = await Promise.all(
                     chatRoomsData.map(async (chatRoom) => {
                         try {
-                            const userProfileResponse = await axios.get(`/user/${chatRoom.other_user_id}/`);
+                            const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/user/${chatRoom.other_user_id}/`);
                             const { profile_picture, nickname } = userProfileResponse.data;
 
                             return {

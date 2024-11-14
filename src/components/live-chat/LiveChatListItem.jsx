@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import default_profile from '../../assets/images/Logo/default_profile.png'
 
 const LiveChatListItem = ({ chatRoom, profilePicture, nickname }) => {
   return (
