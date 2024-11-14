@@ -1,18 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import LiveChatMessage from '../../components/live-chat/LiveChatMessage';
 import { MdArrowBackIosNew } from "react-icons/md";
 import { PiPaperclipLight } from "react-icons/pi";
 import { VscSend } from "react-icons/vsc";
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import default_profile from '../../assets/images/Logo/default_profile.png';
 
 const LiveChatPage = () => {
-  const [messages, setMessages] = useState([
-    { id: 1, text: '안녕하세요 성북천 러닝크루 모집보고 연락드려요 :)', sender: 'other' },
-    { id: 2, text: '안녕하세요 어떻게 궁금하실까요? 편하게 질문주세요!', sender: 'me' },
-    { id: 3, text: '혹시 일주일에 몇 회씩 진행할 예정이신가요? 모든 요일에 다 참여하지 않아도 될까요?', sender: 'other' },
-    { id: 4, text: '네 편하신날만 오셔도 돼요!', sender: 'me' },
-    { id: 5, text: '넵 감사합니다!', sender: 'other' },
-  ]);
+  const { chat_room_id } = useParams();
+  const [messages, setMessages] = useState([]);
+  const [chatDate, setChatDate] = useState(null);
+  const [otherUser, setOtherUser] = useState({ nickname: '', profile_picture: '' });
+  const [newMessage, setNewMessage] = useState('');
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(`/api/chatrooms/${chat_room_id}/messages/`, {
+          params: { chat_room_id: chat_room_id },
+        });
+        setMessages(response.data);
+
+        if (response.data.length > 0) {
+          const firstMessageDate = new Date(response.data[0].created_at);
+          setChatDate(firstMessageDate.toLocaleDateString());
+        }
+
+        const chatRoomResponse = await axios.get(`/api/chatrooms/${chat_room_id}/`);
+        const otherUserId = chatRoomResponse.data.other_user_id;
+
+        const userProfileResponse = await axios.get(`/user/${otherUserId}/`);
+        const { nickname, profile_picture } = userProfileResponse.data;
+        setOtherUser({
+          nickname,
+          profile_picture: profile_picture || default_profile,
+        });
+      } catch (error) {
+        console.error("Failed to fetch messages:", error);
+      }
+    };
+
+    const interval = setInterval(fetchMessages, 3000);
+    return () => clearInterval(interval);
+  }, [chat_room_id]);
+
+  const sendMessage = async () => {
+    if (!newMessage.trim()) return;
+    try {
+      const response = await axios.post(`/api/chatrooms/${chat_room_id}/messages/send/`, {
+        chat_room_id: chat_room_id,
+        message: newMessage,
+      });
+      setMessages((prevMessages) => [...prevMessages, response.data]);
+      setNewMessage('');
+    } catch (error) {
+      console.error("Failed to send message:", error);
+    }
+  };
 
   return (
     <div className='live_chat_container container'>
@@ -25,10 +70,10 @@ const LiveChatPage = () => {
           </Link>
           <div className="live_chat_other_profile">
             <div className="live_chat_other_profile_img">
-              <img src="https://i.namu.wiki/i/T3_Yf14kjCS9rcSAsQaD4EQIM1RF0x4VBJqP0tLlBzk4m3uTs3wGospUzcwB6LNuI4sz1o9XrrwPld13Hp7cMLuXBd1Kjvxca2xWkDh86XW9PH6n7cbxaOysPM6wR2tfwCQgikMD21x6pHTJLKAauA.webp" alt="프로필 사진" />
+              <img src={otherUser.profile_picture} alt="프로필 사진" />
             </div>
             <div className="live_chat_other_nickname">
-              <span>미야옹</span>
+              <span>{otherUser.nickname}</span>
             </div>
           </div>
           <div className="live_chat_blank_box"></div>
@@ -36,22 +81,25 @@ const LiveChatPage = () => {
         <div className="live_chat_scroll">
           <div className="live_chat_date_area">
             <div className="live_chat_date">
-              <span>Today</span>
+              <span>{chatDate}</span>
             </div>
           </div>
           <div className="live_chat_area">
             {messages.map((message) => (
-              <LiveChatMessage key={message.id} text={message.text} sender={message.sender} />
+              <LiveChatMessage key={message.id} text={message.text} sender={message.sender === 1 ? 'me' : 'other'} />
             ))}
             <div className='main_blank'></div>
           </div>
         </div>
         <div className="live_chat_bottom">
           <div className="live_chat_input">
-            <input type="text" />
+            <input type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
             <PiPaperclipLight className='live_chat_file btn' />
           </div>
-          <div className="live_chat_send btn">
+          <div className="live_chat_send btn" onClick={sendMessage}>
             <VscSend className='live_chat_send_btn' />
           </div>
         </div>

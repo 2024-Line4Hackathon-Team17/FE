@@ -3,6 +3,7 @@ import LiveChatListItem from '../../components/live-chat/LiveChatListItem'
 import LiveChatSearch from '../../components/live-chat/LiveChatSearch'
 import EmpathyHeader from '../../components/empathy-community/EmpathyHeader'
 import axios from 'axios'
+import default_profile from '../../assets/images/Logo/default_profile.png'
 
 const LiveChatListPage = () => {
     const [chatRooms, setChatRooms] = useState([]);
@@ -14,7 +15,28 @@ const LiveChatListPage = () => {
                 const response = await axios.get('/api/chatrooms/', {
                     params: { user_id: userId },
                 });
-                setChatRooms(response.data.chat_rooms);
+
+                const chatRoomsData = response.data.chat_rooms;
+
+                const chatRoomsWithProfile = await Promise.all(
+                    chatRoomsData.map(async (chatRoom) => {
+                        try {
+                            const userProfileResponse = await axios.get(`/user/${chatRoom.other_user_id}/`);
+                            const { profile_picture, nickname } = userProfileResponse.data;
+
+                            return {
+                                ...chatRoom,
+                                profile_picture: profile_picture,
+                                nickname: nickname,
+                            };
+                        } catch (error) {
+                            console.error('Failed to fetch user profile:', error);
+                            return { ...chatRoom, profile_picture: default_profile, nickname: "Unknown" };
+                        }
+                    })
+                );
+
+                setChatRooms(chatRoomsWithProfile);
             } catch (error) {
                 console.error('Failed to fetch chat rooms:', error);
             }
@@ -38,6 +60,8 @@ const LiveChatListPage = () => {
                         <LiveChatListItem
                             key={chatRoom.chat_room_id}
                             chatRoom={chatRoom}
+                            profilePicture={chatRoom.profile_picture}
+                            nickname={chatRoom.nickname}
                         />
                     ))}
                 </div>
