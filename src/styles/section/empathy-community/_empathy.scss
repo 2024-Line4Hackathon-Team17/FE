@@ -1,8 +1,8 @@
-@import '../../setting/utils';
-@import '../empathy-community/header';
-@import '../empathy-community/title';
-@import '../empathy-community/writeBtn';
-@import '../empathy-community/writePopup';
+@import "../../setting/utils";
+@import "../empathy-community/header";
+@import "../empathy-community/title";
+@import "../empathy-community/writeBtn";
+@import "../empathy-community/writePopup";
 
 .empathy_card_container {
     width: 100%;
@@ -18,7 +18,7 @@
                 @include size(48px, 48px);
                 margin-right: 10px;
 
-                >img {
+                > img {
                     @include size(48px, 48px);
                     border-radius: 12px;
                 }
@@ -30,8 +30,11 @@
 
             .empathy_content {
                 @include size(100%, 100%);
-                background-color: #E6E8ED;
+                background-color: #e6e8ed;
                 border-radius: 12px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
 
                 .empathy_top {
                     @include size(100%, 30px);
@@ -44,8 +47,8 @@
                         display: flex;
                         align-items: center;
 
-                        >span {
-                            color: #8794C0;
+                        > span {
+                            color: #8794c0;
                             font-size: 10px;
                             font-style: normal;
                             font-weight: 400;
@@ -62,18 +65,18 @@
 
                         .empathy_top_list_options {
                             position: absolute;
-                            top: 15px;
+                            top: 20px;
                             right: 0;
                             @include size(105px, 65px);
                             border-radius: 10px;
-                            background: #E6E8ED;
-                            border: 1px solid #8794C0;
+                            background: #e6e8ed;
+                            border: 1px solid #8794c0;
 
-                            >li {
+                            > li {
                                 padding: 6px 10px;
 
                                 &:not(:last-child) {
-                                    border-bottom: 1px solid #8794C0;
+                                    border-bottom: 1px solid #8794c0;
                                 }
                             }
                         }
@@ -87,7 +90,7 @@
                     .empathy_mid_title {
                         margin-bottom: 10px;
 
-                        >span {
+                        > span {
                             font-size: 18px;
                             font-style: normal;
                             font-weight: 400;
@@ -96,7 +99,7 @@
                     }
 
                     .emapthy_mid_text {
-                        >span {
+                        > span {
                             font-size: 15px;
                             font-style: normal;
                             font-weight: 400;
@@ -134,15 +137,15 @@
                             }
 
                             .clap_fill {
-                                color: #EAB31B;
+                                color: #eab31b;
                             }
 
                             .heart_fill {
-                                color: #CA5858;
+                                color: #ca5858;
                             }
 
                             .confetti_fill {
-                                color: #5189EA;
+                                color: #5189ea;
                             }
 
                             .clover_fill {

@@ -8,26 +8,72 @@ import UpW from "../assets/UpW.png";
 import DownW from "../assets/DownW.png";
 
 import DaumPostcode from "react-daum-postcode"; // 주소 검색 API
+import axios from "axios";
 
-const PotWritenewModal = ({ onClose }) => {
+const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8";
+const PotWritenewModal = ({ onClose, onPostSubmit }) => {
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [time, setTime] = useState("");
+    const [location, setLocation] = useState("");
     const [category, setCategory] = useState("카테고리 선택");
+    const [categoryValue, setCategoryValue] = useState(""); // 카테고리 ID 저장
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-    const [peopleCount, setPeopleCount] = useState(2);
+    const [maxParticipants, setMaxParticipants] = useState(2);
     const [isAddressOpen, setIsAddressOpen] = useState(false);
     const [address, setAddress] = useState("");
 
-    const handleCategorySelect = (selectedCategory) => {
+    const incrementPeopleCount = () => setMaxParticipants((prev) => prev + 1);
+    const decrementPeopleCount = () =>
+        setMaxParticipants((prev) => (prev > 1 ? prev - 1 : prev));
+
+    const handleCategorySelect = (selectedCategory, id) => {
         setCategory(selectedCategory);
+        setCategoryValue(id);
         setIsCategoryOpen(false);
     };
 
-    const incrementPeopleCount = () => setPeopleCount((prev) => prev + 1);
-    const decrementPeopleCount = () =>
-        setPeopleCount((prev) => (prev > 1 ? prev - 1 : prev));
-
     const handleAddressComplete = (data) => {
         setAddress(data.address);
+        setLocation(data.address); // 서버에 전송할 주소 값
         setIsAddressOpen(false);
+    };
+
+    const handleSubmit = async () => {
+        const postData = {
+            title,
+            content,
+            location,
+            time,
+            max_participants: Number(maxParticipants), // 숫자 변환
+            category: Number(categoryValue), // 반드시 숫자 변환
+        };
+        console.log("Post Data:", postData); // 로그 출력
+        try {
+            const response = await axios.post(
+                "http://127.0.0.1:8000/pating/posts/",
+                postData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            console.log("Post Success:", response.data);
+            // 부모 컴포넌트로 새 글 데이터 전달
+            if (onPostSubmit) {
+                onPostSubmit(response.data); // 새 글 데이터를 전달
+            }
+
+            alert("글 작성이 완료되었습니다!");
+            onClose(); // 모달 닫기
+        } catch (error) {
+            console.error("Error creating post:", error);
+            alert("글 작성 중 오류가 발생했습니다.");
+        }
     };
 
     return (
@@ -45,19 +91,42 @@ const PotWritenewModal = ({ onClose }) => {
                     </div>
                     {isCategoryOpen && (
                         <div className="category-dropdown">
-                            <div onClick={() => handleCategorySelect("운동")}>
+                            <div
+                                onClick={() => handleCategorySelect("운동", 1)}
+                            >
                                 운동
                             </div>
-                            <div onClick={() => handleCategorySelect("스터디")}>
-                                스터디
+                            <div
+                                onClick={() => handleCategorySelect("카페", 2)}
+                            >
+                                카페
                             </div>
-                            <div onClick={() => handleCategorySelect("취미")}>
-                                취미
+                            <div
+                                onClick={() => handleCategorySelect("와인", 3)}
+                            >
+                                와인
+                            </div>
+                            <div
+                                onClick={() => handleCategorySelect("등산", 4)}
+                            >
+                                등산
+                            </div>
+                            <div
+                                onClick={() => handleCategorySelect("야구", 5)}
+                            >
+                                야구
+                            </div>
+                            <div
+                                onClick={() =>
+                                    handleCategorySelect("배드민턴", 6)
+                                }
+                            >
+                                배드민턴
                             </div>
                         </div>
                     )}
                     <div className="writePeopleselection">
-                        <span>{peopleCount}</span>
+                        <span>{maxParticipants}</span>
                         <div className="updownselection">
                             <button onClick={incrementPeopleCount}>
                                 <div className="updownbox">
@@ -78,11 +147,15 @@ const PotWritenewModal = ({ onClose }) => {
                             type="text"
                             className="writtingtitle"
                             placeholder="제목을 입력해주세요"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
                         />
                         <div className="divider"></div>
                         <textarea
                             className="writtingcontent"
                             placeholder="내용을 입력해주세요"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
                         ></textarea>
                     </div>
                 </div>
@@ -94,7 +167,7 @@ const PotWritenewModal = ({ onClose }) => {
                                     src={MapPin}
                                     className="placeinputimgsrc"
                                     alt="Map Pin"
-                                />{" "}
+                                />
                                 <input
                                     type="text"
                                     className="inputplace"
@@ -118,21 +191,25 @@ const PotWritenewModal = ({ onClose }) => {
                                     src={CalendarCheck}
                                     className="inputdateiconsrc"
                                     alt="Calendar Icon"
-                                ></img>
+                                />
                                 <input
                                     type="text"
                                     className="inputdate"
                                     placeholder="시간을 입력해주세요"
-                                />{" "}
+                                    value={time}
+                                    onChange={(e) => setTime(e.target.value)}
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <button type="submit" className="submit-button">
+                <button
+                    type="submit"
+                    className="submit-button"
+                    onClick={handleSubmit}
+                >
                     글 작성 완료하기
                 </button>
-
                 {isAddressOpen && (
                     <div
                         className="address-modal-overlay"

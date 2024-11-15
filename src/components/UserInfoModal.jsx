@@ -4,6 +4,7 @@ import "../styles/UserInfoModal.scss";
 import closed from "../assets/modalclose.png";
 import femaleIcon from "../assets/GenderFemale.png";
 import maleIcon from "../assets/GenderMale.png";
+import sample from "../assets/sample.jpg";
 
 const UserInfoModal = ({ userInfo, onClose }) => {
     // 이름의 중앙 글자를 *로 바꾸는 함수
@@ -18,12 +19,6 @@ const UserInfoModal = ({ userInfo, onClose }) => {
         );
     };
 
-    // choice 문자열을 빈칸을 기준으로 나누기
-    // choice 문자열을 빈칸을 기준으로 나누며, 쉼표를 제거
-    const choices = userInfo.choice
-        ? userInfo.choice.replace(/,/g, "").split(" ")
-        : [];
-
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -33,11 +28,19 @@ const UserInfoModal = ({ userInfo, onClose }) => {
                             <div className="ageandclose">
                                 <div className="agetxt">
                                     <div className="idage">
-                                        만 {userInfo.age}세{" "}
+                                        {/* 나이가 비어 있을 경우 대체 텍스트 표시 */}
+                                        {userInfo.birth_date
+                                            ? `만 ${
+                                                  new Date().getFullYear() -
+                                                  new Date(
+                                                      userInfo.birth_date
+                                                  ).getFullYear()
+                                              }세`
+                                            : "나이 정보 없음"}
                                     </div>
                                     <div className="idgender">
-                                        {" "}
                                         <div className="gender-icon">
+                                            {/* 성별 아이콘 표시 */}
                                             {userInfo.gender === "female" ? (
                                                 <img
                                                     src={femaleIcon}
@@ -48,7 +51,9 @@ const UserInfoModal = ({ userInfo, onClose }) => {
                                                     src={maleIcon}
                                                     alt="Male"
                                                 />
-                                            ) : null}
+                                            ) : (
+                                                <span>성별 정보 없음</span>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -62,28 +67,41 @@ const UserInfoModal = ({ userInfo, onClose }) => {
                                     </button>
                                 </div>
                             </div>
-                            <div className="idinfowhere">{userInfo.where}</div>
+                            {/* 주소가 비어 있을 경우 대체 텍스트 표시 */}
+                            <div className="idinfowhere">
+                                {userInfo.address || "주소 정보 없음"}
+                            </div>
                         </div>
                     </div>
                     <div className="idinfoboxMain">
                         <div className="idinfoimg">
                             <img
-                                src={userInfo.img}
+                                src={userInfo.profile_picture || sample}
                                 className="idinfoimgsrc"
-                            ></img>
+                                alt="Profile"
+                            />
                         </div>
-                        <div className="idinfoid">{userInfo.id}</div>
+                        <div className="idinfoid">
+                            {/* 사용자 ID 표시 */}
+                            {userInfo.username || "ID 정보 없음"}
+                        </div>
                         <div className="idinfoname">
-                            {maskCenterName(userInfo.name)}
+                            {/* 이름 마스킹 처리 */}
+                            {userInfo.name
+                                ? maskCenterName(userInfo.name)
+                                : "이름 정보 없음"}
                         </div>
                     </div>
                     <div className="idinfobottom">
                         <div className="choices">
-                            {choices.map((choice, index) => (
-                                <div key={index} className="choice">
-                                    {choice}
-                                </div>
-                            ))}
+                            {/* 관심사가 없을 경우 대체 텍스트 표시 */}
+                            {userInfo.interests && userInfo.interests.length > 0
+                                ? userInfo.interests.map((interest, index) => (
+                                      <div key={index} className="choice">
+                                          {interest}
+                                      </div>
+                                  ))
+                                : "관심사 정보 없음"}
                         </div>
                     </div>
                 </div>
