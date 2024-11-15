@@ -27,21 +27,6 @@ import PotSearch from "./pages/PotSearch";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            setIsLoggedIn(true);
-        }
-        // 토큰이 존재하면 true
-        const timer = setTimeout(() => setIsLoading(false), 1500);
-        return () => clearTimeout(timer);
-    }, []);
-
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-    };
 
     if (isLoading) {
         // 로딩 중일 때는 Loading 컴포넌트만 표시
@@ -50,12 +35,12 @@ function App() {
 
     return (
         <Router>
-            <AppContent isLoggedIn={isLoggedIn} onLogin={handleLogin} />
+            <AppContent />
         </Router>
     );
 }
 
-function AppContent({ isLoggedIn, onLogin }) {
+function AppContent() {
     const location = useLocation();
     const hiddenNavPaths = [
         "/",
@@ -73,6 +58,22 @@ function AppContent({ isLoggedIn, onLogin }) {
         "/onedayclass-category",
     ];
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setIsLoggedIn(true);
+        }
+        // 토큰이 존재하면 true
+        const timer = setTimeout(() => setIsLoading(false), 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    const handleLogin = () => {
+        setIsLoggedIn(true);
+    };
+
     return (
         <div className="App">
             <Routes>
@@ -87,7 +88,7 @@ function AppContent({ isLoggedIn, onLogin }) {
                 {/* 회원가입 및 로그인 페이지는 로그인 여부와 관계없이 접근 가능 */}
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup-step2" element={<Signup_2 />} />
-                <Route path="/login" element={<Login onLogin={onLogin} />} />
+                <Route path="/login" element={<Login onLogin={handleLogin} />} />
 
                 {/* 로그인된 상태에서만 접근 가능한 페이지 */}
                 {isLoggedIn && (
