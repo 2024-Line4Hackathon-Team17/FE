@@ -137,8 +137,6 @@ function AppContent({ onLogin }) {
                     element={<OnedayClass_category />}
                 />
 
-                {/* 404 페이지 */}
-                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </div>
     );
