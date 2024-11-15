@@ -48,6 +48,14 @@ function App() {
     return (
         <Router>
             <AppContent isLoggedIn={isLoggedIn} onLogin={handleLogin} />
+            {/* 회원가입 단계 라우팅 */}
+            <Routes>
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/signup-step2" element={<Signup_2 />} />
+
+                {/* 로그인 페이지 */}
+                <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            </Routes>
         </Router>
     );
 }
@@ -80,13 +88,6 @@ function AppContent({ isLoggedIn, onLogin }) {
                         isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />
                     }
                 />
-
-                {/* 회원가입 단계 라우팅 */}
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/signup-step2" element={<Signup_2 />} />
-
-                {/* 로그인 페이지 */}
-                <Route path="/login" element={<Login onLogin={onLogin} />} />
 
                 {/* 기능별 페이지 라우팅 */}
                 <Route path="/PotMainpage" element={<PotMainpage />} />
