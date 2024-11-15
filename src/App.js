@@ -26,9 +26,35 @@ import MyPagePotAttend from "./pages/mypage/MyPagePotAttend";
 import NoticePage from "./pages/notice/NoticePage";
 import PotSearch from "./pages/PotSearch";
 
-function AppContent() {
+function App() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        // setIsLoggedIn(!!token); // 토큰이 존재하면 true
+        setIsLoading(false); // 로딩 완료
+    }, []);
+
+    const handleLogin = () => {
+        setIsLoggedIn(true);
+    };
+
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    return (
+        <BrowserRouter>
+            <AppContent onLogin={handleLogin} />
+        </BrowserRouter>
+    );
+}
+
+function AppContent({ onLogin }) {
     const location = useLocation();
     const shouldShowNavPaths = [
+        "/",
         "/main",
         "/PotMainpage",
         "/empathy",
@@ -47,13 +73,13 @@ function AppContent() {
     const shouldShowNav = shouldShowNavPaths.includes(location.pathname);
 
     return (
-        <>
+        <div className="App">
             {/* NavBar를 특정 경로에서만 표시 */}
             {shouldShowNav && <Nav />}
 
             <Routes>
                 {/* 로그인 및 회원가입 페이지 */}
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<Login onLogin={onLogin} />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup-step2" element={<Signup_2 />} />
 
@@ -114,27 +140,7 @@ function AppContent() {
                 />
 
             </Routes>
-        </>
-    );
-}
-
-function App() {
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        // const token = localStorage.getItem("token");
-        // setIsLoggedIn(!!token); // 토큰이 존재하면 true
-        setIsLoading(false); // 로딩 완료
-    }, []);
-
-    if (isLoading) {
-        return <Loading />;
-    }
-
-    return (
-        <BrowserRouter>
-            <AppContent />
-        </BrowserRouter>
+        </div>
     );
 }
 
