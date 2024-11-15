@@ -19,12 +19,12 @@ const MyPage = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                // const token = localStorage.getItem('token');
-                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM';
+                const token = localStorage.getItem('token');
+                console.log(token);
                 
                 const response = await axios.get(`${process.env.REACT_APP_API}/api/mypage/profile/`, {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                        Authorization: `Bearer ${token}`,
                       },
                 });
                 console.log(response.data)

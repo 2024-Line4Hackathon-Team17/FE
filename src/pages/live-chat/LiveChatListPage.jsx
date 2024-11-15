@@ -12,10 +12,10 @@ const LiveChatListPage = () => {
     useEffect(() => {
         const fetchChatRooms = async () => {
             try {
-                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM';
+                const token = localStorage.getItem('token');
                 const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/`, {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                        Authorization: `Bearer ${token}`,
                     },
                 });
 
@@ -28,7 +28,7 @@ const LiveChatListPage = () => {
                         try {
                             const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/api/user/register/${chatRoom.other_user.id}/profile/`, {
                                 headers: {
-                                    Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                                    Authorization: `Bearer ${token}`,
                                 },
                             });
 

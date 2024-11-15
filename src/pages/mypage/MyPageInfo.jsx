@@ -74,7 +74,7 @@ const MyPageInfo = () => {
 
     const handleSave = async () => {
         try {
-            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
+            const token = localStorage.getItem('token');
             const response = await axios.post(`${process.env.REACT_APP_API}/api/mypage/update_profile/`, {
                 profile_picture: profileImage || default_profile,
                 nickname,
@@ -83,7 +83,7 @@ const MyPageInfo = () => {
                 interests: selectedInterests,
             }, {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                    Authorization: `Bearer ${token}`,
                 },
             },);
             console.log('Profile updated:', response.data);

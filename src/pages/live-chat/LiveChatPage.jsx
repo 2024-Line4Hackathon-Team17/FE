@@ -17,10 +17,10 @@ const LiveChatPage = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM';
+        const token = localStorage.getItem('token');
         const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/`, {
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
         console.log(response.data)
@@ -33,7 +33,7 @@ const LiveChatPage = () => {
 
         const chatRoomResponse = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/`, {
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
         console.log(chatRoomResponse)
@@ -51,7 +51,7 @@ const LiveChatPage = () => {
 
         const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/api/user/register/${otherUserId}/profile/`, {
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
         
@@ -71,13 +71,13 @@ const LiveChatPage = () => {
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM';
+      const token = localStorage.getItem('token');
       const response = await axios.post(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/send/`, {
         chat_room_id: chat_room_id,
         message: newMessage,
       }, {
         headers: {
-          Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
       });
       setMessages((prevMessages) => [...prevMessages, response.data]);

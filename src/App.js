@@ -48,14 +48,6 @@ function App() {
     return (
         <Router>
             <AppContent isLoggedIn={isLoggedIn} onLogin={handleLogin} />
-            {/* 회원가입 단계 라우팅 */}
-            <Routes>
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/signup-step2" element={<Signup_2 />} />
-
-                {/* 로그인 페이지 */}
-                <Route path="/login" element={<Login onLogin={handleLogin} />} />
-            </Routes>
         </Router>
     );
 }
@@ -89,31 +81,60 @@ function AppContent({ isLoggedIn, onLogin }) {
                     }
                 />
 
-                {/* 기능별 페이지 라우팅 */}
-                <Route path="/PotMainpage" element={<PotMainpage />} />
-                <Route path="/empathy" element={<EmpathyCommunityPage />} />
-                <Route path="/livechat" element={<LiveChatListPage />} />
-                <Route path="/livechat/:chat_room_id" element={<LiveChatPage />} />
-                <Route path="/mypage" element={<MyPage />} />
-                <Route path="/mypage/empathy" element={<MyPageEmpathy />} />
-                <Route path="/mypage/update/info" element={<MyPageInfo />} />
-                <Route path="/mypage/poting" element={<MyPagePot />} />
-                <Route
-                    path="/mypage/poting/attend"
-                    element={<MyPagePotAttend />}
-                />
-                <Route path="/notice" element={<NoticePage />} />
-                <Route path="/search" element={<PotSearch />} />
+                {/* 회원가입 및 로그인 페이지는 로그인 여부와 관계없이 접근 가능 */}
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/signup-step2" element={<Signup_2 />} />
+                <Route path="/login" element={<Login onLogin={onLogin} />} />
 
-                {/* OnedayClassHome 페이지 경로 추가 */}
-                <Route path="/onedayclass" element={<OnedayClassHome />} />
-                <Route
-                    path="/onedayclass-category"
-                    element={<OnedayClass_category />}
-                />
+                {/* 로그인된 상태에서만 접근 가능한 페이지 */}
+                {isLoggedIn && (
+                    <>
+                        <Route path="/PotMainpage" element={<PotMainpage />} />
+                        <Route
+                            path="/empathy"
+                            element={<EmpathyCommunityPage />}
+                        />
+                        <Route
+                            path="/livechat"
+                            element={<LiveChatListPage />}
+                        />
+                        <Route
+                            path="/livechat/:chat_room_id"
+                            element={<LiveChatPage />}
+                        />
+                        <Route path="/mypage" element={<MyPage />} />
+                        <Route
+                            path="/mypage/empathy"
+                            element={<MyPageEmpathy />}
+                        />
+                        <Route
+                            path="/mypage/update/info"
+                            element={<MyPageInfo />}
+                        />
+                        <Route path="/mypage/poting" element={<MyPagePot />} />
+                        <Route
+                            path="/mypage/poting/attend"
+                            element={<MyPagePotAttend />}
+                        />
+                        <Route path="/notice" element={<NoticePage />} />
+                        <Route path="/search" element={<PotSearch />} />
 
-                {/* 404 페이지 처리를 위한 경로 */}
-                <Route path="*" element={<Navigate to="/" />} />
+                        {/* OnedayClassHome 페이지 경로 추가 */}
+                        <Route
+                            path="/onedayclass"
+                            element={<OnedayClassHome />}
+                        />
+                        <Route
+                            path="/onedayclass-category"
+                            element={<OnedayClass_category />}
+                        />
+                    </>
+                )}
+
+                {/* 로그인되지 않은 상태에서 로그인 필수 페이지에 접근하려고 하면 리디렉션 */}
+                {!isLoggedIn && (
+                    <Route path="*" element={<Navigate to="/login" />} />
+                )}
             </Routes>
 
             {/* 현재 경로가 숨기려는 경로 목록에 없는 경우에만 Nav 표시 */}

@@ -11,8 +11,7 @@ const MyPageEmpathyCard = ({ onDelete, post, userNickname, userProfileImage }) =
 
     const handleDelete = async () => {
         try {
-            // const token = localStorage.getItem('token');
-            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
+            const token = localStorage.getItem('token');
 
             await axios.delete(`${process.env.REACT_APP_API}/api/community/my/community-posts/${post.id}/`, {
                 headers: { Authorization: `Bearer ${token}` }

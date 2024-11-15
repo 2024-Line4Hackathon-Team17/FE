@@ -59,9 +59,9 @@ function Signup_2() {
         };
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API}/user/register/`, userData);
+            const response = await axios.post(`${process.env.REACT_APP_API}/api/user/register/`, userData);
             alert('회원가입이 완료되었습니다.');
-            navigate('/pot-mainpage');
+            navigate('/login');
         } catch (error) {
             console.error('회원가입 실패:', error.response?.data || error.message);
             alert('회원가입에 실패했습니다.');
