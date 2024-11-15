@@ -17,6 +17,7 @@
         display: flex;
         justify-content: space-around;
         margin-bottom: 20px;
+        margin-top: 30px;
         gap: 20px;
 
         .gender-button {
@@ -53,9 +54,10 @@
             height: 54px;
             padding: 10px;
             border-radius: 10px;
-            border: 1px solid #1C2135;
             background-color: #E6E8ED;
             color: #898989;
+            outline: none;
+            cursor: pointer;
 
             &.error {
                 border-color: #ff4d4f;

@@ -63,11 +63,12 @@
         margin-top: 5px;
         font-weight: bold;
         color: #CDD3DF;
-        // display: inline-block;
-        // border-bottom: 1px solid #ffffff;
+        text-decoration: underline;
         
         &:hover {
           color: #ffffff; // 호버 시 색상
+          text-decoration: underline;
+        
         }
       }
     }
