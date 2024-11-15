@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import "../styles/PotModal.scss";
 import closed from "../assets/modalclose.png";
 import more from "../assets/modalmore.png";
@@ -12,16 +13,16 @@ import UserInfoModal from "./UserInfoModal";
 
 const API_URL = `http://127.0.0.1:8000/pating/posts/`;
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰 사용
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk3MzAzLCJpYXQiOjE3MzE2OTM3MDMsImp0aSI6IjM3YWJiYjdjYTQxMzQ4NmU5MDQwZGFmYjA4MWQ1ZGQ3IiwidXNlcl9pZCI6MX0.zORy96HTnFSm37gN3-qOUFRjqGMv4qfnY1k_juiStH4";
 
 const Modal = ({
     backgroundColor,
     category,
     onClose,
     onIdClick,
-    incrementAttended,
     fontColor,
 }) => {
+    const navigate = useNavigate(); // useNavigate
     const [isParticipated, setIsParticipated] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [attendedCount, setAttendedCount] = useState(0); // 초기 값 0으로 설정
@@ -30,6 +31,12 @@ const Modal = ({
     const [userInfo, setUserInfo] = useState(null); // 사용자 정보 상태 추가
     const [showUserModal, setShowUserModal] = useState(false); // 사용자 모달 상태 추가
 
+    //채팅방 연결
+    const handleChat = () => {
+        navigate(`/livechat/id`); // 채팅방 경로로 이동
+    };
+
+    // 전체 사용자 목록
     const fetchUserInfo = async () => {
         try {
             const username = category.created_by; // username 기반
@@ -83,10 +90,12 @@ const Modal = ({
                 // 상태 업데이트
                 setIsParticipated(true);
                 setAttendedCount(attendedCount + 1);
-                incrementAttended();
                 setShowConfirmation(true);
 
-                setTimeout(() => setShowConfirmation(false), 5000);
+                // 페이지 새로고침
+                setTimeout(() => {
+                    window.location.reload(); // 페이지 새로고침
+                }, 1000); // 1초 후 새로고침
             } catch (error) {
                 console.error(
                     "Error joining post:",
@@ -237,7 +246,7 @@ const Modal = ({
                         </div>
                     </div>
                     <div className="ModalLast">
-                        <button>채팅하기</button>
+                        <button onClick={handleChat}>채팅하기</button>
                         <button onClick={handleParticipation}>참여하기</button>
                     </div>
                     {showConfirmation && (

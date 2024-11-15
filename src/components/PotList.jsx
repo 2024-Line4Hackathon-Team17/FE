@@ -1,30 +1,27 @@
 import React from "react";
 import "../styles/PotSearch.scss";
-import "../styles/CommonStyle.scss";
 import CalendarCheck from "../assets/CalendarCheckW.png";
 import MapPin from "../assets/MapPinSimpleAreaW.png";
 import CalendarCheckB from "../assets/CalendarCheckB.png";
 import MapPinB from "../assets/MapPinSimpleAreaB.png";
-import sample from "../assets/sample.jpg"; // sample 이미지 import 추가
+import sample from "../assets/sample.jpg";
 
 const PotList = ({ categories, colors, openModal }) => {
     return (
         <div className="potList">
             {categories.map((category, index) => {
                 const backgroundColor = colors[index % colors.length];
-                // 폰트 색상 결정
                 const listBoxTopColor =
                     backgroundColor === "#E6E8ED" ||
                     backgroundColor === "#D7CCAF"
-                        ? "#503939" // 밝은 배경
-                        : "#FFFFFF"; // 어두운 배경
+                        ? "#503939"
+                        : "#FFFFFF";
                 const listBoxInfoColor =
                     backgroundColor === "#E6E8ED" ||
                     backgroundColor === "#D7CCAF"
-                        ? "#1C2135" // 밝은 배경
-                        : "#DBDBDB"; // 어두운 배경
+                        ? "#1C2135"
+                        : "#DBDBDB";
 
-                // 아이콘 결정
                 const calendarIcon =
                     backgroundColor === "#E6E8ED" ||
                     backgroundColor === "#D7CCAF"
@@ -61,7 +58,7 @@ const PotList = ({ categories, colors, openModal }) => {
                             >
                                 <div className="listBoxImg">
                                     <img
-                                        src={sample} // sample 이미지
+                                        src={sample}
                                         alt={category.title}
                                         className="listboximg"
                                     />
