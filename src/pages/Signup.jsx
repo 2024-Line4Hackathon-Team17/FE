@@ -3,10 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/section/signup/_signup.scss';
 
 const Signup = () => {
+const [userInfo, setUserInfo] = useState({
+        name: '',
+        username: '',
+        password: '',
+        password_confirmation: '',
+        gender: '',
+        nickname: '',
+        birth_date: '',
+        address: '',
+        interests: [],
+    });
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isPasswordMatch, setIsPasswordMatch] = useState(true);
-    const navigate = useNavigate(); // useNavigate 훅 사용
+    const navigate = useNavigate();
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
@@ -20,7 +33,13 @@ const Signup = () => {
 
     const handleNext = () => {
         if (isPasswordMatch) {
-            navigate('/signup-step2'); // 비밀번호가 일치하면 /signup-step2로 이동
+            const userInfo = {
+                name,
+                username,
+                password,
+                password_confirmation: confirmPassword,
+            };
+            navigate('/signup-step2', { state: { userInfo } }); // navigate로 userInfo 전달
         }
     };
 
@@ -28,9 +47,20 @@ const Signup = () => {
         <div className="signup-container">
             <h2>회원가입</h2>
             <div className="signup-form">
-                <input type="text" placeholder="이름" className="input-field" />
-                <input type="text" placeholder="아이디" className="input-field" />
-
+                <input
+                    type="text"
+                    placeholder="이름"
+                    className="input-field"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="아이디"
+                    className="input-field"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
                 <div className="password-field">
                     <input
                         type="password"
@@ -39,14 +69,8 @@ const Signup = () => {
                         value={password}
                         onChange={handlePasswordChange}
                     />
-                    <button className="toggle-visibility">
-                        <span role="img" aria-label="show-password">
-                        </span>
-                    </button>
                 </div>
-
                 <p className="password-instruction">영문, 숫자 조합의 8자 이상 20자 이하로 입력해주세요.</p>
-
                 <div className="password-field">
                     <input
                         type="password"
@@ -55,23 +79,13 @@ const Signup = () => {
                         value={confirmPassword}
                         onChange={handleConfirmPasswordChange}
                     />
-                    <button className="toggle-visibility">
-                        <span role="img" aria-label="show-password">
-                        </span>
-                    </button>
                 </div>
-
                 {confirmPassword && (
                     <p className={isPasswordMatch ? "password-success" : "password-error"}>
                         {isPasswordMatch ? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다."}
                     </p>
                 )}
-
-                <button 
-                    className="next-button" 
-                    disabled={!isPasswordMatch}
-                    onClick={handleNext} // "다음" 버튼 클릭 시 handleNext 호출
-                >
+                <button className="next-button" disabled={!isPasswordMatch} onClick={handleNext}>
                     다음
                 </button>
             </div>

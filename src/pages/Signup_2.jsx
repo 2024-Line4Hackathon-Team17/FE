@@ -1,47 +1,49 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/section/signup/_signup_2.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
 
-function Signup_2() {
+function Signup_2({ userInfo }) {
     const [gender, setGender] = useState('');
     const [nickname, setNickname] = useState('');
     const [birthDate, setBirthDate] = useState('');
     const [address, setAddress] = useState('');
-    const [nicknameError, setNicknameError] = useState(false);
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [isAgreed, setIsAgreed] = useState(false);
     
-    const navigate = useNavigate(); // useNavigate 훅 사용
-
-    const interests = [
-        '운동', '뮤지컬', '수공예', '스터디',
-        '그림', '뷰티', '코딩', '댄스',
-        '맛집탐방', '스포츠 직관'
-    ];
-
-    const handleGenderClick = (gender) => {
-        setGender(gender);
-    };
+    const navigate = useNavigate();
+    const interests = ['운동', '뮤지컬', '수공예', '스터디', '그림', '뷰티', '코딩', '댄스', '맛집탐방', '스포츠 직관'];
 
     const handleInterestClick = (interest) => {
-        setSelectedInterests(prev =>
-            prev.includes(interest) ? prev.filter(i => i !== interest) : [...prev, interest]
+        setSelectedInterests((prev) =>
+            prev.includes(interest) ? prev.filter((i) => i !== interest) : [...prev, interest]
         );
     };
 
-    const handleNicknameChange = (e) => {
-        setNickname(e.target.value);
-        setNicknameError(e.target.value === '중복된닉네임');
-    };
-
-    const handleSubmit = () => {
-        if (isAgreed) {
-            alert('회원가입이 완료되었습니다.');
-            navigate('/pot-mainpage'); // 회원가입 완료 시 /pot-mainpage로 이동
-        } else {
+    const handleSubmit = async () => {
+        if (!isAgreed) {
             alert('이용약관에 동의해주세요.');
+            return;
+        }
+
+        const userData = {
+            ...userInfo,
+            gender,
+            nickname,
+            birth_date: birthDate,
+            address,
+            interests: selectedInterests,
+        };
+
+        try {
+            const response = await axios.post('/api/user/register/', userData);
+            alert('회원가입이 완료되었습니다.');
+            navigate('/pot-mainpage');
+        } catch (error) {
+            console.error('회원가입 실패:', error);
+            alert('회원가입에 실패했습니다.');
         }
     };
 
@@ -50,14 +52,14 @@ function Signup_2() {
             <h2>회원가입</h2>
             <div className="gender-selection">
                 <button
-                    className={`gender-button ${gender === '여성' ? 'active' : ''}`}
-                    onClick={() => handleGenderClick('여성')}
+                    className={`gender-button ${gender === 'female' ? 'active' : ''}`}
+                    onClick={() => setGender('female')}
                 >
                     <FontAwesomeIcon icon={faVenus} className="gender-icon" /> 여성
                 </button>
                 <button
-                    className={`gender-button ${gender === '남성' ? 'active' : ''}`}
-                    onClick={() => handleGenderClick('남성')}
+                    className={`gender-button ${gender === 'male' ? 'active' : ''}`}
+                    onClick={() => setGender('male')}
                 >
                     <FontAwesomeIcon icon={faMars} className="gender-icon" /> 남성
                 </button>
@@ -67,10 +69,8 @@ function Signup_2() {
                     type="text"
                     placeholder="닉네임"
                     value={nickname}
-                    onChange={handleNicknameChange}
-                    className={nicknameError ? 'error' : ''}
+                    onChange={(e) => setNickname(e.target.value)}
                 />
-                {nicknameError && <span className="error-message">중복된 닉네임입니다. 사용할 수 있는 닉네임입니다.</span>}
             </div>
             <div className="input-group">
                 <input type="date" placeholder="생년월일" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
@@ -93,7 +93,6 @@ function Signup_2() {
                 </div>
             </div>
             <div className="agreement">
-                {/* 체크박스와 레이블을 연동하기 위해 id와 htmlFor 사용 */}
                 <input
                     type="checkbox"
                     id="terms-checkbox"
