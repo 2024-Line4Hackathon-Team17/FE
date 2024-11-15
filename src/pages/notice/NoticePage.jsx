@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NoticeCard from '../../components/notice/NoticeCard';
-import '../../styles/section/notice/notice_page.scss';
+import '../../styles/section/notice/_notice.scss';
+
 
 const NoticePage = () => {
     const [notifications, setNotifications] = useState([]);

@@ -1,9 +1,12 @@
 // src/components/PotList.jsx
+
 import React from "react";
-import "../styles/PotSearch.scss"; // 스타일 포함
-import "../styles/CommonStyle.scss"; // 추가 스타일 포함
+import "../styles/PotSearch.scss";
+import "../styles/CommonStyle.scss";
 import CalendarCheck from "../assets/CalendarCheckW.png";
 import MapPin from "../assets/MapPinSimpleAreaW.png";
+import sample from "../assets/sample.jpg"; // sample 이미지 import 추가
+
 const PotList = ({ categories, colors, openModal }) => {
     return (
         <div className="potList">
@@ -25,13 +28,13 @@ const PotList = ({ categories, colors, openModal }) => {
                         <div className="listboxtop">
                             <div className="listBoxImg">
                                 <img
-                                    src={category.icon}
+                                    src={sample} // 아이콘 이미지로 대체
                                     alt={category.title}
                                     className="listboximg"
                                 />
                             </div>
                             <div className="DetailTitle">
-                                <div className="Id">{category.id}</div>
+                                <div className="Id">{category.created_by}</div>
                                 <div className="PotTitle">{category.title}</div>
                             </div>
                         </div>
@@ -46,7 +49,7 @@ const PotList = ({ categories, colors, openModal }) => {
                                                 className="detailimgsrc"
                                             />
                                         </div>
-                                        {category.place}
+                                        {category.location}
                                     </div>
                                     <div className="DetailDate">
                                         <div className="Detailimg">
@@ -55,18 +58,18 @@ const PotList = ({ categories, colors, openModal }) => {
                                                 alt="Calendar Icon"
                                                 className="detailimgsrc"
                                             />
-                                        </div>{" "}
-                                        {category.date}
+                                        </div>
+                                        {category.time}
                                     </div>
                                 </div>
                                 <div className="listBoxLeft">
                                     <div className="listBoxLeftbox">
                                         <div className="potAttended">
-                                            {category.attended}
+                                            {category.participants_count}
                                         </div>
                                         <div>/</div>
                                         <div className="potAvailable">
-                                            {category.available}
+                                            {category.max_participants}
                                         </div>
                                     </div>
                                 </div>

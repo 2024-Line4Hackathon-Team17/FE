@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/section/signup/_signup.scss';
 
-const Signup = ({ setUserInfo }) => {
+const Signup = () => {
+const [userInfo, setUserInfo] = useState({
+        name: '',
+        username: '',
+        password: '',
+        password_confirmation: '',
+        gender: '',
+        nickname: '',
+        birth_date: '',
+        address: '',
+        interests: [],
+    });
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -22,14 +33,13 @@ const Signup = ({ setUserInfo }) => {
 
     const handleNext = () => {
         if (isPasswordMatch) {
-            setUserInfo((prevInfo) => ({
-                ...prevInfo,
+            const userInfo = {
                 name,
                 username,
                 password,
                 password_confirmation: confirmPassword,
-            }));
-            navigate('/signup-step2');
+            };
+            navigate('/signup-step2', { state: { userInfo } }); // navigate로 userInfo 전달
         }
     };
 
