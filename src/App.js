@@ -45,12 +45,12 @@ function App() {
 
     return (
         <Router>
-            <AppContent isLoggedIn={isLoggedIn} onLogin={handleLogin} />
+            <AppContent onLogin={handleLogin} />
         </Router>
     );
 }
 
-function AppContent({ isLoggedIn, onLogin }) {
+function AppContent({ onLogin }) {
     const location = useLocation();
     const shouldShowNavPaths = [
         "/main",
@@ -73,7 +73,7 @@ function AppContent({ isLoggedIn, onLogin }) {
     return (
         <div className="App">
             {/* NavBar를 특정 경로에서만 표시 */}
-            {shouldShowNav && <Nav isLoggedIn={isLoggedIn} />}
+            {shouldShowNav && <Nav />}
 
             <Routes>
                 {/* 로그인 및 회원가입 페이지 */}
@@ -84,57 +84,57 @@ function AppContent({ isLoggedIn, onLogin }) {
                 {/* 로그인 여부에 따라 기본 경로 렌더링 */}
                 <Route
                     path="/main"
-                    element={isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />}
+                    element={<PotMainpage />}
                 />
 
                 {/* 로그인 여부에 따라 보호된 페이지 렌더링 */}
                 <Route
                     path="/empathy"
-                    element={isLoggedIn ? <EmpathyCommunityPage /> : <Navigate to="/login" />}
+                    element={<EmpathyCommunityPage />}
                 />
                 <Route
                     path="/livechat"
-                    element={isLoggedIn ? <LiveChatListPage /> : <Navigate to="/login" />}
+                    element={<LiveChatListPage />}
                 />
                 <Route
                     path="/livechat/:chat_room_id"
-                    element={isLoggedIn ? <LiveChatPage /> : <Navigate to="/login" />}
+                    element={<LiveChatPage />}
                 />
                 <Route
                     path="/mypage"
-                    element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />}
+                    element={<MyPage />}
                 />
                 <Route
                     path="/mypage/empathy"
-                    element={isLoggedIn ? <MyPageEmpathy /> : <Navigate to="/login" />}
+                    element={<MyPageEmpathy />}
                 />
                 <Route
                     path="/mypage/update/info"
-                    element={isLoggedIn ? <MyPageInfo /> : <Navigate to="/login" />}
+                    element={<MyPageInfo />}
                 />
                 <Route
                     path="/mypage/poting"
-                    element={isLoggedIn ? <MyPagePot /> : <Navigate to="/login" />}
+                    element={<MyPagePot />}
                 />
                 <Route
                     path="/mypage/poting/attend"
-                    element={isLoggedIn ? <MyPagePotAttend /> : <Navigate to="/login" />}
+                    element={<MyPagePotAttend />}
                 />
                 <Route
                     path="/notice"
-                    element={isLoggedIn ? <NoticePage /> : <Navigate to="/login" />}
+                    element={<NoticePage />}
                 />
                 <Route
                     path="/search"
-                    element={isLoggedIn ? <PotSearch /> : <Navigate to="/login" />}
+                    element={<PotSearch />}
                 />
                 <Route
                     path="/onedayclass"
-                    element={isLoggedIn ? <OnedayClassHome /> : <Navigate to="/login" />}
+                    element={<OnedayClassHome />}
                 />
                 <Route
                     path="/onedayclass-category"
-                    element={isLoggedIn ? <OnedayClass_category /> : <Navigate to="/login" />}
+                    element={<OnedayClass_category />}
                 />
 
                 {/* 404 페이지 */}
