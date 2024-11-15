@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/PotMainpageStyle.scss";
 import "../styles/CommonStyle.scss"; // CommonStyle.scss 파일 import
@@ -10,44 +11,43 @@ import MapPin from "../assets/MapPinSimpleArea.png";
 import sample from "../assets/sample.jpg";
 import search from "../assets/search.png";
 
-import Coffee from "../assets/Coffee.png";
-import Mountain from "../assets/Mountains.png";
-import Running from "../assets/PersonSimpleRun.png";
+// API URL 설정
+const API_URL = `http://127.0.0.1:8000/pating/posts/`;
+const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰 사용
 
 function PotMainpage() {
     const navigate = useNavigate();
+    const [categories, setCategories] = useState([]); // 데이터를 저장할 상태
 
-    const categories = [
-        {
-            title: "흥국생명 직관 같이가요",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-            category: "running",
-            id: "미야옹",
-        },
-        {
-            title: "흥국생명 직관 같이가요22",
-            place: "인천삼산체육관",
-            date: "11/2 오후 7시",
-            attended: "2",
-            available: "3",
-            icon: sample,
-            mapIcon: MapPin,
-            calendarIcon: CalendarCheck,
-            category: "running",
-            id: "미야옹22",
-        },
-    ];
+    // 데이터 가져오기
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(API_URL, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                console.log("Fetched Data:", response.data); // 데이터 확인용 콘솔 출력
+                setCategories(response.data); // 데이터를 상태에 저장
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleCategoryClick = (category) => {
-        // title과 id를 함께 전달
         navigate("/search", {
-            state: { selectedPost: { title: category.title, id: category.id } },
+            state: {
+                category: String(category.category), // 카테고리 ID 전달
+                selectedPost: {
+                    title: category.title,
+                    id: category.id,
+                }, // 선택된 potList 정보 전달
+            },
         });
     };
 
@@ -105,7 +105,9 @@ function PotMainpage() {
                                         <div className="listBox" key={index}>
                                             <div className="listBoxImg">
                                                 <img
-                                                    src={category.icon}
+                                                    src={
+                                                        category.icon || sample
+                                                    } // 기본 이미지 설정
                                                     alt={category.title}
                                                     className="listboximg"
                                                 />
@@ -126,20 +128,18 @@ function PotMainpage() {
                                                         <div className="DetailPlace">
                                                             <div className="Detailimg">
                                                                 <img
-                                                                    src={
-                                                                        category.mapIcon
-                                                                    }
+                                                                    src={MapPin}
                                                                     alt="Map Icon"
                                                                     className="detailimgsrc1"
                                                                 />
                                                             </div>
-                                                            {category.place}
+                                                            {category.location}
                                                         </div>
                                                         <div className="DetailDate">
                                                             <div className="Detailimg">
                                                                 <img
                                                                     src={
-                                                                        category.calendarIcon
+                                                                        CalendarCheck
                                                                     }
                                                                     alt="Calendar Icon"
                                                                     className="detailimgsrc2"
@@ -153,13 +153,13 @@ function PotMainpage() {
                                                             <div className="listBoxLeftbox">
                                                                 <div className="potAttended">
                                                                     {
-                                                                        category.attended
+                                                                        category.participants_count
                                                                     }
                                                                 </div>
                                                                 <div>/</div>
                                                                 <div className="potAvailable">
                                                                     {
-                                                                        category.available
+                                                                        category.max_participants
                                                                     }
                                                                 </div>
                                                             </div>

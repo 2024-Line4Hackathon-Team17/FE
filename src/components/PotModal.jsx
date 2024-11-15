@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../styles/PotModal.scss";
-
 import closed from "../assets/modalclose.png";
 import more from "../assets/modalmore.png";
 import CalendarCheck from "../assets/CalendarCheckW.png";
 import MapPin from "../assets/MapPinSimpleAreaW.png";
+import sample from "../assets/sample.jpg";
+import axios from "axios";
+import UserInfoModal from "./UserInfoModal";
+
+//토큰
+const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰 사용
 
 const Modal = ({
     backgroundColor,
@@ -15,17 +21,76 @@ const Modal = ({
 }) => {
     const [isParticipated, setIsParticipated] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
-    const [attendedCount, setAttendedCount] = useState(category.attended);
+    const [attendedCount, setAttendedCount] = useState(0); // 초기 값 0으로 설정
     const [showOptions, setShowOptions] = useState(false); // 드롭다운 메뉴 상태 관리
 
-    const handleParticipation = () => {
-        if (!isParticipated) {
-            setIsParticipated(true);
-            setAttendedCount(attendedCount + 1);
-            incrementAttended();
-            setShowConfirmation(true);
+    const [userInfo, setUserInfo] = useState(null); // 사용자 정보 상태 추가
+    const [showUserModal, setShowUserModal] = useState(false); // 사용자 모달 상태 추가
 
-            setTimeout(() => setShowConfirmation(false), 5000);
+    const fetchUserInfo = async () => {
+        try {
+            const username = category.created_by; // username 기반
+            const response = await axios.get(
+                `http://127.0.0.1:8000/user/register/`, // 전체 사용자 목록 가져오기
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            // username과 매칭되는 사용자 정보 필터링
+            const userInfo = response.data.find(
+                (user) => user.username === username
+            );
+            console.log("Fetched User Info:", userInfo);
+            if (userInfo) {
+                setUserInfo(userInfo); // 일치하는 사용자 정보를 상태에 저장
+                setShowUserModal(true); // 모달 열기
+            } else {
+                alert("사용자 정보를 찾을 수 없습니다.");
+            }
+        } catch (error) {
+            console.error(
+                "Error fetching user info:",
+                error.response?.data || error.message
+            );
+            alert("사용자 정보를 가져오는 데 문제가 발생했습니다.");
+        }
+    };
+
+    const handleParticipation = async () => {
+        if (!isParticipated) {
+            try {
+                const response = await axios.post(
+                    `http://127.0.0.1:8000/pating/posts/${category.id}/join/`,
+                    {
+                        post: category.id, // 참여할 게시글 ID
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+
+                console.log("Participation Success:", response.data);
+
+                // 상태 업데이트
+                setIsParticipated(true);
+                setAttendedCount(attendedCount + 1);
+                incrementAttended();
+                setShowConfirmation(true);
+
+                setTimeout(() => setShowConfirmation(false), 5000);
+            } catch (error) {
+                console.error(
+                    "Error joining post:",
+                    error.response?.data || error.message
+                );
+                alert("참여 중 문제가 발생했습니다.");
+            }
         }
     };
 
@@ -35,18 +100,16 @@ const Modal = ({
     };
 
     const handleReport = () => {
-        // 신고 기능 로직 추가
         alert("신고가 접수되었습니다.");
     };
 
     const handleBlock = () => {
-        // 차단 기능 로직 추가
         alert("사용자가 차단되었습니다.");
     };
 
     useEffect(() => {
-        setAttendedCount(category.attended);
-    }, [category.attended]);
+        setAttendedCount(category.participants_count);
+    }, [category.participants_count]);
 
     return (
         <div className="modal-overlay" onClick={onClose}>
@@ -72,7 +135,6 @@ const Modal = ({
                             />
                         </button>
 
-                        {/* 드롭다운 메뉴 */}
                         {showOptions && (
                             <div className="dropdown-menu">
                                 <div
@@ -95,7 +157,7 @@ const Modal = ({
                             <div className="Modalboxtop">
                                 <div className="ModalBoxImg">
                                     <img
-                                        src={category.icon}
+                                        src={sample} // 임의의 이미지 사용
                                         alt={category.title}
                                         className="Modalboximg"
                                     />
@@ -104,9 +166,9 @@ const Modal = ({
                                 <div className="ModalDetailTitle">
                                     <div
                                         className="ModalId"
-                                        onClick={onIdClick}
+                                        onClick={fetchUserInfo}
                                     >
-                                        {category.id}
+                                        {category.created_by}
                                     </div>
                                     <div className="ModalPotTitle">
                                         {category.title}
@@ -125,7 +187,7 @@ const Modal = ({
                                                 />
                                             </div>
                                             <div className="modaldetailtxt">
-                                                {category.place}
+                                                {category.location}
                                             </div>
                                         </div>
                                         <div className="ModalDetailDate">
@@ -137,7 +199,7 @@ const Modal = ({
                                                 />
                                             </div>
                                             <div className="modaldetailtxt">
-                                                {category.date}
+                                                {category.time}
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +207,7 @@ const Modal = ({
                             </div>
                             <div className="ModalBoxDetailinfobox">
                                 <div className="ModalBoxDetailinfo">
-                                    {category.text}
+                                    {category.content}
                                 </div>
                                 <div className="ModalBoxLeft">
                                     <div className="ModalBoxLeftbox">
@@ -154,7 +216,7 @@ const Modal = ({
                                         </div>
                                         <div>/</div>
                                         <div className="ModalpotAvailable">
-                                            {category.available}
+                                            {category.max_participants}
                                         </div>
                                     </div>
                                 </div>
@@ -169,6 +231,12 @@ const Modal = ({
                         <div className="confirmation-message">
                             참여가 완료되었습니다!
                         </div>
+                    )}
+                    {showUserModal && userInfo && (
+                        <UserInfoModal
+                            userInfo={userInfo}
+                            onClose={() => setShowUserModal(false)}
+                        />
                     )}
                 </div>
             </div>
