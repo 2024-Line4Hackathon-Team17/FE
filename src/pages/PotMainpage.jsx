@@ -14,7 +14,7 @@ import search from "../assets/search.png";
 // API URL 설정
 const API_URL = `http://127.0.0.1:8000/pating/posts/`;
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰 사용
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjkyMzAyLCJpYXQiOjE3MzE2ODg3MDIsImp0aSI6ImU2YjEzZjg0NTJlNDQxYTY4MzAxZmNhMWE5Y2UxMGNlIiwidXNlcl9pZCI6MX0.GPhVKao2I8kH6BREH07UiwopupgQ4iaNjZWN3uzqPKs";
 
 function PotMainpage() {
     const navigate = useNavigate();

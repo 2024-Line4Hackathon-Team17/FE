@@ -25,7 +25,8 @@ import Work from "../assets/Exercise.png";
 // API URL 설정
 const API_URL = `http://127.0.0.1:8000/pating/posts/`;
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjkyMzAyLCJpYXQiOjE3MzE2ODg3MDIsImp0aSI6ImU2YjEzZjg0NTJlNDQxYTY4MzAxZmNhMWE5Y2UxMGNlIiwidXNlcl9pZCI6MX0.GPhVKao2I8kH6BREH07UiwopupgQ4iaNjZWN3uzqPKs";
+
 // 카테고리 정보 설정
 const PRESET_CATEGORIES = {
     2: {
@@ -85,20 +86,10 @@ const PotSearch = () => {
     const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [isModalInitialized, setIsModalInitialized] = useState(false);
+    const [fontColor, setFontColor] = useState("#FFFFFF");
 
+    //배경 색상
     const colors = ["#8794c0", "#1C2135", "#E6E8ED", "#D7CCAF"];
-
-    const idinfo = [
-        {
-            id: "미야옹",
-            age: "23",
-            where: "서울",
-            gender: "female",
-            name: "고영희",
-            img: sample,
-            choice: "운동, 스터디, 그림",
-        },
-    ];
 
     // 데이터 가져오기
     useEffect(() => {
@@ -153,20 +144,13 @@ const PotSearch = () => {
         setIsDropdownOpen(false);
     };
 
-    const openModal = (category, color) => {
+    const openModal = (category, color, fontColor) => {
         setSelectedPost(category);
-        setModalColor(color);
+        setModalColor(color); //배경 색상
+        setFontColor(fontColor); // 폰트 색상 설정
     };
 
     const closeModal = () => setSelectedPost(null);
-
-    const openUserModal = (id) => {
-        const userInfo = idinfo.find((user) => user.id === id);
-        if (userInfo) {
-            setSelectedUser(userInfo);
-            closeModal();
-        }
-    };
 
     const closeUserModal = () => setSelectedUser(null);
 
@@ -182,13 +166,6 @@ const PotSearch = () => {
 
     return (
         <div className="Page">
-            {selectedPost && (
-                <Modal
-                    backgroundColor={modalColor}
-                    category={selectedPost}
-                    onClose={() => setSelectedPost(null)}
-                />
-            )}
             <div className="Center">
                 <div className="PageSpace">
                     <div className="PotMainpageStyle">
@@ -205,7 +182,6 @@ const PotSearch = () => {
                                 </div>
                             </div>
                         </div>
-
                         {/* 동적으로 변하는 추천 카테고리 */}
                         <div className="Recommendpotbox">
                             <div className="Recommendpot">
@@ -227,7 +203,6 @@ const PotSearch = () => {
                                 </div>
                             </div>
                         </div>
-
                         <div className="FindPotListbox">
                             <div className="FindPotList">
                                 <div className="findpotlist">
@@ -283,6 +258,7 @@ const PotSearch = () => {
                                     categories={categories}
                                     colors={colors}
                                     openModal={openModal}
+                                    fontColor={fontColor}
                                 />
                                 <div
                                     className="WriteNew"
@@ -295,16 +271,24 @@ const PotSearch = () => {
                                     />
                                 </div>
                             </div>
-                            {isWriteModalOpen && (
-                                <WriteModal
-                                    onClose={closeWriteModal}
-                                    onPostSubmit={handlePostSubmit} // 새 글 등록 시 처리
-                                />
-                            )}
-                        </div>
+                        </div>{" "}
                     </div>
-                </div>
-            </div>
+                </div>{" "}
+                {isWriteModalOpen && (
+                    <WriteModal
+                        onClose={closeWriteModal}
+                        onPostSubmit={handlePostSubmit} // 새 글 등록 시 처리
+                    />
+                )}
+            </div>{" "}
+            {selectedPost && (
+                <Modal
+                    backgroundColor={modalColor}
+                    category={selectedPost}
+                    onClose={() => setSelectedPost(null)}
+                    fontColor={fontColor}
+                />
+            )}
         </div>
     );
 };

@@ -8,14 +8,14 @@
     color: #ffffff;
     font-size: 25px;
     font-weight: 100;
-    margin-left: 20px;
+
     margin-top: 26px;
     margin-bottom: 20px;
 }
 
 .findpotlist {
     color: #ffffff;
-
+    font-size: 20px;
     font-weight: 100;
     margin-bottom: 1px;
     margin-top: 20px;
@@ -40,21 +40,25 @@
     }
 
     .alarmimg {
-        width: 27px;
+        width: 32px;
+        cursor: pointer;
     }
 }
 
 .Recommendtitle {
     color: #ffffff;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
 .Recommendtext {
     color: #ffffff;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 100;
+    div {
+        margin-top: 6px;
+    }
 }
 
 .Recommendpotbox {
@@ -69,7 +73,8 @@
     align-items: center;
     border: 2px solid white;
     border-radius: 20px;
-    width: 330px;
+    width: 352px;
+    height: 116px;
     justify-content: space-between;
     padding: 4px 13px;
 }
@@ -107,7 +112,6 @@
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
         padding: 10px;
-        color: #ffffff;
         // Negative margin ensures overlap effect
         background-color: #dbdbdb;
         position: relative; // Ensures stacking respects z-index order
@@ -133,7 +137,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        color: #ffffff;
+
         margin-left: 10px;
 
         .Id {
@@ -147,8 +151,6 @@
     }
 
     .listBoxDetail {
-        color: #dbdbdb;
-
         .DetailPlace,
         .DetailDate {
             display: flex;
@@ -169,12 +171,14 @@
     .potListbox {
         display: flex;
         justify-content: space-between;
+        margin-left: 7px;
+        margin-right: 5px;
     }
     .listBoxLeft {
         background-color: #bbc1c5;
         border-radius: 50%;
-        width: 39px;
-        height: 39px;
+        width: 44px;
+        height: 44px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -209,7 +213,7 @@
     background-color: #d7ccaf;
     height: 19px;
     width: 57px;
-    font-size: 10px;
+    font-size: 11.76px;
     display: flex;
     justify-content: center;
     border-radius: 10px;
@@ -217,7 +221,7 @@
 
     .dropdown {
         position: absolute;
-        top: 100%;
+        top: 102%;
         left: 0;
         background-color: #fff;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -240,13 +244,16 @@
 
         div {
             cursor: pointer;
-            font-size: 10px;
+
+            font-size: 11.16px;
+
             color: #333;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             margin-bottom: 2px;
+            margin-top: 4px;
 
             &:hover {
                 background-color: #f0f0f0;

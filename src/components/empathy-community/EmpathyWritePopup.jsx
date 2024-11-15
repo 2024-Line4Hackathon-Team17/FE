@@ -6,7 +6,7 @@ import axios from "axios";
 
 const API_URL = "http://127.0.0.1:8000/community/posts/";
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk1NTc5LCJpYXQiOjE3MzE2OTE5NzksImp0aSI6IjEzZWZlYzI3NmNiODQ4M2JhMTk4YjYxNTMwYjg4YTAzIiwidXNlcl9pZCI6MX0.5x4tDKQA4-RH0j3ThEZgvQrxXp5VqC7Bw35BIqcmaRs";
 
 const EmpathyWritePopup = ({ onClose, onPostSubmit }) => {
     const [title, setTitle] = useState("");

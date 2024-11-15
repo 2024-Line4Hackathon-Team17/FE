@@ -4,11 +4,13 @@ import closed from "../assets/modalclose.png";
 import more from "../assets/modalmore.png";
 import CalendarCheck from "../assets/CalendarCheckW.png";
 import MapPin from "../assets/MapPinSimpleAreaW.png";
+import CalendarCheckB from "../assets/CalendarCheckB.png";
+import MapPinB from "../assets/MapPinSimpleAreaB.png";
 import sample from "../assets/sample.jpg";
 import axios from "axios";
 import UserInfoModal from "./UserInfoModal";
 
-//토큰
+const API_URL = `http://127.0.0.1:8000/pating/posts/`;
 const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰 사용
 
@@ -18,6 +20,7 @@ const Modal = ({
     onClose,
     onIdClick,
     incrementAttended,
+    fontColor,
 }) => {
     const [isParticipated, setIsParticipated] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
@@ -111,12 +114,22 @@ const Modal = ({
         setAttendedCount(category.participants_count);
     }, [category.participants_count]);
 
+    // 아이콘 선택 로직
+    const calendarIcon =
+        backgroundColor === "#E6E8ED" || backgroundColor === "#D7CCAF"
+            ? CalendarCheckB
+            : CalendarCheck;
+    const mapPinIcon =
+        backgroundColor === "#E6E8ED" || backgroundColor === "#D7CCAF"
+            ? MapPinB
+            : MapPin;
+
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div
                 className="modal-content"
                 onClick={(e) => e.stopPropagation()}
-                style={{ backgroundColor }}
+                style={{ backgroundColor, color: fontColor }}
             >
                 <div className="modalbox">
                     <div className="modaltop">
@@ -181,7 +194,7 @@ const Modal = ({
                                         <div className="ModalDetailPlace">
                                             <div className="ModalDetailimg">
                                                 <img
-                                                    src={MapPin}
+                                                    src={mapPinIcon}
                                                     alt="Map Icon"
                                                     className="Modaldetailimgsrc"
                                                 />
@@ -193,7 +206,7 @@ const Modal = ({
                                         <div className="ModalDetailDate">
                                             <div className="ModalDetailimg">
                                                 <img
-                                                    src={CalendarCheck}
+                                                    src={calendarIcon}
                                                     alt="Calendar Icon"
                                                     className="Modaldetailimgsrc"
                                                 />
