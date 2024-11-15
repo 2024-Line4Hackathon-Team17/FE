@@ -4,15 +4,11 @@ import { useLocation } from "react-router-dom";
 import "../styles/PotSearch.scss";
 import "../styles/CommonStyle.scss";
 
-// Modal
 import Modal from "../components/PotModal.jsx";
-import UserInfoModal from "../components/UserInfoModal.jsx";
 import WriteModal from "../components/PotWritenewModal.jsx";
 import PotList from "../components/PotList.jsx";
 
-// img
 import bell from "../assets/Bell.png";
-import sample from "../assets/sample.jpg";
 import WriteNew from "../assets/write.png";
 import DownbtnB from "../assets/Downbtn.png";
 import coffeeIcon from "../assets/coffee3d.png";
@@ -22,12 +18,10 @@ import baseballIcon from "../assets/Baseball.png";
 import racquetIcon from "../assets/Racquet.png";
 import Work from "../assets/Exercise.png";
 
-// API URL 설정
 const API_URL = `http://127.0.0.1:8000/pating/posts/`;
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjkyMzAyLCJpYXQiOjE3MzE2ODg3MDIsImp0aSI6ImU2YjEzZjg0NTJlNDQxYTY4MzAxZmNhMWE5Y2UxMGNlIiwidXNlcl9pZCI6MX0.GPhVKao2I8kH6BREH07UiwopupgQ4iaNjZWN3uzqPKs";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk3MzAzLCJpYXQiOjE3MzE2OTM3MDMsImp0aSI6IjM3YWJiYjdjYTQxMzQ4NmU5MDQwZGFmYjA4MWQ1ZGQ3IiwidXNlcl9pZCI6MX0.zORy96HTnFSm37gN3-qOUFRjqGMv4qfnY1k_juiStH4";
 
-// 카테고리 정보 설정
 const PRESET_CATEGORIES = {
     2: {
         title: "분위기 좋은 카페 탐방",
@@ -76,7 +70,6 @@ const PotSearch = () => {
         text2: "나만의 운동 메이트를 찾을 수 있습니다",
         icon: Work,
     };
-    console.log("Selected Category from state:", selectedCategory);
 
     const [categories, setCategories] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState("최신순");
@@ -84,32 +77,19 @@ const PotSearch = () => {
     const [modalColor, setModalColor] = useState(null);
     const [selectedPost, setSelectedPost] = useState(null);
     const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [isModalInitialized, setIsModalInitialized] = useState(false);
     const [fontColor, setFontColor] = useState("#FFFFFF");
 
-    //배경 색상
     const colors = ["#8794c0", "#1C2135", "#E6E8ED", "#D7CCAF"];
 
-    // 데이터 가져오기
     useEffect(() => {
         const fetchCategories = async () => {
-            const accessToken = token;
             try {
                 const response = await axios.get(API_URL, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
+                    headers: { Authorization: `Bearer ${token}` },
                 });
-
-                console.log("Full Data Received:", response.data); // 전체 데이터 확인
-
-                // 선택한 카테고리 ID로 필터링
                 const filteredData = response.data.filter(
-                    (item) => String(item.category) === String(selectedCategory) // 문자열 비교
+                    (item) => String(item.category) === String(selectedCategory)
                 );
-
-                console.log("Filtered Data:", filteredData); // 필터링된 데이터 확인
                 setCategories(filteredData);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -119,25 +99,7 @@ const PotSearch = () => {
         fetchCategories();
     }, [selectedCategory]);
 
-    // 첫 로딩 시에만 모달을 열도록 설정
-    useEffect(() => {
-        if (location.state?.selectedPost && !isModalInitialized) {
-            const foundPost = categories.find(
-                (post) =>
-                    post.title === location.state.selectedPost.title &&
-                    post.id === location.state.selectedPost.id
-            );
-            if (foundPost) {
-                setSelectedPost(foundPost); // 모달에 표시할 데이터 설정
-                setModalColor("#8794c0"); // 기본 모달 배경색 (필요시 수정)
-                setIsModalInitialized(true); // 첫 로딩 시 한 번만 실행
-            }
-        }
-    }, [location.state, categories, isModalInitialized]);
-
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
+    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
     const handleOrderSelect = (order) => {
         setSelectedOrder(order);
@@ -146,21 +108,18 @@ const PotSearch = () => {
 
     const openModal = (category, color, fontColor) => {
         setSelectedPost(category);
-        setModalColor(color); //배경 색상
-        setFontColor(fontColor); // 폰트 색상 설정
+        setModalColor(color);
+        setFontColor(fontColor);
     };
 
     const closeModal = () => setSelectedPost(null);
-
-    const closeUserModal = () => setSelectedUser(null);
 
     const openWriteModal = () => setIsWriteModalOpen(true);
     const closeWriteModal = () => setIsWriteModalOpen(false);
 
     const handlePostSubmit = (newPost) => {
-        // 새 글이 카테고리에 맞는지 확인하고 배열 맨 앞에 추가
         if (String(newPost.category) === String(selectedCategory)) {
-            setCategories((prevCategories) => [newPost, ...prevCategories]); // 새 데이터 맨 앞에 추가
+            setCategories((prevCategories) => [newPost, ...prevCategories]);
         }
     };
 
@@ -182,7 +141,6 @@ const PotSearch = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* 동적으로 변하는 추천 카테고리 */}
                         <div className="Recommendpotbox">
                             <div className="Recommendpot">
                                 <div className="RecommendInfo">
@@ -209,45 +167,39 @@ const PotSearch = () => {
                                     나에게 맞는 팟팅을 찾아보세요
                                 </div>
                                 <div className="findpotlistcategorybox">
-                                    <div className="findpotlistcategorybox">
-                                        <div
-                                            className="findpotlistcategory"
-                                            onClick={toggleDropdown}
+                                    <div
+                                        className="findpotlistcategory"
+                                        onClick={toggleDropdown}
+                                    >
+                                        {selectedOrder}
+                                        <span
+                                            className={`dropdown-arrow ${
+                                                isDropdownOpen ? "open" : ""
+                                            }`}
                                         >
-                                            {selectedOrder}
-                                            <span
-                                                className={`dropdown-arrow ${
-                                                    isDropdownOpen ? "open" : ""
-                                                }`}
-                                            >
-                                                <img
-                                                    src={DownbtnB}
-                                                    className="downbtnb"
-                                                />
-                                            </span>
+                                            <img
+                                                src={DownbtnB}
+                                                className="downbtnb"
+                                            />
+                                        </span>
+                                        <div
+                                            className={`dropdown ${
+                                                isDropdownOpen ? "open" : ""
+                                            }`}
+                                        >
                                             <div
-                                                className={`dropdown ${
-                                                    isDropdownOpen ? "open" : ""
-                                                }`}
+                                                onClick={() =>
+                                                    handleOrderSelect("최신순")
+                                                }
                                             >
-                                                <div
-                                                    onClick={() =>
-                                                        handleOrderSelect(
-                                                            "최신순"
-                                                        )
-                                                    }
-                                                >
-                                                    최신순
-                                                </div>
-                                                <div
-                                                    onClick={() =>
-                                                        handleOrderSelect(
-                                                            "인기순"
-                                                        )
-                                                    }
-                                                >
-                                                    인기순
-                                                </div>
+                                                최신순
+                                            </div>
+                                            <div
+                                                onClick={() =>
+                                                    handleOrderSelect("인기순")
+                                                }
+                                            >
+                                                인기순
                                             </div>
                                         </div>
                                     </div>
@@ -258,7 +210,6 @@ const PotSearch = () => {
                                     categories={categories}
                                     colors={colors}
                                     openModal={openModal}
-                                    fontColor={fontColor}
                                 />
                                 <div
                                     className="WriteNew"
@@ -271,21 +222,21 @@ const PotSearch = () => {
                                     />
                                 </div>
                             </div>
-                        </div>{" "}
+                        </div>
                     </div>
-                </div>{" "}
+                </div>
                 {isWriteModalOpen && (
                     <WriteModal
                         onClose={closeWriteModal}
-                        onPostSubmit={handlePostSubmit} // 새 글 등록 시 처리
+                        onPostSubmit={handlePostSubmit}
                     />
                 )}
-            </div>{" "}
+            </div>
             {selectedPost && (
                 <Modal
                     backgroundColor={modalColor}
                     category={selectedPost}
-                    onClose={() => setSelectedPost(null)}
+                    onClose={closeModal}
                     fontColor={fontColor}
                 />
             )}
