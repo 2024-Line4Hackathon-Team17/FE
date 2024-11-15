@@ -28,11 +28,11 @@ import PotSearch from "./pages/PotSearch";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        // setIsLoggedIn(!!token); // 토큰이 존재하면 true
+        setIsLoggedIn(!!token); // 토큰이 존재하면 true
         setIsLoading(false); // 로딩 완료
     }, []);
 
@@ -46,12 +46,12 @@ function App() {
 
     return (
         <BrowserRouter>
-            <AppContent onLogin={handleLogin} />
+            <AppContent isLoggedIn={isLoggedIn} onLogin={handleLogin} />
         </BrowserRouter>
     );
 }
 
-function AppContent({ onLogin }) {
+function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
     const shouldShowNavPaths = [
         "/",
@@ -78,66 +78,61 @@ function AppContent({ onLogin }) {
             {shouldShowNav && <Nav />}
 
             <Routes>
+                <Route
+                    path="/"
+                    element={
+                        isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />
+                    }
+                />
+
                 {/* 로그인 및 회원가입 페이지 */}
-                <Route path="/" element={<Login onLogin={onLogin} />} />
+                <Route path="/login" element={<Login onLogin={onLogin} />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup-step2" element={<Signup_2 />} />
 
                 {/* 로그인 여부에 따라 기본 경로 렌더링 */}
-                <Route
-                    path="/main"
-                    element={<PotMainpage />}
-                />
+                {isLoggedIn && (
+                    <>
+                        <Route
+                            path="/empathy"
+                            element={<EmpathyCommunityPage />}
+                        />
+                        <Route
+                            path="/livechat"
+                            element={<LiveChatListPage />}
+                        />
+                        <Route
+                            path="/livechat/:chat_room_id"
+                            element={<LiveChatPage />}
+                        />
+                        <Route path="/mypage" element={<MyPage />} />
+                        <Route
+                            path="/mypage/empathy"
+                            element={<MyPageEmpathy />}
+                        />
+                        <Route
+                            path="/mypage/update/info"
+                            element={<MyPageInfo />}
+                        />
+                        <Route path="/mypage/poting" element={<MyPagePot />} />
+                        <Route
+                            path="/mypage/poting/attend"
+                            element={<MyPagePotAttend />}
+                        />
+                        <Route path="/notice" element={<NoticePage />} />
+                        <Route path="/search" element={<PotSearch />} />
 
-                {/* 로그인 여부에 따라 보호된 페이지 렌더링 */}
-                <Route
-                    path="/empathy"
-                    element={<EmpathyCommunityPage />}
-                />
-                <Route
-                    path="/livechat"
-                    element={<LiveChatListPage />}
-                />
-                <Route
-                    path="/livechat/:chat_room_id"
-                    element={<LiveChatPage />}
-                />
-                <Route
-                    path="/mypage"
-                    element={<MyPage />}
-                />
-                <Route
-                    path="/mypage/empathy"
-                    element={<MyPageEmpathy />}
-                />
-                <Route
-                    path="/mypage/update/info"
-                    element={<MyPageInfo />}
-                />
-                <Route
-                    path="/mypage/poting"
-                    element={<MyPagePot />}
-                />
-                <Route
-                    path="/mypage/poting/attend"
-                    element={<MyPagePotAttend />}
-                />
-                <Route
-                    path="/notice"
-                    element={<NoticePage />}
-                />
-                <Route
-                    path="/search"
-                    element={<PotSearch />}
-                />
-                <Route
-                    path="/onedayclass"
-                    element={<OnedayClassHome />}
-                />
-                <Route
-                    path="/onedayclass-category"
-                    element={<OnedayClass_category />}
-                />
+                        {/* OnedayClassHome 페이지 경로 추가 */}
+                        <Route
+                            path="/onedayclass"
+                            element={<OnedayClassHome />}
+                        />
+                        <Route
+                            path="/onedayclass-category"
+                            element={<OnedayClass_category />}
+                        />
+                    </>
+                )}
 
             </Routes>
         </div>
