@@ -26,15 +26,33 @@ import NoticePage from "./pages/notice/NoticePage";
 import PotSearch from "./pages/PotSearch";
 
 function App() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    // 로그인 상태 확인 및 로딩 관리
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token); // 토큰이 존재하면 true
+        const timer = setTimeout(() => setIsLoading(false), 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    const handleLogin = () => {
+        setIsLoggedIn(true);
+    };
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <Router>
-            <AppContent />
+            <AppContent isLoggedIn={isLoggedIn} onLogin={handleLogin} />
         </Router>
     );
 }
 
-function AppContent() {
+function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
     const hiddenNavPaths = [
         "/",
@@ -52,32 +70,10 @@ function AppContent() {
         "/onedayclass-category",
     ];
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-
-    if (isLoading) {
-        // 로딩 중일 때는 Loading 컴포넌트만 표시
-        return <Loading />;
-    }
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            setIsLoggedIn(true);
-        }
-        // 토큰이 존재하면 true
-        const timer = setTimeout(() => setIsLoading(false), 1500);
-        return () => clearTimeout(timer);
-    }, []);
-
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-    };
-
     return (
         <div className="App">
             <Routes>
-                {/* 로그인 여부에 따라 기본 경로를 리디렉션 */}
+                {/* 기본 경로 */}
                 <Route
                     path="/"
                     element={
@@ -85,63 +81,114 @@ function AppContent() {
                     }
                 />
 
-                {/* 회원가입 및 로그인 페이지는 로그인 여부와 관계없이 접근 가능 */}
+                {/* 로그인과 회원가입 경로 */}
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup-step2" element={<Signup_2 />} />
-                <Route path="/login" element={<Login onLogin={handleLogin} />} />
+                <Route path="/login" element={<Login onLogin={onLogin} />} />
 
-                {/* 로그인된 상태에서만 접근 가능한 페이지 */}
-                {isLoggedIn && (
-                    <>
-                        <Route path="/PotMainpage" element={<PotMainpage />} />
-                        <Route
-                            path="/empathy"
-                            element={<EmpathyCommunityPage />}
-                        />
-                        <Route
-                            path="/livechat"
-                            element={<LiveChatListPage />}
-                        />
-                        <Route
-                            path="/livechat/:chat_room_id"
-                            element={<LiveChatPage />}
-                        />
-                        <Route path="/mypage" element={<MyPage />} />
-                        <Route
-                            path="/mypage/empathy"
-                            element={<MyPageEmpathy />}
-                        />
-                        <Route
-                            path="/mypage/update/info"
-                            element={<MyPageInfo />}
-                        />
-                        <Route path="/mypage/poting" element={<MyPagePot />} />
-                        <Route
-                            path="/mypage/poting/attend"
-                            element={<MyPagePotAttend />}
-                        />
-                        <Route path="/notice" element={<NoticePage />} />
-                        <Route path="/search" element={<PotSearch />} />
+                {/* 보호된 페이지 */}
+                <Route
+                    path="/PotMainpage"
+                    element={
+                        isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/empathy"
+                    element={
+                        isLoggedIn ? (
+                            <EmpathyCommunityPage />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/livechat"
+                    element={
+                        isLoggedIn ? (
+                            <LiveChatListPage />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/livechat/:chat_room_id"
+                    element={
+                        isLoggedIn ? <LiveChatPage /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/mypage"
+                    element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />}
+                />
+                <Route
+                    path="/mypage/empathy"
+                    element={
+                        isLoggedIn ? <MyPageEmpathy /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/mypage/update/info"
+                    element={
+                        isLoggedIn ? <MyPageInfo /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/mypage/poting"
+                    element={
+                        isLoggedIn ? <MyPagePot /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/mypage/poting/attend"
+                    element={
+                        isLoggedIn ? (
+                            <MyPagePotAttend />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/notice"
+                    element={
+                        isLoggedIn ? <NoticePage /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/search"
+                    element={
+                        isLoggedIn ? <PotSearch /> : <Navigate to="/login" />
+                    }
+                />
+                <Route
+                    path="/onedayclass"
+                    element={
+                        isLoggedIn ? (
+                            <OnedayClassHome />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/onedayclass-category"
+                    element={
+                        isLoggedIn ? (
+                            <OnedayClass_category />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
 
-                        {/* OnedayClassHome 페이지 경로 추가 */}
-                        <Route
-                            path="/onedayclass"
-                            element={<OnedayClassHome />}
-                        />
-                        <Route
-                            path="/onedayclass-category"
-                            element={<OnedayClass_category />}
-                        />
-                    </>
-                )}
-
-                {/* 로그인되지 않은 상태에서 로그인 필수 페이지에 접근하려고 하면 리디렉션 */}
-                {!isLoggedIn && (
-                    <Route path="*" element={<Navigate to="/login" />} />
-                )}
+                {/* 404 페이지 */}
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
 
-            {/* 현재 경로가 숨기려는 경로 목록에 없는 경우에만 Nav 표시 */}
+            {/* 네비게이션 표시 조건 */}
             {hiddenNavPaths.includes(location.pathname) && <Nav />}
         </div>
     );
