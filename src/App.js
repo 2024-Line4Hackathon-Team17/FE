@@ -5,6 +5,7 @@ import {
     Route,
     Navigate,
     useLocation,
+    BrowserRouter,
 } from "react-router-dom";
 import PotMainpage from "./pages/PotMainpage";
 import EmpathyCommunityPage from "./pages/EmpathyCommunityPage";
@@ -44,9 +45,9 @@ function App() {
     }
 
     return (
-        <Router>
+        <BrowserRouter>
             <AppContent onLogin={handleLogin} />
-        </Router>
+        </BrowserRouter>
     );
 }
 
