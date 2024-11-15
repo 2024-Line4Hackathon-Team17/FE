@@ -76,7 +76,7 @@ const LiveChatListPage = () => {
                             />
                         ))
                     ) : (
-                        <p>채팅방이 없습니다.</p>
+                        <p></p>
                     )}
                 </div>
                 <div className='main_blank'></div>
