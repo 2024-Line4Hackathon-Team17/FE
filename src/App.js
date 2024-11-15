@@ -31,7 +31,10 @@ function App() {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        setIsLoggedIn(!token); // 토큰이 존재하면 true
+        if (token) {
+            setIsLoggedIn(true);
+        }
+        // 토큰이 존재하면 true
         const timer = setTimeout(() => setIsLoading(false), 1500);
         return () => clearTimeout(timer);
     }, []);
