@@ -27,9 +27,11 @@ import PotSearch from "./pages/PotSearch";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token); // 토큰이 존재하면 true
         const timer = setTimeout(() => setIsLoading(false), 1500);
         return () => clearTimeout(timer);
     }, []);
