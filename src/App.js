@@ -28,11 +28,11 @@ import PotSearch from "./pages/PotSearch";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        setIsLoggedIn(!!token); // 토큰이 존재하면 true
+        // setIsLoggedIn(!!token); // 토큰이 존재하면 true
         setIsLoading(false); // 로딩 완료
     }, []);
 
@@ -55,7 +55,6 @@ function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
     const shouldShowNavPaths = [
         "/",
-        "/main",
         "/PotMainpage",
         "/empathy",
         "/livechat",
