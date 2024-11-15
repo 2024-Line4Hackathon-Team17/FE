@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/section/login/_login.scss';
 import logo from '../assets/images/Logo/POTing_Logo.png';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +17,7 @@ const Login = () => {
         username,
         password,
       });
-      
+
       // 로그인 성공 시 토큰과 user_id 처리
       // const { token, user_id } = response.data;
       console.log(response.data)
@@ -63,7 +63,9 @@ const Login = () => {
       </div>
       <div className="signup-text">
         아직 계정이 없으신가요?
-        <a href="/signup" className="signup-link">회원가입</a>
+        <Link to={"/signup"}>
+          <a href="" className="signup-link">회원가입</a>
+        </Link>
       </div>
     </div>
   );
