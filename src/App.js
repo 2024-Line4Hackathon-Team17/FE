@@ -76,115 +76,65 @@ function AppContent({ isLoggedIn, onLogin }) {
             {shouldShowNav && <Nav isLoggedIn={isLoggedIn} />}
 
             <Routes>
-                {/* 로그인과 회원가입 경로 */}
+                {/* 로그인 및 회원가입 페이지 */}
                 <Route path="/login" element={<Login onLogin={onLogin} />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup-step2" element={<Signup_2 />} />
 
-                {/* 보호된 경로 */}
+                {/* 로그인 여부에 따라 기본 경로 렌더링 */}
                 <Route
                     path="/"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <PotMainpage />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />}
                 />
+
+                {/* 로그인 여부에 따라 보호된 페이지 렌더링 */}
                 <Route
                     path="/empathy"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <EmpathyCommunityPage />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <EmpathyCommunityPage /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/livechat"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <LiveChatListPage />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <LiveChatListPage /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/livechat/:chat_room_id"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <LiveChatPage />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <LiveChatPage /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/mypage"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <MyPage />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/mypage/empathy"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <MyPageEmpathy />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <MyPageEmpathy /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/mypage/update/info"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <MyPageInfo />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <MyPageInfo /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/mypage/poting"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <MyPagePot />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <MyPagePot /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/mypage/poting/attend"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <MyPagePotAttend />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <MyPagePotAttend /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/notice"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <NoticePage />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <NoticePage /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/search"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <PotSearch />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <PotSearch /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/onedayclass"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <OnedayClassHome />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <OnedayClassHome /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/onedayclass-category"
-                    element={
-                        <ProtectedRoute isLoggedIn={isLoggedIn}>
-                            <OnedayClass_category />
-                        </ProtectedRoute>
-                    }
+                    element={isLoggedIn ? <OnedayClass_category /> : <Navigate to="/login" />}
                 />
 
                 {/* 404 페이지 */}
@@ -192,13 +142,6 @@ function AppContent({ isLoggedIn, onLogin }) {
             </Routes>
         </div>
     );
-}
-
-function ProtectedRoute({ children, isLoggedIn }) {
-    if (!isLoggedIn) {
-        return <Navigate to="/login" />;
-    }
-    return children;
 }
 
 export default App;
