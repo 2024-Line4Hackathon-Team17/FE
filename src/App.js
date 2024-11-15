@@ -26,12 +26,6 @@ import NoticePage from "./pages/notice/NoticePage";
 import PotSearch from "./pages/PotSearch";
 
 function App() {
-    const [isLoading, setIsLoading] = useState(true);
-
-    if (isLoading) {
-        // 로딩 중일 때는 Loading 컴포넌트만 표시
-        return <Loading />;
-    }
 
     return (
         <Router>
@@ -59,6 +53,12 @@ function AppContent() {
     ];
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    if (isLoading) {
+        // 로딩 중일 때는 Loading 컴포넌트만 표시
+        return <Loading />;
+    }
 
     useEffect(() => {
         const token = localStorage.getItem("token");
