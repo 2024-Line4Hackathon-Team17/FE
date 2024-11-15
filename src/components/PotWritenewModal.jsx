@@ -11,7 +11,7 @@ import DaumPostcode from "react-daum-postcode"; // 주소 검색 API
 import axios from "axios";
 
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjkzOTI2LCJpYXQiOjE3MzE2OTAzMjYsImp0aSI6IjkzMDBjMzFmMDRiNjQ0YzNhNDA3OTBlMmJlYjZhZTVjIiwidXNlcl9pZCI6MX0.K4IsHnEIXZCkU7bcvlvntuqX15prZRaQoJ5-W4wrqYI";
 const PotWritenewModal = ({ onClose, onPostSubmit }) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -52,7 +52,7 @@ const PotWritenewModal = ({ onClose, onPostSubmit }) => {
         console.log("Post Data:", postData); // 로그 출력
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8000/pating/posts/",
+                "http://127.0.0.1:8000/api/pating/posts/",
                 postData,
                 {
                     headers: {

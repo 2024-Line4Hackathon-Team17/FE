@@ -43,7 +43,7 @@
                 }
 
                 .mypage_empathy_content_area {
-                    @include size(295px, 115px);
+                    width: 295px;
 
                     .mypage_empathy_content {
                         background-color: #fff;

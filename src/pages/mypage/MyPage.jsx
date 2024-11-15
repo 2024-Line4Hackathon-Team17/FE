@@ -19,13 +19,15 @@ const MyPage = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const token = localStorage.getItem('token');
+                // const token = localStorage.getItem('token');
+                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
                 
                 const response = await axios.get(`${process.env.REACT_APP_API}/api/mypage/profile/`, {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                      },
                 });
+                console.log(response.data)
                 setUserInfo(response.data);
             } catch (error) {
                 console.error("Failed to fetch user info:", error);
@@ -43,6 +45,19 @@ const MyPage = () => {
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}.${month}.${day}`;
     };
+
+    const interestsOptions = [
+        { id: 1, name: '운동' },
+        { id: 2, name: '뮤지컬' },
+        { id: 3, name: '수공예' },
+        { id: 4, name: '스터디' },
+        { id: 5, name: '그림' },
+        { id: 6, name: '뷰티' },
+        { id: 7, name: '코딩' },
+        { id: 8, name: '댄스' },
+        { id: 9, name: '맛집탐방' },
+        { id: 10, name: '스포츠 직관' },
+    ];
 
     return (
         <div className='mypage_container container'>
@@ -63,7 +78,7 @@ const MyPage = () => {
                             </div>
                             <div className="mypage_profile_footer">
                                 {userInfo.interests.map((interest, index) => (
-                                    <div key={index} className="mypage_profile_keyword">{interest}</div>
+                                    <div key={index} className="mypage_profile_keyword">{interestsOptions[interest].name}</div>
                                 ))}
                             </div>
                         </div>

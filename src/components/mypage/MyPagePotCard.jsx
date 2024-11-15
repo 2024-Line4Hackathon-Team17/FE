@@ -5,14 +5,13 @@ import axios from 'axios';
 const MyPagePotCard = ({ index, category, colors, openModal, onDelete }) => {
     const [showOptions, setShowOptions] = useState(false);
 
-    const toggleOptions = (openIndex) => {
-        if (openIndex === index) {
-            setShowOptions(!showOptions);
-        }
+    const toggleOptions = () => {
+        setShowOptions((prev) => !prev); // 현재 카드의 상태만 변경
     };
 
     const handleDelete = async () => {
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
         if (!token) {
             console.error('No token found.');
             return;

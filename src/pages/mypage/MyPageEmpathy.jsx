@@ -12,15 +12,20 @@ const MyPageEmpathy = () => {
     useEffect(() => {
         const fetchEmpathyPosts = async () => {
             try {
-                const token = localStorage.getItem('token');
+                // const token = localStorage.getItem('token');
+                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
 
                 const response = await axios.get(`${process.env.REACT_APP_API}/api/community/my/community-posts/`, {
-                    headers: { Authorization: `Bearer ${token}` }
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                    },
                 });
                 setEmpathyPosts(response.data);
 
                 const userResponse = await axios.get(`${process.env.REACT_APP_API}/api/mypage/profile/`, {
-                    headers: { Authorization: `Bearer ${token}` }
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                      },
                 });
                 const profilePicture = userResponse.data.profile_picture || default_profile;
                 setUserInfo({

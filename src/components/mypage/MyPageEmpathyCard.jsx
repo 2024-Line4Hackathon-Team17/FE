@@ -5,24 +5,26 @@ import axios from 'axios';
 const MyPageEmpathyCard = ({ onDelete, post, userNickname, userProfileImage }) => {
     const [showOptions, setShowOptions] = useState(false);
 
-    const toggleOptions = (openIndex) => {
-        if (openIndex === post.id) {
-            setShowOptions(!showOptions);
-        }
+    const toggleOptions = () => {
+        setShowOptions((prev) => !prev);
     };
 
     const handleDelete = async () => {
         try {
-            const token = localStorage.getItem('token');
+            // const token = localStorage.getItem('token');
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
+
             await axios.delete(`${process.env.REACT_APP_API}/api/community/my/community-posts/${post.id}/`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             
+            alert("팟팅이 성공적으로 삭제되었습니다.");
             if (onDelete) {
                 onDelete(post.id);
             }
         } catch (error) {
             console.error('Failed to delete post:', error);
+            alert("팟팅 삭제에 실패했습니다.");
         }
     };
 

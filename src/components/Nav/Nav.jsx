@@ -38,8 +38,8 @@ function Nav() {
 </Link>
 
 <Link
-  to="/Mypage" // Mypage.jsx로 이동하도록 경로 수정
-  className={`nav-item ${location.pathname === "/Mypage" || location.pathname==="/mypage/poting" ||location.pathname==="/mypage/empathy" ||location.pathname==="/mypage/update/info" ||location.pathname==="/mypage/poting/attend"||location.pathname==="/notice" ? "active" : ""}`}
+  to="/mypage" // Mypage.jsx로 이동하도록 경로 수정
+  className={`nav-item ${location.pathname === "/mypage" || location.pathname==="/mypage/poting" ||location.pathname==="/mypage/empathy" ||location.pathname==="/mypage/update/info" ||location.pathname==="/mypage/poting/attend"||location.pathname==="/notice" ? "active" : ""}`}
 >
   <PiUserCircle className="nav-icon" />
 </Link>

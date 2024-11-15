@@ -53,10 +53,19 @@ function App() {
 function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
     const hiddenNavPaths = [
-        "/login",
-        "/signup",
-        "/signup-step2",
-        "/livechat/id",
+        "/",
+        "/PotMainpage",
+        "/empathy",
+        "/livechat",
+        "/mypage",
+        "/mypage/empathy",
+        "/mypage/update/info",
+        "/mypage/poting",
+        "/mypage/poting/attend",
+        "/notice",
+        "/search",
+        "/onedayclass",
+        "/onedayclass-category",
     ];
 
     return (
@@ -105,7 +114,7 @@ function AppContent({ isLoggedIn, onLogin }) {
             </Routes>
 
             {/* 현재 경로가 숨기려는 경로 목록에 없는 경우에만 Nav 표시 */}
-            {!hiddenNavPaths.includes(location.pathname) && <Nav />}
+            {hiddenNavPaths.includes(location.pathname) && <Nav />}
         </div>
     );
 }

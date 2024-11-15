@@ -10,7 +10,7 @@ import UserInfoModal from "./UserInfoModal";
 
 //토큰
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰 사용
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjkzOTI2LCJpYXQiOjE3MzE2OTAzMjYsImp0aSI6IjkzMDBjMzFmMDRiNjQ0YzNhNDA3OTBlMmJlYjZhZTVjIiwidXNlcl9pZCI6MX0.K4IsHnEIXZCkU7bcvlvntuqX15prZRaQoJ5-W4wrqYI"; // 실제 토큰 사용
 
 const Modal = ({
     backgroundColor,
@@ -31,7 +31,7 @@ const Modal = ({
         try {
             const username = category.created_by; // username 기반
             const response = await axios.get(
-                `http://127.0.0.1:8000/user/register/`, // 전체 사용자 목록 가져오기
+                `http://127.0.0.1:8000/api/user/register/`, // 전체 사용자 목록 가져오기
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ const Modal = ({
         if (!isParticipated) {
             try {
                 const response = await axios.post(
-                    `http://127.0.0.1:8000/pating/posts/${category.id}/join/`,
+                    `http://127.0.0.1:8000/api/pating/posts/${category.id}/join/`,
                     {
                         post: category.id, // 참여할 게시글 ID
                     },

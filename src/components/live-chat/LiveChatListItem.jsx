@@ -8,7 +8,7 @@ const LiveChatListItem = ({ chatRoom, profilePicture, nickname }) => {
         <div className="live_chat_profile">
           <img src={profilePicture} alt="프로필" />
         </div>
-        <Link to={`/livechat/${chatRoom.chat_room_id}`}>
+        <Link to={`/livechat/${chatRoom.id}`}>
           <div className="live_chat_content btn">
             <div className="live_chat_nickname">
               <p>{nickname}</p>

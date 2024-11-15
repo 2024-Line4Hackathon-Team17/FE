@@ -53,22 +53,39 @@ const MyPageInfo = () => {
         }
     };
 
-    const handleInterestClick = (interest) => {
-        setSelectedInterests(prev =>
-            prev.includes(interest) ? prev.filter(i => i !== interest) : [...prev, interest]
+    const handleInterestClick = (interestId) => {
+        setSelectedInterests((prev) =>
+            prev.includes(interestId) ? prev.filter((id) => id !== interestId) : [...prev, interestId]
         );
     };
 
+    const interestsOptions = [
+        { id: 1, name: '운동' },
+        { id: 2, name: '뮤지컬' },
+        { id: 3, name: '수공예' },
+        { id: 4, name: '스터디' },
+        { id: 5, name: '그림' },
+        { id: 6, name: '뷰티' },
+        { id: 7, name: '코딩' },
+        { id: 8, name: '댄스' },
+        { id: 9, name: '맛집탐방' },
+        { id: 10, name: '스포츠 직관' },
+    ];
+
     const handleSave = async () => {
         try {
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
             const response = await axios.post(`${process.env.REACT_APP_API}/api/mypage/update_profile/`, {
-                user_id: 1, //실제 userId
                 profile_picture: profileImage || default_profile,
                 nickname,
                 password,
                 password_confirmation: confirmPassword,
                 interests: selectedInterests,
-            });
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                },
+            },);
             console.log('Profile updated:', response.data);
             alert('프로필이 성공적으로 업데이트되었습니다.');
         } catch (error) {
@@ -76,12 +93,6 @@ const MyPageInfo = () => {
             alert('프로필 업데이트 중 오류가 발생했습니다.');
         }
     };
-
-    const interests = [
-        '운동', '뮤지컬', '수공예', '스터디',
-        '그림', '뷰티', '코딩', '댄스',
-        '맛집탐방', '스포츠 직관'
-    ];
 
     return (
         <div className='mypage_info_container container'>
@@ -147,13 +158,13 @@ const MyPageInfo = () => {
                     <div className="mypage_info_interest">
                         <p>관심사를 설정해주세요</p>
                         <div className="interests-buttons">
-                            {interests.map((interest, index) => (
+                            {interestsOptions.map((interest, index) => (
                                 <button
                                     key={index}
-                                    className={`interest-button btn ${selectedInterests.includes(interest) ? 'selected' : ''}`}
-                                    onClick={() => handleInterestClick(interest)}
+                                    className={`interest-button btn ${selectedInterests.includes(interest.id) ? 'selected' : ''}`}
+                                    onClick={() => handleInterestClick(interest.id)}
                                 >
-                                    {interest}
+                                    {interest.name}
                                 </button>
                             ))}
                         </div>

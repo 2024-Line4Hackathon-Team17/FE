@@ -26,7 +26,7 @@
         }
 
         .empathy_content_area {
-            @include size(295px, 146px);
+            width: 295px;
 
             .empathy_content {
                 @include size(100%, 100%);
@@ -85,7 +85,7 @@
 
                 .empathy_mid {
                     width: 95%;
-                    padding: 0px 15px;
+                    padding: 0 15px 10px 15px;
 
                     .empathy_mid_title {
                         margin-bottom: 10px;

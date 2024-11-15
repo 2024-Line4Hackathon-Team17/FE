@@ -12,22 +12,32 @@ const LiveChatListPage = () => {
     useEffect(() => {
         const fetchChatRooms = async () => {
             try {
+                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
                 const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/`, {
-                    params: { user_id: userId },
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                    },
                 });
 
-                const chatRoomsData = response.data.chat_rooms;
+                console.log(response);
+                const chatRoomsData = response.data || [];
+                console.log(chatRoomsData);
 
                 const chatRoomsWithProfile = await Promise.all(
                     chatRoomsData.map(async (chatRoom) => {
                         try {
-                            const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/user/${chatRoom.other_user_id}/`);
-                            const { profile_picture, nickname } = userProfileResponse.data;
+                            const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/api/user/register/${chatRoom.other_user.id}/profile/`, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                                },
+                            });
+
+                            console.log(userProfileResponse.data);
 
                             return {
                                 ...chatRoom,
-                                profile_picture: profile_picture,
-                                nickname: nickname,
+                                profile_picture: userProfileResponse.data.profile_picture || default_profile,
+                                nickname: userProfileResponse.data.nickname || "Unknown",
                             };
                         } catch (error) {
                             console.error('Failed to fetch user profile:', error);
@@ -56,14 +66,18 @@ const LiveChatListPage = () => {
                 </div>
                 <LiveChatSearch />
                 <div className="live_chat_list_scroll">
-                    {chatRooms.map((chatRoom) => (
-                        <LiveChatListItem
-                            key={chatRoom.chat_room_id}
-                            chatRoom={chatRoom}
-                            profilePicture={chatRoom.profile_picture}
-                            nickname={chatRoom.nickname}
-                        />
-                    ))}
+                    {chatRooms.length > 0 ? (
+                        chatRooms.map((chatRoom) => (
+                            <LiveChatListItem
+                                key={chatRoom.id}
+                                chatRoom={chatRoom}
+                                profilePicture={chatRoom.profile_picture}
+                                nickname={chatRoom.nickname}
+                            />
+                        ))
+                    ) : (
+                        <p>채팅방이 없습니다.</p>
+                    )}
                 </div>
                 <div className='main_blank'></div>
             </div>

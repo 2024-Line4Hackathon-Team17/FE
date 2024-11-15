@@ -16,7 +16,8 @@ const MyPagePotAttend = () => {
 
     useEffect(() => {
         const fetchParticipationData = async () => {
-            const token = localStorage.getItem('token');
+            // const token = localStorage.getItem('token');
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
             if (!token) {
                 console.error("Token not found");
                 return;
@@ -25,8 +26,8 @@ const MyPagePotAttend = () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API}/api/pating/myposts/participated/`, {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                    },
                 });
 
                 const data = response.data;
@@ -36,8 +37,8 @@ const MyPagePotAttend = () => {
                     try {
                         const userResponse = await axios.get(`${process.env.REACT_APP_API}/api/user/${item.created_by}/`, {
                             headers: {
-                                Authorization: `Bearer ${token}`
-                            }
+                                Authorization: `Bearer ${token}`, // Include token in the Authorization header
+                            },
                         });
 
                         const userProfileImage = userResponse.data.profile_picture || default_profile;

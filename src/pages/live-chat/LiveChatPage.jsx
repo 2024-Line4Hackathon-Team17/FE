@@ -17,9 +17,13 @@ const LiveChatPage = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
         const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/`, {
-          params: { chat_room_id: chat_room_id },
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          },
         });
+        console.log(response.data)
         setMessages(response.data);
 
         if (response.data.length > 0) {
@@ -27,14 +31,33 @@ const LiveChatPage = () => {
           setChatDate(firstMessageDate.toLocaleDateString());
         }
 
-        const chatRoomResponse = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/`);
-        const otherUserId = chatRoomResponse.data.other_user_id;
+        const chatRoomResponse = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          },
+        });
+        console.log(chatRoomResponse)
+        const chatRoom = chatRoomResponse.data.find(room => room.id === parseInt(chat_room_id));
+        if (!chatRoom) {
+          console.error('Chat room not found');
+          return;
+        }
+    
+        const otherUserId = chatRoom.other_user?.id;
+        if (!otherUserId) {
+          console.error('Other user information not available in the chat room data.');
+          return;
+        }
 
-        const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/user/${otherUserId}/`);
-        const { nickname, profile_picture } = userProfileResponse.data;
+        const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/api/user/register/${otherUserId}/profile/`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          },
+        });
+        
         setOtherUser({
-          nickname,
-          profile_picture: profile_picture || default_profile,
+          nickname: userProfileResponse.data.nickname,
+          profile_picture: userProfileResponse.data.profile_picture || default_profile,
         });
       } catch (error) {
         console.error("Failed to fetch messages:", error);
@@ -48,7 +71,14 @@ const LiveChatPage = () => {
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
+      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
       const response = await axios.post(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/send/`, {
+        chat_room_id: chat_room_id,
+        message: newMessage,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include token in the Authorization header
+        },
         chat_room_id: chat_room_id,
         message: newMessage,
       });
@@ -86,7 +116,7 @@ const LiveChatPage = () => {
           </div>
           <div className="live_chat_area">
             {messages.map((message) => (
-              <LiveChatMessage key={message.id} text={message.text} sender={message.sender === 1 ? 'me' : 'other'} />
+              <LiveChatMessage key={message.id} text={message.message} sender={message.sender === 1 ? 'me' : 'other'} />
             ))}
             <div className='main_blank'></div>
           </div>
