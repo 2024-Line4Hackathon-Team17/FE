@@ -14,9 +14,11 @@ const LiveChatListItem = ({ chatRoom, profilePicture, nickname }) => {
               <p>{nickname}</p>
             </div>
             <div className="live_chat_text">
-              <p>{chatRoom.last_message.length > 15
+              <p>{chatRoom.last_message
+                  ? chatRoom.last_message.length > 15
                 ? chatRoom.last_message.slice(0, 15) + '...'
-                : chatRoom.last_message}</p>
+                : chatRoom.last_message
+                : '메세지가 없습니다.'}</p>
             </div>
           </div>
         </Link>

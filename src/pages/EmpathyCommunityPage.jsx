@@ -5,9 +5,9 @@ import EmpathyHeader from "../components/empathy-community/EmpathyHeader";
 import EmpathyWriteBtn from "../components/empathy-community/EmpathyWriteBtn";
 import EmpathyWritePopup from "../components/empathy-community/EmpathyWritePopup";
 
-const API_URL = "http://127.0.0.1:8000//community/posts/";
+const API_URL = "http://127.0.0.1:8000/api/community/posts/";
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw";
 
 const EmpathyCommunityPage = () => {
     const [posts, setPosts] = useState([]); // 게시글 데이터 상태

@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import "../styles/PotModal.scss";
 import closed from "../assets/modalclose.png";
 import more from "../assets/modalmore.png";
 import CalendarCheck from "../assets/CalendarCheckW.png";
 import MapPin from "../assets/MapPinSimpleAreaW.png";
+import CalendarCheckB from "../assets/CalendarCheckB.png";
+import MapPinB from "../assets/MapPinSimpleAreaB.png";
 import sample from "../assets/sample.jpg";
 import axios from "axios";
 import UserInfoModal from "./UserInfoModal";
 
-//토큰
+const API_URL = `http://127.0.0.1:8000/pating/posts/`;
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjkzOTI2LCJpYXQiOjE3MzE2OTAzMjYsImp0aSI6IjkzMDBjMzFmMDRiNjQ0YzNhNDA3OTBlMmJlYjZhZTVjIiwidXNlcl9pZCI6MX0.K4IsHnEIXZCkU7bcvlvntuqX15prZRaQoJ5-W4wrqYI"; // 실제 토큰 사용
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM"; // 실제 토큰 사용
 
 const Modal = ({
     backgroundColor,
     category,
     onClose,
     onIdClick,
-    incrementAttended,
+    fontColor,
 }) => {
+    const navigate = useNavigate(); // useNavigate
     const [isParticipated, setIsParticipated] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [attendedCount, setAttendedCount] = useState(0); // 초기 값 0으로 설정
@@ -27,6 +31,42 @@ const Modal = ({
     const [userInfo, setUserInfo] = useState(null); // 사용자 정보 상태 추가
     const [showUserModal, setShowUserModal] = useState(false); // 사용자 모달 상태 추가
 
+    //채팅방 연결
+    const handleChat = async () => {
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API}/api/chatrooms/create/`,
+                {
+                    post_id: category.id, // 게시물 ID를 전달
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // 토큰 추가
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+    
+            // 채팅방 생성 또는 반환
+            const chatRoomId = category.id;
+            console.log(response.data)
+            console.log("Chat Room ID:", chatRoomId);
+    
+            // 채팅방으로 이동
+            navigate(`/livechat/${chatRoomId}`);
+        } catch (error) {
+            console.error("Failed to create or fetch chat room:", error.response?.data || error.message);
+    
+            // 에러 메시지 확인 후 알림 표시
+            if (error.response?.data?.detail) {
+                alert(error.response.data.detail);
+            } else {
+                alert("채팅방 생성 중 문제가 발생했습니다.");
+            }
+        }
+    };
+
+    // 전체 사용자 목록
     const fetchUserInfo = async () => {
         try {
             const username = category.created_by; // username 기반
@@ -80,10 +120,12 @@ const Modal = ({
                 // 상태 업데이트
                 setIsParticipated(true);
                 setAttendedCount(attendedCount + 1);
-                incrementAttended();
                 setShowConfirmation(true);
 
-                setTimeout(() => setShowConfirmation(false), 5000);
+                // 페이지 새로고침
+                setTimeout(() => {
+                    window.location.reload(); // 페이지 새로고침
+                }, 1000); // 1초 후 새로고침
             } catch (error) {
                 console.error(
                     "Error joining post:",
@@ -111,12 +153,22 @@ const Modal = ({
         setAttendedCount(category.participants_count);
     }, [category.participants_count]);
 
+    // 아이콘 선택 로직
+    const calendarIcon =
+        backgroundColor === "#E6E8ED" || backgroundColor === "#D7CCAF"
+            ? CalendarCheckB
+            : CalendarCheck;
+    const mapPinIcon =
+        backgroundColor === "#E6E8ED" || backgroundColor === "#D7CCAF"
+            ? MapPinB
+            : MapPin;
+
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div
                 className="modal-content"
                 onClick={(e) => e.stopPropagation()}
-                style={{ backgroundColor }}
+                style={{ backgroundColor, color: fontColor }}
             >
                 <div className="modalbox">
                     <div className="modaltop">
@@ -181,7 +233,7 @@ const Modal = ({
                                         <div className="ModalDetailPlace">
                                             <div className="ModalDetailimg">
                                                 <img
-                                                    src={MapPin}
+                                                    src={mapPinIcon}
                                                     alt="Map Icon"
                                                     className="Modaldetailimgsrc"
                                                 />
@@ -193,7 +245,7 @@ const Modal = ({
                                         <div className="ModalDetailDate">
                                             <div className="ModalDetailimg">
                                                 <img
-                                                    src={CalendarCheck}
+                                                    src={calendarIcon}
                                                     alt="Calendar Icon"
                                                     className="Modaldetailimgsrc"
                                                 />
@@ -224,7 +276,7 @@ const Modal = ({
                         </div>
                     </div>
                     <div className="ModalLast">
-                        <button>채팅하기</button>
+                        <button onClick={handleChat}>채팅하기</button>
                         <button onClick={handleParticipation}>참여하기</button>
                     </div>
                     {showConfirmation && (

@@ -10,32 +10,27 @@ import {
     PiClover,
     PiDotsThreeLight,
 } from "react-icons/pi";
-//연동
 import axios from "axios";
-const API_URL = "http://127.0.0.1:8000/api/community/posts/"; // API URL
+
+const API_URL = "http://127.0.0.1:8000/community/posts/";
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjg2MjUyLCJpYXQiOjE3MzE2ODI2NTIsImp0aSI6ImY3NmJlMTRkMzAwZDQyYWNhYTVmYWY3Yjk1YmE4MWQ1IiwidXNlcl9pZCI6MX0.ZpL24rAYTGYb47WnnzdAcCKgUj_eymOUQUcSfOZsIw8"; // 실제 토큰
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk1NTc5LCJpYXQiOjE3MzE2OTE5NzksImp0aSI6IjEzZWZlYzI3NmNiODQ4M2JhMTk4YjYxNTMwYjg4YTAzIiwidXNlcl9pZCI6MX0.5x4tDKQA4-RH0j3ThEZgvQrxXp5VqC7Bw35BIqcmaRs";
 
 const EmpathyCard = ({ post }) => {
-    const [empathyIndex, setEmpathyIndex] = useState(-1);
+    const [empathyType, setEmpathyType] = useState(post.user_reaction); // 초기 상태
     const [showOptions, setShowOptions] = useState(false);
 
     // 공감 버튼 클릭 처리
-    const clickEmpathy = async (reactionIndex) => {
-        if (reactionIndex !== empathyIndex) {
-            setEmpathyIndex(reactionIndex);
-            await updateReaction(post.id, reactionIndex); // 서버에 반영
-        } else {
-            setEmpathyIndex(-1);
-            await updateReaction(post.id, null); // 서버에서 반응 삭제
-        }
-    };
-    // 공감 반응 업데이트 함수
-    const updateReaction = async (postId, reaction) => {
+    const handleReaction = async (reactionType) => {
         try {
-            await axios.post(
-                `${API_URL}${postId}/reaction/`,
-                { reaction },
+            const isCancel = empathyType === reactionType; // 같은 타입을 클릭하면 취소
+            const payload = {
+                reaction_type: reactionType, // 요청은 동일한 형식으로 전송
+            };
+
+            const response = await axios.post(
+                `${API_URL}${post.id}/react/`,
+                payload,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -43,9 +38,20 @@ const EmpathyCard = ({ post }) => {
                     },
                 }
             );
-            console.log("Reaction updated successfully");
+
+            console.log("API Response:", response.data);
+
+            // 상태 업데이트
+            setEmpathyType(isCancel ? null : reactionType); // 취소면 null, 아니면 클릭한 타입
         } catch (error) {
-            console.error("Error updating reaction:", error);
+            console.error(
+                "Error updating reaction:",
+                error.response?.data || error.message
+            );
+            alert(
+                error.response?.data?.detail ||
+                    "공감을 처리하는 중 문제가 발생했습니다."
+            );
         }
     };
 
@@ -53,11 +59,12 @@ const EmpathyCard = ({ post }) => {
     const toggleOptions = () => {
         setShowOptions(!showOptions);
     };
+
     // 차단 기능
     const handleBlock = async () => {
         try {
             const response = await axios.post(
-                `/community/posts/${post.id}/block/`,
+                `${API_URL}${post.id}/block/`,
                 {},
                 {
                     headers: {
@@ -80,7 +87,7 @@ const EmpathyCard = ({ post }) => {
     const handleReport = async () => {
         try {
             const response = await axios.post(
-                `/community/posts/${post.id}/report/`,
+                `${API_URL}${post.id}/report/`,
                 {},
                 {
                     headers: {
@@ -151,59 +158,49 @@ const EmpathyCard = ({ post }) => {
                         </div>
                         <div className="empathy_bottom">
                             <div className="empathy_bottom_btn">
-                                <div className="empathy_btn_clap empathy_btn btn">
-                                    {empathyIndex === 0 ? (
-                                        <PiHandsClappingFill
-                                            className="empathy_btn_icon clap_fill"
-                                            onClick={() => clickEmpathy(-1)}
-                                        />
+                                <div
+                                    className="empathy_btn_clap empathy_btn btn"
+                                    onClick={() => handleReaction("support")}
+                                >
+                                    {empathyType === "support" ? (
+                                        <PiHandsClappingFill className="empathy_btn_icon clap_fill" />
                                     ) : (
-                                        <PiHandsClappingLight
-                                            className="empathy_btn_icon"
-                                            onClick={() => clickEmpathy(0)}
-                                        />
+                                        <PiHandsClappingLight className="empathy_btn_icon" />
                                     )}
                                 </div>
                                 <div className="empathy_btn_line"></div>
-                                <div className="empathy_btn_heart empathy_btn btn">
-                                    {empathyIndex === 1 ? (
-                                        <PiHeartFill
-                                            className="empathy_btn_icon heart_fill"
-                                            onClick={() => clickEmpathy(-1)}
-                                        />
+                                <div
+                                    className="empathy_btn_heart empathy_btn btn"
+                                    onClick={() => handleReaction("empathy")}
+                                >
+                                    {empathyType === "empathy" ? (
+                                        <PiHeartFill className="empathy_btn_icon heart_fill" />
                                     ) : (
-                                        <PiHeart
-                                            className="empathy_btn_icon"
-                                            onClick={() => clickEmpathy(1)}
-                                        />
+                                        <PiHeart className="empathy_btn_icon" />
                                     )}
                                 </div>
                                 <div className="empathy_btn_line"></div>
-                                <div className="empathy_btn_congrats empathy_btn btn">
-                                    {empathyIndex === 2 ? (
-                                        <PiConfettiFill
-                                            className="empathy_btn_icon confetti_fill"
-                                            onClick={() => clickEmpathy(-1)}
-                                        />
+                                <div
+                                    className="empathy_btn_congrats empathy_btn btn"
+                                    onClick={() =>
+                                        handleReaction("congratulations")
+                                    }
+                                >
+                                    {empathyType === "congratulations" ? (
+                                        <PiConfettiFill className="empathy_btn_icon confetti_fill" />
                                     ) : (
-                                        <PiConfetti
-                                            className="empathy_btn_icon"
-                                            onClick={() => clickEmpathy(2)}
-                                        />
+                                        <PiConfetti className="empathy_btn_icon" />
                                     )}
                                 </div>
                                 <div className="empathy_btn_line"></div>
-                                <div className="empathy_btn_lucky empathy_btn btn">
-                                    {empathyIndex === 3 ? (
-                                        <PiCloverFill
-                                            className="empathy_btn_icon clover_fill"
-                                            onClick={() => clickEmpathy(-1)}
-                                        />
+                                <div
+                                    className="empathy_btn_lucky empathy_btn btn"
+                                    onClick={() => handleReaction("luck")}
+                                >
+                                    {empathyType === "luck" ? (
+                                        <PiCloverFill className="empathy_btn_icon clover_fill" />
                                     ) : (
-                                        <PiClover
-                                            className="empathy_btn_icon"
-                                            onClick={() => clickEmpathy(3)}
-                                        />
+                                        <PiClover className="empathy_btn_icon" />
                                     )}
                                 </div>
                             </div>

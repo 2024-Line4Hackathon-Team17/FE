@@ -7,8 +7,8 @@
 .AnimationTitle,
 .HotpotTitle {
     color: #ffffff;
-    font-size: 18px;
-    margin-left: 10px;
+    font-size: 25px;
+    margin-left: 16px;
     margin-top: 26px;
     margin-bottom: 20px;
 }
@@ -22,13 +22,13 @@
     }
 
     .alarmimg {
-        width: 27px;
+        width: 32px;
     }
 
     .searchInput {
-        width: 300px;
-        height: 40px;
-        border-radius: 15px;
+        width: 353px;
+        height: 44px;
+        border-radius: 19px;
         border: 1px solid #999999;
         font-size: 14px;
         font-weight: 100;
@@ -50,8 +50,8 @@
 
     .searchBox {
         position: relative;
-        width: 300px;
-        height: 20px;
+        width: 353px;
+        height: 44px;
         display: flex;
         margin: 0 auto;
         margin-top: 20px;
@@ -71,8 +71,8 @@
         border: none;
         background-color: #ffffff;
         position: absolute;
-        right: 10px;
-        top: 10px;
+        right: 13px;
+        top: 12px;
         cursor: pointer;
     }
 }
@@ -101,7 +101,7 @@
     }
 
     .DetailTitle {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 600;
         margin-bottom: 4px;
     }
@@ -110,7 +110,7 @@
     .DetailDate {
         display: flex;
         flex-direction: row;
-        font-size: 10px;
+        font-size: 10.91px;
     }
 
     .listBoxInfo {
@@ -118,7 +118,7 @@
         flex-direction: row;
         background-color: #e6e8ed;
         border-radius: 20px;
-        width: 248px;
+        width: 276px;
         height: 64px;
     }
 
@@ -141,8 +141,8 @@
     .listBoxLeft {
         background-color: #bbc1c5;
         border-radius: 50%;
-        width: 30px;
-        height: 30px;
+        width: 44px;
+        height: 44px;
         display: flex;
         justify-content: center;
         align-items: center;

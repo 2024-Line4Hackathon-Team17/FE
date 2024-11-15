@@ -17,7 +17,7 @@ const LiveChatPage = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM';
         const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/`, {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the Authorization header
@@ -71,7 +71,7 @@ const LiveChatPage = () => {
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw';
+      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM';
       const response = await axios.post(`${process.env.REACT_APP_API}/api/chatrooms/${chat_room_id}/messages/send/`, {
         chat_room_id: chat_room_id,
         message: newMessage,
@@ -79,8 +79,6 @@ const LiveChatPage = () => {
         headers: {
           Authorization: `Bearer ${token}`, // Include token in the Authorization header
         },
-        chat_room_id: chat_room_id,
-        message: newMessage,
       });
       setMessages((prevMessages) => [...prevMessages, response.data]);
       setNewMessage('');
