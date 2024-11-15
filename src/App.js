@@ -77,13 +77,13 @@ function AppContent({ isLoggedIn, onLogin }) {
 
             <Routes>
                 {/* 로그인 및 회원가입 페이지 */}
-                <Route path="/login" element={<Login onLogin={onLogin} />} />
+                <Route path="/" element={<Login onLogin={onLogin} />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup-step2" element={<Signup_2 />} />
 
                 {/* 로그인 여부에 따라 기본 경로 렌더링 */}
                 <Route
-                    path="/"
+                    path="/main"
                     element={isLoggedIn ? <PotMainpage /> : <Navigate to="/login" />}
                 />
 

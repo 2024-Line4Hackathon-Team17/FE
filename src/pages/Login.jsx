@@ -26,7 +26,7 @@ const Login = () => {
       // 로컬 스토리지에 토큰 저장 (예: 페이지 이동이나 인증을 위한 토큰 활용 가능)
       localStorage.setItem('token', response.data.access);
 
-      navigate('/');
+      navigate('/main');
 
       // 페이지 이동 또는 상태 업데이트
       // 예: navigate('/home') 혹은 setState를 통해 상태 업데이트
