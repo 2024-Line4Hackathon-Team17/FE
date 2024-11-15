@@ -25,8 +25,8 @@ function Nav() {
           <PiBookOpenText className="nav-icon" />
         </Link>
         <Link
-  to="/PotMainpage" // PotMainpage.jsx로 이동하도록 경로 수정
-  className={`nav-item ${location.pathname === "/PotMainpage" ? "active" : ""}`}
+  to="/main" // PotMainpage.jsx로 이동하도록 경로 수정
+  className={`nav-item ${location.pathname === "/main" ? "active" : ""}`}
 >
   <GoHome className="nav-icon" />
 </Link>

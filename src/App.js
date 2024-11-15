@@ -53,7 +53,7 @@ function App() {
 function AppContent({ isLoggedIn, onLogin }) {
     const location = useLocation();
     const shouldShowNavPaths = [
-        "/",
+        "/main",
         "/PotMainpage",
         "/empathy",
         "/livechat",
