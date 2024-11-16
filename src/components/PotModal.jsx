@@ -7,7 +7,7 @@ import CalendarCheck from "../assets/CalendarCheckW.png";
 import MapPin from "../assets/MapPinSimpleAreaW.png";
 import CalendarCheckB from "../assets/CalendarCheckB.png";
 import MapPinB from "../assets/MapPinSimpleAreaB.png";
-import sample from "../assets/sample.jpg";
+import sample from "../assets/iconimage.jpg";
 import axios from "axios";
 import UserInfoModal from "./UserInfoModal";
 
@@ -31,35 +31,43 @@ const Modal = ({
     const handleChat = async () => {
         try {
             const token = localStorage.getItem("token");
+            console.log("category object:", category);
+            console.log("post_id:", category.id);
+
+            console.log("post_id being sent:", category.id);
+            console.log("API URL:", process.env.REACT_APP_API);
+            console.log("토큰:", token);
+
             const response = await axios.post(
-                `${process.env.REACT_APP_API}/api/chatrooms/create/`,
-                {
-                    post_id: category.id, // 게시물 ID를 전달
-                },
+                `http://127.0.0.1:8000/api/chatrooms/create/`,
+                { post_id: category.id },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`, // 토큰 추가
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                 }
             );
 
-            // 채팅방 생성 또는 반환
-            const chatRoomId = category.id;
-            console.log(response.data);
-            console.log("Chat Room ID:", chatRoomId);
+            const { chat_room_id } = response.data;
+            console.log("Chat Room ID:", chat_room_id);
 
-            // 채팅방으로 이동
-            navigate(`/livechat/${chatRoomId}`);
+            navigate(`/livechat/${chat_room_id}`);
         } catch (error) {
             console.error(
                 "Failed to create or fetch chat room:",
                 error.response?.data || error.message
             );
 
-            // 에러 메시지 확인 후 알림 표시
             if (error.response?.data?.detail) {
                 alert(error.response.data.detail);
+
+                if (
+                    error.response.data.detail === "Chat room already exists."
+                ) {
+                    const chatRoomId = error.response.data.chat_room_id;
+                    navigate(`/livechat/${chatRoomId}`);
+                }
             } else {
                 alert("채팅방 생성 중 문제가 발생했습니다.");
             }
@@ -71,11 +79,14 @@ const Modal = ({
         try {
             const token = localStorage.getItem("token"); // 토큰 동적으로 가져오기
             const username = category.created_by;
-            const response = await axios.get(`/user/register/`, {
-                headers: {
-                    Authorization: `Bearer ${token}`, // 동적으로 가져온 토큰
-                },
-            });
+            const response = await axios.get(
+                `${process.env.REACT_APP_API}/user/register/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // 동적으로 가져온 토큰
+                    },
+                }
+            );
 
             const userInfo = response.data.find(
                 (user) => user.username === username
@@ -101,7 +112,7 @@ const Modal = ({
             try {
                 const token = localStorage.getItem("token"); // 토큰 동적으로 가져오기
                 const response = await axios.post(
-                    `/pating/posts/${category.id}/join/`, // 프록시를 이용한 상대 경로
+                    `${process.env.REACT_APP_API}/pating/posts/${category.id}/join/`, // 프록시를 이용한 상대 경로
                     {
                         post: category.id, // 참여할 게시글 ID
                     },

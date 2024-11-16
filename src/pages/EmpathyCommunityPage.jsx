@@ -19,7 +19,7 @@ const EmpathyCommunityPage = () => {
         try {
             const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
             const response = await axios.get(
-                `${process.env.REACT_APP_API}/api/community/posts/`,
+                `${process.env.REACT_APP_API}/community/posts/`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

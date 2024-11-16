@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import NoticeCard from '../../components/notice/NoticeCard';
-import '../../styles/section/notice/_notice.scss';
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import NoticeCard from "../../components/notice/NoticeCard";
+import "../../styles/section/notice/_notice.scss";
 
 const NoticePage = () => {
     const [notifications, setNotifications] = useState([]);
@@ -12,7 +11,15 @@ const NoticePage = () => {
         // 알림 목록 가져오기
         const fetchNotifications = async () => {
             try {
-                const response = await axios.get('/api/noti/');
+                const token = localStorage.getItem("token");
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API}/noti/`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
                 setNotifications(response.data);
             } catch (error) {
                 console.error("Failed to fetch notifications:", error);
@@ -22,7 +29,15 @@ const NoticePage = () => {
         // 읽지 않은 알림 수 가져오기
         const fetchUnreadCount = async () => {
             try {
-                const response = await axios.get('/api/noti/unread-count/');
+                const token = localStorage.getItem("token");
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API}/noti/unread-count/`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
                 setUnreadCount(response.data.unread_count);
             } catch (error) {
                 console.error("Failed to fetch unread count:", error);
@@ -34,7 +49,7 @@ const NoticePage = () => {
     }, []);
 
     return (
-        <div className='notice_page_container container'>
+        <div className="notice_page_container container">
             <div className="notice_page_inner_container">
                 <div className="notice_back_container">
                     <div className="notice_title">
@@ -50,6 +65,6 @@ const NoticePage = () => {
             </div>
         </div>
     );
-}
+};
 
 export default NoticePage;

@@ -26,7 +26,7 @@ const EmpathyCard = ({ post }) => {
             };
 
             const response = await axios.post(
-                `${process.env.REACT_APP_API}/api/community/posts/${post.id}/react/`, // 프록시 서버 사용
+                `${process.env.REACT_APP_API}/community/posts/${post.id}/react/`, // 프록시 서버 사용
                 payload,
                 {
                     headers: {
@@ -62,7 +62,7 @@ const EmpathyCard = ({ post }) => {
         try {
             const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
             const response = await axios.post(
-                `${process.env.REACT_APP_API}/api/community/posts/${post.id}/block/`, // 프록시 서버 사용
+                `${process.env.REACT_APP_API}/community/posts/${post.id}/block/`, // 프록시 서버 사용
                 {},
                 {
                     headers: {
@@ -86,7 +86,7 @@ const EmpathyCard = ({ post }) => {
         try {
             const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
             const response = await axios.post(
-                `${process.env.REACT_APP_API}/api/community/posts/${post.id}/report/`, // 프록시 서버 사용
+                `${process.env.REACT_APP_API}/community/posts/${post.id}/report/`, // 프록시 서버 사용
                 {},
                 {
                     headers: {

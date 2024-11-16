@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "../styles/PotSearch.scss";
 import "../styles/CommonStyle.scss";
+import EmpathyHeader from "../components/empathy-community/EmpathyHeader";
 
 import Modal from "../components/PotModal.jsx";
 import WriteModal from "../components/PotWritenewModal.jsx";
@@ -88,7 +89,7 @@ const PotSearch = () => {
             try {
                 const token = localStorage.getItem("token"); // 토큰 가져오기
                 const response = await axios.get(
-                    "http://3.34.247.39/api/pating/posts/",
+                    `${process.env.REACT_APP_API}/pating/posts/`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
@@ -137,11 +138,7 @@ const PotSearch = () => {
                     <div className="PotMainpageStyle">
                         <div className="Search">
                             <div className="TopSelection">
-                                <div className="Alarmbox">
-                                    <div className="Alarm">
-                                        <img src={bell} className="alarmimg" />
-                                    </div>
-                                </div>
+                                <EmpathyHeader />
                                 <div className="RecommendText">
                                     <div>4호선님,</div>
                                     오늘도 팟팅하세요!

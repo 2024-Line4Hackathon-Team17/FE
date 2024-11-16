@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { PiDotsThreeLight } from "react-icons/pi";
-import axios from 'axios';
+import axios from "axios";
 
-const MyPageEmpathyCard = ({ onDelete, post, userNickname, userProfileImage }) => {
+const MyPageEmpathyCard = ({
+    onDelete,
+    post,
+    userNickname,
+    userProfileImage,
+}) => {
     const [showOptions, setShowOptions] = useState(false);
 
     const toggleOptions = () => {
@@ -11,24 +16,27 @@ const MyPageEmpathyCard = ({ onDelete, post, userNickname, userProfileImage }) =
 
     const handleDelete = async () => {
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem("token");
 
-            await axios.delete(`${process.env.REACT_APP_API}/api/community/my/community-posts/${post.id}/`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            
+            await axios.delete(
+                `${process.env.REACT_APP_API}/community/my/community-posts/${post.id}/`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
             alert("팟팅이 성공적으로 삭제되었습니다.");
             if (onDelete) {
                 onDelete(post.id);
             }
         } catch (error) {
-            console.error('Failed to delete post:', error);
+            console.error("Failed to delete post:", error);
             alert("팟팅 삭제에 실패했습니다.");
         }
     };
 
     return (
-        <div className='empathy_card_container'>
+        <div className="empathy_card_container">
             <div className="empathy_card_inner_container">
                 <div className="empathy_profile_area">
                     <div className="empathy_profile">
@@ -41,11 +49,21 @@ const MyPageEmpathyCard = ({ onDelete, post, userNickname, userProfileImage }) =
                             <div className="empathy_top_nickname">
                                 <span>{userNickname}</span>
                             </div>
-                            <div className="empathy_top_list btn" onClick={() => toggleOptions(post.id)}>
-                                <PiDotsThreeLight style={{width: '28px', height: '28px'}} />
+                            <div
+                                className="empathy_top_list btn"
+                                onClick={() => toggleOptions(post.id)}
+                            >
+                                <PiDotsThreeLight
+                                    style={{ width: "28px", height: "28px" }}
+                                />
                                 {showOptions && (
                                     <ul className="empathy_top_list_options mypage_top_list_options">
-                                        <li className='btn' onClick={handleDelete}>삭제하기</li>
+                                        <li
+                                            className="btn"
+                                            onClick={handleDelete}
+                                        >
+                                            삭제하기
+                                        </li>
                                     </ul>
                                 )}
                             </div>
@@ -62,7 +80,7 @@ const MyPageEmpathyCard = ({ onDelete, post, userNickname, userProfileImage }) =
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default MyPageEmpathyCard
+export default MyPageEmpathyCard;

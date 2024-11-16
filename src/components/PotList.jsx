@@ -4,7 +4,7 @@ import CalendarCheck from "../assets/CalendarCheckW.png";
 import MapPin from "../assets/MapPinSimpleAreaW.png";
 import CalendarCheckB from "../assets/CalendarCheckB.png";
 import MapPinB from "../assets/MapPinSimpleAreaB.png";
-import sample from "../assets/sample.jpg";
+import sample from "../assets/iconimage.jpg";
 
 const PotList = ({ categories, colors, openModal }) => {
     return (

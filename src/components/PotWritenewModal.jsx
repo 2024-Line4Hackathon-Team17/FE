@@ -51,7 +51,7 @@ const PotWritenewModal = ({ onClose, onPostSubmit }) => {
         try {
             const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져오기
             const response = await axios.post(
-                "http://3.34.247.39/api/pating/posts/",
+                `${process.env.REACT_APP_API}/pating/posts/`,
                 postData,
                 {
                     headers: {
