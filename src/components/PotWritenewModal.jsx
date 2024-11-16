@@ -10,8 +10,6 @@ import DownW from "../assets/DownW.png";
 import DaumPostcode from "react-daum-postcode"; // 주소 검색 API
 import axios from "axios";
 
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjkzOTI2LCJpYXQiOjE3MzE2OTAzMjYsImp0aSI6IjkzMDBjMzFmMDRiNjQ0YzNhNDA3OTBlMmJlYjZhZTVjIiwidXNlcl9pZCI6MX0.K4IsHnEIXZCkU7bcvlvntuqX15prZRaQoJ5-W4wrqYI";
 const PotWritenewModal = ({ onClose, onPostSubmit }) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -51,8 +49,9 @@ const PotWritenewModal = ({ onClose, onPostSubmit }) => {
         };
         console.log("Post Data:", postData); // 로그 출력
         try {
+            const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져오기
             const response = await axios.post(
-                "http://127.0.0.1:8000/api/pating/posts/",
+                "http://3.34.247.39/api/pating/posts/",
                 postData,
                 {
                     headers: {

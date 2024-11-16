@@ -11,10 +11,6 @@ import sample from "../assets/sample.jpg";
 import axios from "axios";
 import UserInfoModal from "./UserInfoModal";
 
-const API_URL = `http://127.0.0.1:8000/pating/posts/`;
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM"; // 실제 토큰 사용
-
 const Modal = ({
     backgroundColor,
     category,
@@ -34,6 +30,7 @@ const Modal = ({
     //채팅방 연결
     const handleChat = async () => {
         try {
+            const token = localStorage.getItem("token");
             const response = await axios.post(
                 `${process.env.REACT_APP_API}/api/chatrooms/create/`,
                 {
@@ -46,17 +43,20 @@ const Modal = ({
                     },
                 }
             );
-    
+
             // 채팅방 생성 또는 반환
             const chatRoomId = category.id;
-            console.log(response.data)
+            console.log(response.data);
             console.log("Chat Room ID:", chatRoomId);
-    
+
             // 채팅방으로 이동
             navigate(`/livechat/${chatRoomId}`);
         } catch (error) {
-            console.error("Failed to create or fetch chat room:", error.response?.data || error.message);
-    
+            console.error(
+                "Failed to create or fetch chat room:",
+                error.response?.data || error.message
+            );
+
             // 에러 메시지 확인 후 알림 표시
             if (error.response?.data?.detail) {
                 alert(error.response.data.detail);
@@ -69,24 +69,21 @@ const Modal = ({
     // 전체 사용자 목록
     const fetchUserInfo = async () => {
         try {
-            const username = category.created_by; // username 기반
-            const response = await axios.get(
-                `http://127.0.0.1:8000/api/user/register/`, // 전체 사용자 목록 가져오기
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const token = localStorage.getItem("token"); // 토큰 동적으로 가져오기
+            const username = category.created_by;
+            const response = await axios.get(`/user/register/`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // 동적으로 가져온 토큰
+                },
+            });
 
-            // username과 매칭되는 사용자 정보 필터링
             const userInfo = response.data.find(
                 (user) => user.username === username
             );
             console.log("Fetched User Info:", userInfo);
             if (userInfo) {
-                setUserInfo(userInfo); // 일치하는 사용자 정보를 상태에 저장
-                setShowUserModal(true); // 모달 열기
+                setUserInfo(userInfo);
+                setShowUserModal(true);
             } else {
                 alert("사용자 정보를 찾을 수 없습니다.");
             }
@@ -102,30 +99,28 @@ const Modal = ({
     const handleParticipation = async () => {
         if (!isParticipated) {
             try {
+                const token = localStorage.getItem("token"); // 토큰 동적으로 가져오기
                 const response = await axios.post(
-                    `http://127.0.0.1:8000/api/pating/posts/${category.id}/join/`,
+                    `/pating/posts/${category.id}/join/`, // 프록시를 이용한 상대 경로
                     {
                         post: category.id, // 참여할 게시글 ID
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            Authorization: `Bearer ${token}`, // 동적으로 가져온 토큰
                             "Content-Type": "application/json",
                         },
                     }
                 );
 
                 console.log("Participation Success:", response.data);
-
-                // 상태 업데이트
                 setIsParticipated(true);
                 setAttendedCount(attendedCount + 1);
                 setShowConfirmation(true);
 
-                // 페이지 새로고침
                 setTimeout(() => {
                     window.location.reload(); // 페이지 새로고침
-                }, 1000); // 1초 후 새로고침
+                }, 1000);
             } catch (error) {
                 console.error(
                     "Error joining post:",

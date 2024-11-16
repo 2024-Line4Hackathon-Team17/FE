@@ -11,33 +11,51 @@ import MapPin from "../assets/MapPinSimpleArea.png";
 import sample from "../assets/sample.jpg";
 import search from "../assets/search.png";
 
-// API URL 설정
-const API_URL = `http://127.0.0.1:8000/api/pating/posts/`;
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM"; // 실제 토큰 사용
-
 function PotMainpage() {
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]); // 데이터를 저장할 상태
+    const [isLoading, setIsLoading] = useState(false); // 로딩 상태
+    const [error, setError] = useState(null); // 에러 상태
 
     // 데이터 가져오기
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true); // 로딩 시작
+            setError(null); // 기존 에러 초기화
+
             try {
-                const response = await axios.get(API_URL, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                console.log("Fetched Data:", response.data); // 데이터 확인용 콘솔 출력
+                const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져오기
+                if (!token) {
+                    throw new Error("로그인이 필요합니다."); // 토큰이 없을 경우 에러 처리
+                }
+
+                const response = await axios.get(
+                    `http://3.34.247.39/api/pating/posts`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
+                        },
+                    }
+                );
+                console.log("Fetched Data:", response.data);
                 setCategories(response.data); // 데이터를 상태에 저장
-            } catch (error) {
-                console.error("Error fetching data:", error);
+            } catch (err) {
+                console.error("Error fetching data:", err);
+                setError(
+                    err.message || "데이터를 불러오는 중 문제가 발생했습니다."
+                ); // 에러 상태 업데이트
+                if (err.response?.status === 401) {
+                    // 토큰 만료 또는 인증 문제
+                    alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+                    navigate("/login"); // 로그인 페이지로 리디렉션
+                }
+            } finally {
+                setIsLoading(false); // 로딩 종료
             }
         };
 
         fetchData();
-    }, []);
+    }, [navigate]);
 
     const handleCategoryClick = (category) => {
         navigate("/search", {

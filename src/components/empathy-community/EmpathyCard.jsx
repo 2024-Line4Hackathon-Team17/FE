@@ -12,10 +12,6 @@ import {
 } from "react-icons/pi";
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000/community/posts/";
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk1NTc5LCJpYXQiOjE3MzE2OTE5NzksImp0aSI6IjEzZWZlYzI3NmNiODQ4M2JhMTk4YjYxNTMwYjg4YTAzIiwidXNlcl9pZCI6MX0.5x4tDKQA4-RH0j3ThEZgvQrxXp5VqC7Bw35BIqcmaRs";
-
 const EmpathyCard = ({ post }) => {
     const [empathyType, setEmpathyType] = useState(post.user_reaction); // 초기 상태
     const [showOptions, setShowOptions] = useState(false);
@@ -23,13 +19,14 @@ const EmpathyCard = ({ post }) => {
     // 공감 버튼 클릭 처리
     const handleReaction = async (reactionType) => {
         try {
+            const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
             const isCancel = empathyType === reactionType; // 같은 타입을 클릭하면 취소
             const payload = {
                 reaction_type: reactionType, // 요청은 동일한 형식으로 전송
             };
 
             const response = await axios.post(
-                `${API_URL}${post.id}/react/`,
+                `${process.env.REACT_APP_API}/api/community/posts/${post.id}/react/`, // 프록시 서버 사용
                 payload,
                 {
                     headers: {
@@ -63,8 +60,9 @@ const EmpathyCard = ({ post }) => {
     // 차단 기능
     const handleBlock = async () => {
         try {
+            const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
             const response = await axios.post(
-                `${API_URL}${post.id}/block/`,
+                `${process.env.REACT_APP_API}/api/community/posts/${post.id}/block/`, // 프록시 서버 사용
                 {},
                 {
                     headers: {
@@ -86,8 +84,9 @@ const EmpathyCard = ({ post }) => {
     // 신고 기능
     const handleReport = async () => {
         try {
+            const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
             const response = await axios.post(
-                `${API_URL}${post.id}/report/`,
+                `${process.env.REACT_APP_API}/api/community/posts/${post.id}/report/`, // 프록시 서버 사용
                 {},
                 {
                     headers: {
