@@ -1,10 +1,23 @@
-// src/components/UserInfoModal.jsx
 import React from "react";
 import "../styles/UserInfoModal.scss";
 import closed from "../assets/modalclose.png";
 import femaleIcon from "../assets/GenderFemale.png";
 import maleIcon from "../assets/GenderMale.png";
-import sample from "../assets/sample.jpg";
+import sample from "../assets/iconimage.jpg";
+
+// 관심사 목록
+const interestsList = [
+    { id: 1, name: "운동" },
+    { id: 2, name: "뮤지컬" },
+    { id: 3, name: "수공예" },
+    { id: 4, name: "스터디" },
+    { id: 5, name: "그림" },
+    { id: 6, name: "뷰티" },
+    { id: 7, name: "코딩" },
+    { id: 8, name: "댄스" },
+    { id: 9, name: "맛집탐방" },
+    { id: 10, name: "스포츠 직관" },
+];
 
 const UserInfoModal = ({ userInfo, onClose }) => {
     // 이름의 중앙 글자를 *로 바꾸는 함수
@@ -17,6 +30,16 @@ const UserInfoModal = ({ userInfo, onClose }) => {
             "*" +
             name.slice(mid + 1)
         );
+    };
+
+    // 관심사를 ID에서 이름으로 변환하는 함수
+    const mapInterests = (interestIds) => {
+        return interestIds
+            .map(
+                (id) =>
+                    interestsList.find((interest) => interest.id === id)?.name
+            )
+            .filter(Boolean); // `null` 또는 `undefined` 값 제거
     };
 
     return (
@@ -96,11 +119,13 @@ const UserInfoModal = ({ userInfo, onClose }) => {
                         <div className="choices">
                             {/* 관심사가 없을 경우 대체 텍스트 표시 */}
                             {userInfo.interests && userInfo.interests.length > 0
-                                ? userInfo.interests.map((interest, index) => (
-                                      <div key={index} className="choice">
-                                          {interest}
-                                      </div>
-                                  ))
+                                ? mapInterests(userInfo.interests).map(
+                                      (interestName, index) => (
+                                          <div key={index} className="choice">
+                                              {interestName}
+                                          </div>
+                                      )
+                                  )
                                 : "관심사 정보 없음"}
                         </div>
                     </div>

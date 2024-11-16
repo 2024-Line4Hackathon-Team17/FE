@@ -3,12 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/PotMainpageStyle.scss";
 import "../styles/CommonStyle.scss"; // CommonStyle.scss 파일 import
-
+import EmpathyHeader from "../components/empathy-community/EmpathyHeader";
 import MovingCategory from "../components/CategoryMoving";
 import bell from "../assets/Bell.png";
 import CalendarCheck from "../assets/CalendarCheck.png";
 import MapPin from "../assets/MapPinSimpleArea.png";
-import sample from "../assets/sample.jpg";
+import sample from "../assets/iconimage.jpg";
 import search from "../assets/search.png";
 
 function PotMainpage() {
@@ -30,7 +30,7 @@ function PotMainpage() {
                 }
 
                 const response = await axios.get(
-                    `http://3.34.247.39/api/pating/posts`,
+                    `${process.env.REACT_APP_API}/pating/posts`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
@@ -77,14 +77,8 @@ function PotMainpage() {
                         <div className="PotMainpageStyle">
                             <div className="Search">
                                 <div className="TopSelection">
-                                    <div className="Alarmbox">
-                                        <div className="Alarm">
-                                            <img
-                                                src={bell}
-                                                className="alarmimg"
-                                            />
-                                        </div>
-                                    </div>
+                                    <EmpathyHeader />
+
                                     <div className="RecommendText">
                                         <div>4호선님,</div>
                                         오늘도 팟팅하세요!
@@ -163,7 +157,7 @@ function PotMainpage() {
                                                                     className="detailimgsrc2"
                                                                 />
                                                             </div>{" "}
-                                                            {category.date}
+                                                            {category.time}
                                                         </div>
                                                     </div>
                                                     <div className="listboxs">

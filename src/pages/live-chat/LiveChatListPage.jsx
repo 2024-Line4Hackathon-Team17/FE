@@ -1,23 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import LiveChatListItem from '../../components/live-chat/LiveChatListItem'
-import LiveChatSearch from '../../components/live-chat/LiveChatSearch'
-import EmpathyHeader from '../../components/empathy-community/EmpathyHeader'
-import axios from 'axios'
-import default_profile from '../../assets/images/Logo/default_profile.png'
+import React, { useEffect, useState } from "react";
+import LiveChatListItem from "../../components/live-chat/LiveChatListItem";
+import LiveChatSearch from "../../components/live-chat/LiveChatSearch";
+import EmpathyHeader from "../../components/empathy-community/EmpathyHeader";
+import axios from "axios";
+import default_profile from "../../assets/images/Logo/default_profile.png";
 
 const LiveChatListPage = () => {
     const [chatRooms, setChatRooms] = useState([]);
-    const userId = localStorage.getItem('user_id');
+    const userId = localStorage.getItem("user_id");
 
     useEffect(() => {
         const fetchChatRooms = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get(`${process.env.REACT_APP_API}/api/chatrooms/`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const token = localStorage.getItem("token");
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API}/chatrooms/`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
 
                 console.log(response);
                 const chatRoomsData = response.data || [];
@@ -26,29 +29,43 @@ const LiveChatListPage = () => {
                 const chatRoomsWithProfile = await Promise.all(
                     chatRoomsData.map(async (chatRoom) => {
                         try {
-                            const userProfileResponse = await axios.get(`${process.env.REACT_APP_API}/api/user/register/${chatRoom.other_user.id}/profile/`, {
-                                headers: {
-                                    Authorization: `Bearer ${token}`,
-                                },
-                            });
+                            const userProfileResponse = await axios.get(
+                                `${process.env.REACT_APP_API}/user/register/${chatRoom.other_user.id}/profile/`,
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${token}`,
+                                    },
+                                }
+                            );
 
                             console.log(userProfileResponse.data);
 
                             return {
                                 ...chatRoom,
-                                profile_picture: userProfileResponse.data.profile_picture || default_profile,
-                                nickname: userProfileResponse.data.nickname || "Unknown",
+                                profile_picture:
+                                    userProfileResponse.data.profile_picture ||
+                                    default_profile,
+                                nickname:
+                                    userProfileResponse.data.nickname ||
+                                    "Unknown",
                             };
                         } catch (error) {
-                            console.error('Failed to fetch user profile:', error);
-                            return { ...chatRoom, profile_picture: default_profile, nickname: "Unknown" };
+                            console.error(
+                                "Failed to fetch user profile:",
+                                error
+                            );
+                            return {
+                                ...chatRoom,
+                                profile_picture: default_profile,
+                                nickname: "Unknown",
+                            };
                         }
                     })
                 );
 
                 setChatRooms(chatRoomsWithProfile);
             } catch (error) {
-                console.error('Failed to fetch chat rooms:', error);
+                console.error("Failed to fetch chat rooms:", error);
             }
         };
 
@@ -56,7 +73,7 @@ const LiveChatListPage = () => {
     }, []);
 
     return (
-        <div className='live_chat_list_container container'>
+        <div className="live_chat_list_container container">
             <div className="live_chat_list_inner_container">
                 <EmpathyHeader />
                 <div className="live_chat_title_container">
@@ -79,10 +96,10 @@ const LiveChatListPage = () => {
                         <p></p>
                     )}
                 </div>
-                <div className='main_blank'></div>
+                <div className="main_blank"></div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default LiveChatListPage
+export default LiveChatListPage;

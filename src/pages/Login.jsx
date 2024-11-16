@@ -14,7 +14,7 @@ const Login = () => {
     const handleLogin = async () => {
         try {
             const response = await axios.post(
-                `${process.env.REACT_APP_API}/api/user/login/`,
+                `${process.env.REACT_APP_API}/user/login/`,
                 {
                     username,
                     password,

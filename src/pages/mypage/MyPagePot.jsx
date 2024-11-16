@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import EmpathyHeader from '../../components/empathy-community/EmpathyHeader';
-import MyPageHeader from '../../components/mypage/MyPageHeader';
-import Modal from '../../components/PotModal';
+import React, { useEffect, useState } from "react";
+import EmpathyHeader from "../../components/empathy-community/EmpathyHeader";
+import MyPageHeader from "../../components/mypage/MyPageHeader";
+import Modal from "../../components/PotModal";
 import "../../styles/PotSearch.scss";
-import MyPagePotCard from '../../components/mypage/MyPagePotCard';
-import axios from 'axios';
-import default_profile from '../../assets/images/Logo/default_profile.png';
+import MyPagePotCard from "../../components/mypage/MyPagePotCard";
+import axios from "axios";
+import default_profile from "../../assets/images/Logo/default_profile.png";
 
 const MyPagePot = () => {
     const [categories, setCategories] = useState([]);
@@ -17,28 +17,40 @@ const MyPagePot = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem("token");
 
-                const response = await axios.get(`${process.env.REACT_APP_API}/api/pating/myposts/`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API}/pating/myposts/`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
                 const categoriesData = await Promise.all(
                     response.data.map(async (category) => {
                         try {
-                            const userResponse = await axios.get(`${process.env.REACT_APP_API}/api/mypage/profile/`, {
-                                headers: {
-                                    Authorization: `Bearer ${token}`
+                            const userResponse = await axios.get(
+                                `${process.env.REACT_APP_API}/mypage/profile/`,
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${token}`,
+                                    },
                                 }
-                            });
+                            );
                             return {
                                 ...category,
-                                userNickname: userResponse.data.nickname || "Unknown",
-                                userProfileImage: userResponse.data.profile_picture || default_profile,
+                                userNickname:
+                                    userResponse.data.nickname || "Unknown",
+                                userProfileImage:
+                                    userResponse.data.profile_picture ||
+                                    default_profile,
                             };
                         } catch (error) {
-                            console.error("Failed to fetch user profile:", error);
+                            console.error(
+                                "Failed to fetch user profile:",
+                                error
+                            );
                             return {
                                 ...category,
                                 userNickname: "Unknown",
@@ -57,7 +69,9 @@ const MyPagePot = () => {
     }, []);
 
     const handleDelete = (deletedId) => {
-        setCategories(prevCategories => prevCategories.filter(category => category.id !== deletedId));
+        setCategories((prevCategories) =>
+            prevCategories.filter((category) => category.id !== deletedId)
+        );
     };
 
     const openModal = (category, color) => {
@@ -68,18 +82,22 @@ const MyPagePot = () => {
     const closeModal = () => setSelectedCategory(null);
 
     return (
-        <div className='mypage_pot_container container'>
+        <div className="mypage_pot_container container">
             <div className="mypage_pot_inner_container">
                 <EmpathyHeader />
-                <MyPageHeader title={'내가 만든 팟팅 모아보기'} />
+                <MyPageHeader title={"내가 만든 팟팅 모아보기"} />
                 <main className="mypage_pot_main_container">
                     <div className="mypage_pot_back"></div>
                     <div className="mypage_pot_scroll">
                         <div className="scroll_x">
                             {categories.map((category, index) => (
-                                <MyPagePotCard category={category}
+                                <MyPagePotCard
+                                    category={category}
                                     colors={colors}
-                                    openModal={openModal} index={index} onDelete={handleDelete} />
+                                    openModal={openModal}
+                                    index={index}
+                                    onDelete={handleDelete}
+                                />
                             ))}
                         </div>
 
@@ -92,10 +110,10 @@ const MyPagePot = () => {
                         )}
                     </div>
                 </main>
-                <div className='main_blank'></div>
+                <div className="main_blank"></div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default MyPagePot
+export default MyPagePot;
