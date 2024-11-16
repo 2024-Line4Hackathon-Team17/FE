@@ -52,7 +52,9 @@ const Modal = ({
             const { chat_room_id } = response.data;
             console.log("Chat Room ID:", chat_room_id);
 
-            navigate(`/livechat/${chat_room_id}`);
+            // 경로 이동 및 새로고침
+            navigate(`/livechat/${chat_room_id}`, { replace: true });
+            window.location.reload();
         } catch (error) {
             console.error(
                 "Failed to create or fetch chat room:",

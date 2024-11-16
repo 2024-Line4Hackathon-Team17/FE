@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LiveChatMessage from "../../components/live-chat/LiveChatMessage";
+import Loading from "../Loading"; // Import the Loading component
 import { MdArrowBackIosNew } from "react-icons/md";
 import { PiPaperclipLight } from "react-icons/pi";
 import { VscSend } from "react-icons/vsc";
@@ -16,6 +17,7 @@ const LiveChatPage = () => {
         profile_picture: "",
     });
     const [newMessage, setNewMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(true); // Loading state
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -29,7 +31,6 @@ const LiveChatPage = () => {
                         },
                     }
                 );
-                console.log(response.data);
                 setMessages(response.data);
 
                 if (response.data.length > 0) {
@@ -47,7 +48,7 @@ const LiveChatPage = () => {
                         },
                     }
                 );
-                console.log(chatRoomResponse);
+
                 const chatRoom = chatRoomResponse.data.find(
                     (room) => room.id === parseInt(chat_room_id)
                 );
@@ -79,13 +80,15 @@ const LiveChatPage = () => {
                         userProfileResponse.data.profile_picture ||
                         default_profile,
                 });
+
+                setIsLoading(false); // Set loading to false when data is fetched
             } catch (error) {
                 console.error("Failed to fetch messages:", error);
+                setIsLoading(false); // Set loading to false even if there is an error
             }
         };
 
-        const interval = setInterval(fetchMessages, 3000);
-        return () => clearInterval(interval);
+        fetchMessages();
     }, [chat_room_id]);
 
     const sendMessage = async () => {
@@ -110,6 +113,10 @@ const LiveChatPage = () => {
             console.error("Failed to send message:", error);
         }
     };
+
+    if (isLoading) {
+        return <Loading />; // Render the loading component while loading
+    }
 
     return (
         <div className="live_chat_container container">
