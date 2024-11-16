@@ -17,11 +17,12 @@ import mountainIcon from "../assets/Mountains.png";
 import baseballIcon from "../assets/Baseball.png";
 import racquetIcon from "../assets/Racquet.png";
 import Work from "../assets/Exercise.png";
-
+/*
 // API URL 설정
 const API_URL = `http://127.0.0.1:8000/api/pating/posts/`;
 const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNzAxNzc4LCJpYXQiOjE3MzE2OTgxNzgsImp0aSI6Ijc0MjgyNmI1NzliYjRjNmQ4NDBiYTg1NGI1ZWIxZjlkIiwidXNlcl9pZCI6MX0.hMVlIyIQ-7BeagMY8L-_rq8e-85PBOQXqlQNEj7ozkM";
+*/
 // 카테고리 정보 설정
 const PRESET_CATEGORIES = {
     2: {
@@ -85,13 +86,17 @@ const PotSearch = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(API_URL, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                const token = localStorage.getItem("token"); // 토큰 가져오기
+                const response = await axios.get(
+                    "http://3.34.247.39/api/pating/posts/",
+                    {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
+                );
                 const filteredData = response.data.filter(
                     (item) => String(item.category) === String(selectedCategory)
                 );
-                console.log(response.data)
+                console.log("Fetched Data:", response.data);
                 setCategories(filteredData);
             } catch (error) {
                 console.error("Error fetching data:", error);

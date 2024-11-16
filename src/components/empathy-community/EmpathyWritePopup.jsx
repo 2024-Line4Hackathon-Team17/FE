@@ -4,10 +4,6 @@ import { PiX } from "react-icons/pi";
 //연동
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000/community/posts/";
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk1NTc5LCJpYXQiOjE3MzE2OTE5NzksImp0aSI6IjEzZWZlYzI3NmNiODQ4M2JhMTk4YjYxNTMwYjg4YTAzIiwidXNlcl9pZCI6MX0.5x4tDKQA4-RH0j3ThEZgvQrxXp5VqC7Bw35BIqcmaRs";
-
 const EmpathyWritePopup = ({ onClose, onPostSubmit }) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -27,12 +23,17 @@ const EmpathyWritePopup = ({ onClose, onPostSubmit }) => {
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post(API_URL, postData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
+            const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
+            const response = await axios.post(
+                `${process.env.REACT_APP_API}/community/posts/`,
+                postData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
             console.log("Post Created:", response.data);
 

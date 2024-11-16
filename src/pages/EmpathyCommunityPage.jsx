@@ -5,10 +5,6 @@ import EmpathyHeader from "../components/empathy-community/EmpathyHeader";
 import EmpathyWriteBtn from "../components/empathy-community/EmpathyWriteBtn";
 import EmpathyWritePopup from "../components/empathy-community/EmpathyWritePopup";
 
-const API_URL = "http://127.0.0.1:8000/api/community/posts/";
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxNjk4MDU3LCJpYXQiOjE3MzE2OTQ0NTcsImp0aSI6IjlhMDFlMjIwNTUxNDQwODViYTdjZTk3MzQxZTZkZjA3IiwidXNlcl9pZCI6MX0.LPbTvCAvUwHyHxGil67WnDfvWoFFCzIafjIRY2tzaqw";
-
 const EmpathyCommunityPage = () => {
     const [posts, setPosts] = useState([]); // 게시글 데이터 상태
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -21,16 +17,21 @@ const EmpathyCommunityPage = () => {
     // 데이터 가져오기
     const fetchPosts = async () => {
         try {
-            const response = await axios.get(API_URL, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const token = localStorage.getItem("token"); // 동적으로 토큰 가져오기
+            const response = await axios.get(
+                `${process.env.REACT_APP_API}/api/community/posts/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             setPosts(response.data); // 응답 데이터 상태에 저장
         } catch (error) {
             console.error("Error fetching posts:", error);
         }
     };
+
     const handleNewPost = (newPost) => {
         setPosts((prevPosts) => [newPost, ...prevPosts]); // 새로운 게시글을 목록에 추가
     };
